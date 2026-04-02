@@ -72,7 +72,7 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 | :--- | :---: | :--- | :--- |
 | **Uso básico del motor** | ✅ Completado | Control básico de movimiento y encapsulación de API | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **Código abierto de las nuevas piezas estructurales 3D STEP y BOM** | ✅ Completado | Archivos STEP de todas las piezas, BOM y precios de referencia de componentes mecanizados | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_es.md) |
-| **Referencia de pruebas de rendimiento en máquina real** | ✅ Completado | Referencia de rendimiento del brazo robótico en funcionamiento normal y extremo | [Performance Testing](./hardware/reBot_B601_DM/Performance_Testing/Performance_Testing_es.md) |
+| **Referencia de pruebas de rendimiento en máquina real** | ✅ Completado | Referencia de rendimiento del brazo robótico en funcionamiento normal y extremo | [Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_es.md) |
 | **Video de ensamblaje** | 🚧 En progreso | Pasos de ensamblaje ultra detallados y video | [Esperado: 2026.04.10] |
 | **ROS2 (Humble)** | 🚧 En progreso | Drivers principales completados, optimización de MoveIt2 en curso | [Esperado: 2026.04.10] |
 | **Python SDK** | 🚧 En progreso |  | [Esperado: 2026.04.10] |
