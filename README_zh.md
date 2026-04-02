@@ -67,7 +67,7 @@
 | :--- | :---: | :--- | :--- |
 | **电机基本使用** | ✅ 完成 | 基础运动控制与API封装 |[达妙科技](https://wiki.seeedstudio.com/cn/damiao_series/)|
 | **新版本STEP 3D结构件及BOM开源** | ✅ 完成 | 新版本所有零件的STEP格式、零部件BOM、及所有加工件参考价格 | [BOM](./hardware/reBot_B601_DM/readme_zh.md) |
-| **真机性能测试参考** |  ✅ 完成 | 常规工作以及极限工作下的机械臂性能参考 |  [Performance Testing](./hardware/reBot_B601_DM/Performance_Testing/Performance_Testing_zh.md) |
+| **真机性能测试参考** |  ✅ 完成 | 常规工作以及极限工作下的机械臂性能参考 |  [Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_zh.md) |
 | **组装视频** | 🚧 进行中 | 超详细的组装步骤及视频 |  [预计 2026.04.10] |
 | **Python SDK** | 🚧 进行中  |  | [预计: 2026.04.10] |
 | **ROS2 (Humble)** |🚧 进行中 | 核心驱动已完成，正在优化MoveIt2 |[预计 2026.04.10]|
