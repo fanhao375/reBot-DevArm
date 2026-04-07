@@ -103,8 +103,9 @@ La BOM actual es la lista de componentes del brazo robótico **reBot Arm B601 DM
 
 
 > [!WARNING]
-> Dado que todos tendrán que armar y atornillar por su cuenta, se han seleccionado tornillos hexagonales internos estándar. Después de un funcionamiento prolongado, los tornillos pueden aflojarse y afectar la precisión del brazo robótico.
-Por ello, es necesario comprar adicionalmente pegamento termofusible para realizar un tratamiento antiflojamiento en los tornillos de cada articulación. Si disponen de taladro eléctrico u otras herramientas, pueden adquirir tornillos antiflojamiento. Sin embargo, es muy importante usar la potencia mínima con el destornillador eléctrico para evitar dañar la rosca y causar pérdidas irreversibles.
+> Dado que este brazo robótico está diseñado para que lo monte y apriete los tornillos usted mismo, hemos seleccionado tornillos hexagonales estándar. No obstante, estos tornillos pueden aflojarse después de un funcionamiento prolongado, lo que afectará la precisión del brazo.
+Por ello, le recomendamos comprar adhesivo de fijación de roscas para aplicar en los tornillos, o bien usar directamente tornillos autoblocantes.
+Si elige tornillos autoblocantes, le recomendamos encarecidamente usar un destornillador eléctrico. Importante: utilícelo siempre con par de fuerza bajo o medio para evitar dañar los tornillos, lo que causaría desperfectos irreversibles.
 
 | Name | Specification / Model | Quantity | Reference Price | Notes |
 |------|----------|------|----------|------|
