@@ -59,9 +59,9 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 | **Open source des nouvelles pièces structurelles STEP 3D et de la BOM** | ✅ Terminé | Fichiers STEP de toutes les pièces de la nouvelle version, BOM des pièces et prix de référence de toutes les pièces usinées | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_fr.md) |
 | **Référence pour les tests de performance sur machine réelle** | ✅ Terminé  | Référence de performance du bras robotisé en fonctionnement normal et extrême |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_Fr.md) |
 | **Vidéo d’assemblage** | 🚧 En cours | Étapes d’assemblage ultra détaillées et vidéo | [Prévu : 2026.04.10] |
-| **ROS2 (Humble)** | 🚧 En cours  | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d’optimisation | [Prévu : 2026.04.10] |
+| **ROS2 (Humble)** | 🚧 En cours  | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d'optimisation | [Prévu : 2026.04.10] |
 | **SDK Python** | 🚧 En cours  |  | [Prévu : 2026.04.10] |
-| **Intégration Pinocchio** | 🚧 En cours  | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique | [Prévu : 2026.04.10] |
+| **Intégration Pinocchio** | 🚧 En cours  | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique | [wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Simulation Isaac Sim** | 🚧 En cours  | Importation de modèles USD et activation de la téléopération simulée | [Prévu : 2026.04.20] |
 | **Intégration LeRobot** | 🚧 En cours  | Adaptation au framework d’entraînement Hugging Face LeRobot | [Prévu : 2026.04.30] |
 | **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
