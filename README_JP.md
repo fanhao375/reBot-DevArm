@@ -69,10 +69,10 @@
 | **モーター基本使用** | ✅ 完了 | 基本的なモーション制御と API ラッパー化 | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | ✅ 完了 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_jp.md) |
 | **実機性能テスト参考** | ✅ 完了  | 通常動作および限界動作におけるロボットアームの性能参考 |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_JP.md) |
-| **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定：2026.04.10] |
-| **ROS2 (Humble)** | 🚧 進行中  | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定：2026.04.10] |
-| **Python SDK** | 継続的な最適化、PR歓迎 | 複数ブランドの関節モーターに対応する汎用モーターライブラリ | [motorbridge](https://github.com/tianrking/MotorBridge) |
-| **Pinocchio 対応** | 🚧 進行中  | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[Wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/)  |
+| **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定：2026.04.20] |
+| **ROS2 (Humble)** | 🚧 進行中  | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定：2026.04.20] |
+| **Python SDK** | ✅継続的な最適化、PR歓迎 | 複数ブランドの関節モーターに対応する汎用モーターライブラリ | [motorbridge](https://github.com/tianrking/MotorBridge) |
+| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[Wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/)  |
 | **Isaac Sim シミュレーション** | 🚧 進行中  | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定：2026.04.20] |
 | **LeRobot 対応** | 🚧 進行中  | Hugging Face LeRobot 学習フレームワークへの対応 | [予定：2026.04.30] |
 | **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
@@ -85,8 +85,8 @@
 | 対応エコシステム | 状態 | 説明 / 予定公開日 | 関連ドキュメント |
 | :--- | :---: | :--- | :--- |
 | **モーター基本使用** | ✅ 完了 | 基本的なモーション制御と API ラッパー化 | [Robstride](https://wiki.seeedstudio.com/cn/robstride_control/) |
-| **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | 🚧 進行中 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | 予定 [2026.04.31] |
-| **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定 2026.05.10] |
+| **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | 🚧 進行中 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | 予定 [2026.05] |
+| **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定 2026.05] |
 | **ROS2 (Humble)** | ⏳ 計画中 | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定 2026.05] |
 | **LeRobot 対応** | ⏳ 計画中 | Hugging Face LeRobot 学習フレームワークへの対応 | [予定 2026.05] |
 | **Pinocchio 対応** | ⏳ 計画中 | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 | [予定 2026.05] |

@@ -74,9 +74,9 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Basic Motor Usage** | ✅ Completed | Basic motion control and API encapsulation | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **Open-Sourcing of the New STEP 3D Structural Parts and BOM** | ✅ Completed | STEP files for all parts in the new version, parts BOM, and reference prices for all machined components | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme.md) |
 | **Reference for Real Machine Performance Testing** | ✅ Completed   | Performance Reference of Robotic Arm under Normal and Extreme Operating Conditions |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing.md) |
-| **Assembly Video** | 🚧 In Progress | Ultra-detailed assembly steps and video | [Expected: 2026.04.10] |
-| **ROS2 (Humble)** | 🚧 In Progress  | Core drivers have been completed, and MoveIt2 is currently being optimized | [Expected: 2026.04.10] |
-| **Python SDK** | Continuously optimized, PRs welcome | Universal motor library supporting multiple brands of joint motors | [Motorbridge](https://github.com/tianrking/MotorBridge) |
+| **Assembly Video** | 🚧 In Progress | Ultra-detailed assembly steps and video | [Expected: 2026.04.20] |
+| **ROS2 (Humble)** | 🚧 In Progress  | Core drivers have been completed, and MoveIt2 is currently being optimized | [Expected: 2026.04.20] |
+| **Python SDK** | ✅Continuously optimized, PRs welcome | Universal motor library supporting multiple brands of joint motors | [Motorbridge](https://github.com/tianrking/MotorBridge) |
 | **Pinocchio Integration** | 🚧 In Progress  | Adaptation to the Pinocchio framework, enabling forward/inverse kinematics and gravity compensation for the robotic arm | [Wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) ||
 | **Isaac Sim Simulation** | 🚧 In Progress  | Import USD models and enable simulated teleoperation | [Expected: 2026.04.20] |
 | **LeRobot Integration** | 🚧 In Progress  | Adaptation to the Hugging Face LeRobot training framework | [Expected: 2026.04.30] |
@@ -90,8 +90,8 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | Supported Ecosystem | Status | Description / Estimated Release Date | Related Documentation |
 | :--- | :---: | :--- | :--- |
 | **Basic Motor Usage** | ✅ Completed | Basic motion control and API encapsulation | [Robstride](https://wiki.seeedstudio.com/cn/robstride_control/) |
-| **Open-Sourcing of the New STEP 3D Structural Parts and BOM** | 🚧 In Progress | STEP files for all parts in the new version, parts BOM, and reference prices for all machined components | Expected [2026.04.31] |
-| **Assembly Video** | 🚧 In Progress | Ultra-detailed assembly steps and video | [Expected 2026.05.10] |
+| **Open-Sourcing of the New STEP 3D Structural Parts and BOM** | 🚧 In Progress | STEP files for all parts in the new version, parts BOM, and reference prices for all machined components | Expected [2026.05] |
+| **Assembly Video** | 🚧 In Progress | Ultra-detailed assembly steps and video | [Expected 2026.05] |
 | **ROS2 (Humble)** | ⏳ Planned | Core drivers have been completed, and MoveIt2 is currently being optimized | [Expected 2026.05] |
 | **LeRobot Integration** | ⏳ Planned | Adaptation to the Hugging Face LeRobot training framework | [Expected 2026.05] |
 | **Pinocchio Integration** | ⏳ Planned | Adaptation to the Pinocchio framework, enabling forward/inverse kinematics and gravity compensation for the robotic arm | [Expected 2026.05] |

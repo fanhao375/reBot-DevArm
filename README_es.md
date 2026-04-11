@@ -73,10 +73,10 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 | **Uso básico del motor** | ✅ Completado | Control básico de movimiento y encapsulación de API | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **Código abierto de las nuevas piezas estructurales 3D STEP y BOM** | ✅ Completado | Archivos STEP de todas las piezas, BOM y precios de referencia de componentes mecanizados | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_es.md) |
 | **Referencia de pruebas de rendimiento en máquina real** | ✅ Completado | Referencia de rendimiento del brazo robótico en funcionamiento normal y extremo | [Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_es.md) |
-| **Video de ensamblaje** | 🚧 En progreso | Pasos de ensamblaje ultra detallados y video | [Esperado: 2026.04.10] |
-| **ROS2 (Humble)** | 🚧 En progreso | Drivers principales completados, optimización de MoveIt2 en curso | [Esperado: 2026.04.10] |
-| **Python SDK** | Optimización continua, PR bienvenidos | Biblioteca de motores universal compatible con múltiples marcas de motores articulares | [motorbridge](https://github.com/tianrking/MotorBridge) |
-| **Integración con Pinocchio** | 🚧 En progreso | Adaptación al framework Pinocchio para cinemática directa/inversa y compensación de gravedad | [wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
+| **Video de ensamblaje** | 🚧 En progreso | Pasos de ensamblaje ultra detallados y video | [Esperado: 2026.04.20] |
+| **ROS2 (Humble)** | 🚧 En progreso | Drivers principales completados, optimización de MoveIt2 en curso | [Esperado: 2026.04.20] |
+| **Python SDK** | ✅Optimización continua, PR bienvenidos | Biblioteca de motores universal compatible con múltiples marcas de motores articulares | [motorbridge](https://github.com/tianrking/MotorBridge) |
+| **Integración con Pinocchio** | ✅ Completado | Adaptación al framework Pinocchio para cinemática directa/inversa y compensación de gravedad | [wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Simulación en Isaac Sim** | 🚧 En progreso | Importación de modelos USD y teleoperación simulada | [Esperado: 2026.04.20] |
 | **Integración con LeRobot** | 🚧 En progreso | Adaptación al framework LeRobot de Hugging Face | [Esperado: 2026.04.30] |
 | **Actualizaciones graduales de los últimos algoritmos** | ⏳ Planificado | Actualización progresiva de algoritmos principales | En curso |
@@ -86,8 +86,8 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 | Ecosistema compatible                   |     Estado     | Descripción / Fecha estimada de lanzamiento | Documentación relacionada                                       |
 | :-------------------------------------- | :------------: | :------------------------------------------ | :-------------------------------------------------------------- |
 | **Uso básico del motor**                |  ✅ Completado  | Control básico y encapsulación de API       | [Robstride](https://wiki.seeedstudio.com/cn/robstride_control/) |
-| **Código abierto de piezas STEP y BOM** | 🚧 En progreso | Archivos STEP, BOM y precios de referencia  | Expected [2026.04.31]                                           |
-| **Video de ensamblaje**                 | 🚧 En progreso | Guía de ensamblaje detallada                | [Expected 2026.05.10]                                           |
+| **Código abierto de piezas STEP y BOM** | 🚧 En progreso | Archivos STEP, BOM y precios de referencia  | Expected [2026.05]                                           |
+| **Video de ensamblaje**                 | 🚧 En progreso | Guía de ensamblaje detallada                | [Expected 2026.05]                                           |
 | **ROS2 (Humble)**                       |  ⏳ Planificado | Drivers listos, optimización en curso       | [Expected 2026.05]                                              |
 | **Integración con LeRobot**             |  ⏳ Planificado | Framework de aprendizaje robótico           | [Expected 2026.05]                                              |
 | **Integración con Pinocchio**           |  ⏳ Planificado | Cinemática y compensación de gravedad       | [Expected 2026.05]                                              |
