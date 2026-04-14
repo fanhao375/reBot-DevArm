@@ -248,3 +248,21 @@
   - `traj_sim.py` — 轨迹规划仿真流程（SE(3)测地线 → CLIK跟踪 → MeshCat动画回放）
 - 包含调用关系图、关键参数说明、仿真 ↔ 真机代码映射表、核心概念速查
 - 更新 `software/docs/01_项目专用/README.md` 索引和 `software/docs/README.md` 速查表及学习路径
+
+### 5. Fork 到 GitHub + Git 操作指南
+- 在 GitHub 上 Fork 官方仓库到 `fanhao375/reBot-DevArm`
+- 配置本地 git remote：
+  - `origin` → 个人 Fork（可推送）
+  - `upstream` → 官方仓库（只读，用于同步）
+- 配置 git 用户信息（user.name / user.email）
+- 提交所有补充内容（160 个文件，12999 行新增）
+- 推送到 GitHub（处理 rebase 冲突，同步官方 PR #13 的 Pinocchio 链接更新）
+- 新建 `GIT_GUIDE.md` — 零基础 Git 操作指南：
+  - 为什么要 Fork（对比直接下载/Clone 的优缺点）
+  - 如何在 GitHub 上 Fork 仓库（图文教程）
+  - 如何关联本地仓库到 Fork（origin/upstream 配置）
+  - 如何提交和推送修改（add/commit/push 完整流程）
+  - 如何同步官方仓库更新（pull upstream + push origin）
+  - 常见问题排查（换行符/嵌套仓库/认证/撤销提交）
+  - 开源协议注意事项（CC BY-NC-SA 4.0 解读）
+  - 推荐工作流程（日常开发/定期同步/分支开发）

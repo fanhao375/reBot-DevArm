@@ -39,7 +39,8 @@ reBot-DevArm/
 ├── PROJECT_NOTE.md                 ★ 本文件（项目总览）
 ├── CHANGELOG.md                    ★ 操作日志（每次改动记录）
 ├── LEARNING_LOG.md                 ★ 学习笔记（踩坑、理解、发现）
-└── LEARNING_GUIDE_01.md            ★ 复现教程（给别人看的学习指南）
+├── LEARNING_GUIDE_01.md            ★ 复现教程（给别人看的学习指南）
+└── GIT_GUIDE.md                    ★ Git 操作指南（Fork/同步/推送教程）
 ```
 
 > 标 ★ 的是自己补充的内容，不属于官方仓库。
@@ -124,3 +125,4 @@ reBot-DevArm/
 | 2026.04.13 | 编写新手友好文档：`software/URDF_入门指南.md`（面向机械工程师，用机械图纸类比解释 Link/Joint）+ `software/MeshCat_可视化指南.md`（浏览器 3D 预览工具快速上手，三个 sim 脚本详解）+ `software/reBot-DevArm_URDF详解.md`（逐行解读 URDF 文件，448 行完整注释） |
 | 2026.04.13 | 文档归类整理：将文档移入 `software/docs/` 分类文件夹（00_新手入门/01_项目专用/02_reBotArm_control_py/03_MotorBridge），编写各级 README 索引 |
 | 2026.04.14 | 用 OpenCLI 抓取 7 个 wiki 页面（达妙电机/RobStride/DM夹爪/LeRobot/MoveIt2/ROS2/机器人总页面）；电机 wiki 双份存放（hardware/Motor_Wiki + software/wiki_docs）；修复全部 5 个文档的表格和代码格式 |
+| 2026.04.14 | Fork 官方仓库到 GitHub（fanhao375/reBot-DevArm）；配置 git remote（origin=个人Fork, upstream=官方仓库）；推送所有补充内容到 GitHub；编写 `GIT_GUIDE.md`（零基础 Git 操作指南，Fork/Clone/Push/Pull/同步上游完整教程） |
