@@ -1,0 +1,271 @@
+<mxfile host="app.diagrams.net">
+    <diagram id="motorbridge-arch" name="MotorBridge 架构">
+        <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+
+                <mxCell id="title" value="MotorBridge 项目架构&#xa;Rust Workspace · 5 层调用栈 · 5 厂商 × 4 总线" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=22;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="400" y="20" width="1200" height="60" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="legend-note" value="颜色说明：  Rust 核心=灰  厂商驱动=橙  C ABI=紫  Python=蓝  用户=绿  硬件=红" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=12;fontStyle=2;fontColor=#666666" vertex="1" parent="1">
+                    <mxGeometry x="400" y="85" width="1200" height="25" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ LAYER 5: USER CODE ============ -->
+                <mxCell id="L5-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="130" width="1800" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-t" value="第 5 层｜用户代码（上游应用）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#2d6a2d" vertex="1" parent="1">
+                    <mxGeometry x="120" y="140" width="600" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-arm" value="reBotArm_control_py&#xa;（机械臂上层库）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="140" y="180" width="240" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-cli" value="motor_cli&#xa;（Rust 命令行工具）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="400" y="180" width="220" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-ex" value="examples/python/*.py&#xa;examples/cpp/*.cpp&#xa;examples/web/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="640" y="175" width="260" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-ws" value="integrations/ws_gateway&#xa;（WebSocket 网关）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="920" y="180" width="220" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="L5-user" value="第三方用户代码&#xa;（ROS2 / Isaac Sim / LeRobot）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="1160" y="180" width="260" height="55" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ LAYER 4: PYTHON BINDING ============ -->
+                <mxCell id="L4-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="290" width="1500" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-t" value="第 4 层｜Python 绑定层  bindings/python/src/motorbridge/" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#1f4e79" vertex="1" parent="1">
+                    <mxGeometry x="120" y="300" width="700" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-core" value="core.py&#xa;──────&#xa;class Controller&#xa;class Motor&#xa;（所有用户 API 在这）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="130" y="340" width="240" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-abi" value="abi.py&#xa;──────&#xa;ctypes 加载 .so/.dll&#xa;声明 40+ 个函数签名&#xa;CState 结构体定义" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="385" y="340" width="220" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-models" value="models.py&#xa;──────&#xa;Mode (IntEnum)&#xa;  MIT=1&#xa;  POS_VEL=2&#xa;  VEL=3&#xa;  FORCE_POS=4&#xa;@dataclass MotorState" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="620" y="340" width="210" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-reg" value="damiao_registers.py&#xa;──────&#xa;寄存器 ID 常量：&#xa;RID_CTRL_MODE&#xa;RID_PMAX / VMAX / TMAX&#xa;RID_KP_APR / KI_APR&#xa;MODE_MIT/POS_VEL/VEL&#xa;RegisterSpec" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="845" y="340" width="230" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-err" value="errors.py&#xa;──────&#xa;MotorBridgeError&#xa;AbiLoadError&#xa;CallError" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="1090" y="340" width="200" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-cli" value="cli.py&#xa;──────&#xa;命令行工具入口" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="1090" y="445" width="200" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-init" value="__init__.py&#xa;──────&#xa;对外导出所有符号" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="1305" y="340" width="200" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L4-cpp" value="bindings/cpp&#xa;──────&#xa;C++ 头文件&#xa;（相同 C ABI）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10" vertex="1" parent="1">
+                    <mxGeometry x="1305" y="445" width="200" height="55" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ LAYER 3: C ABI ============ -->
+                <mxCell id="L3-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="560" width="1800" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-t" value="第 3 层｜C ABI 导出层  motor_abi/src/ （Rust → extern &quot;C&quot; fn → libmotor_abi.so/.dll）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#5d3d6a" vertex="1" parent="1">
+                    <mxGeometry x="120" y="570" width="1000" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-lc" value="controller_lifecycle_ffi.rs&#xa;──────&#xa;motor_controller_new_socketcan&#xa;motor_controller_new_dm_serial&#xa;_shutdown / _free" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="120" y="610" width="260" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-add" value="controller_add_motor_ffi.rs&#xa;──────&#xa;add_damiao_motor&#xa;add_robstride_motor&#xa;add_myactuator_motor&#xa;add_hexfellow_motor&#xa;add_hightorque_motor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="395" y="610" width="260" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-ml" value="motor_lifecycle_ffi.rs&#xa;──────&#xa;enable / disable&#xa;clear_error&#xa;set_zero_position&#xa;ensure_mode" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="670" y="610" width="220" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-mc" value="motor_control_ffi.rs  ★&#xa;──────&#xa;send_mit&#xa;send_pos_vel&#xa;send_vel&#xa;send_force_pos&#xa;request_feedback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="905" y="610" width="220" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-mr" value="motor_register_ffi.rs&#xa;──────&#xa;write_register_f32/u32&#xa;get_register_f32/u32&#xa;store_parameters&#xa;set_can_timeout_ms" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1140" y="610" width="220" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-st" value="state_ffi.rs&#xa;──────&#xa;get_state&#xa;(CState 输出结构)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1375" y="610" width="180" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="L3-vp" value="vendor_params/&#xa;──────&#xa;厂商专用参数&#xa;(robstride_ping/&#xa; write_param_*)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1570" y="610" width="200" height="115" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ LAYER 2: VENDORS ============ -->
+                <mxCell id="L2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="770" width="1800" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-t" value="第 2 层｜厂商驱动层  motor_vendors/  （每家实现 MotorDevice trait）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#8b5a00" vertex="1" parent="1">
+                    <mxGeometry x="120" y="780" width="900" height="25" as="geometry"/>
+                </mxCell>
+                <!-- damiao expanded -->
+                <mxCell id="L2-dm-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d79b00;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="120" y="815" width="480" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-dm-t" value="damiao/ ★ reBot 用" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=13;fontStyle=1;fontColor=#d79b00" vertex="1" parent="1">
+                    <mxGeometry x="130" y="820" width="460" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-dm-motor" value="motor.rs&#xa;─────&#xa;impl MotorDevice&#xa;型号表（9 款 DM 电机）&#xa;寄存器轮询队列" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="135" y="848" width="220" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-dm-proto" value="protocol.rs ★&#xa;─────&#xa;encode_mit_cmd (float→CAN 8字节)&#xa;encode_pos_vel_cmd&#xa;encode_vel_cmd / force_pos_cmd&#xa;decode_sensor_feedback&#xa;decode_register_value" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;fontStyle=1;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="365" y="848" width="225" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-dm-ctrl" value="controller.rs&#xa;─────&#xa;厂商控制器封装" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="135" y="930" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-dm-reg" value="registers.rs&#xa;─────&#xa;寄存器 ID + 访问类型&#xa;RegisterAccess (R/W/RW)&#xa;RegisterDataType (f32/u32)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="365" y="930" width="225" height="60" as="geometry"/>
+                </mxCell>
+                <!-- other vendors compact -->
+                <mxCell id="L2-rs" value="robstride/&#xa;──────&#xa;motor.rs&#xa;protocol.rs&#xa;controller.rs&#xa;registers.rs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="620" y="815" width="230" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-my" value="myactuator/&#xa;──────&#xa;motor.rs&#xa;protocol.rs&#xa;controller.rs&#xa;registers.rs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="870" y="815" width="230" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-hf" value="hexfellow/&#xa;──────&#xa;motor.rs&#xa;protocol.rs&#xa;controller.rs&#xa;registers.rs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1120" y="815" width="230" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-ht" value="hightorque/&#xa;──────&#xa;motor.rs&#xa;protocol.rs&#xa;controller.rs&#xa;registers.rs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1370" y="815" width="230" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-tpl" value="template/&#xa;──────&#xa;新厂商参考模板" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="1620" y="815" width="230" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="L2-note" value="5 家厂商共同实现 MotorDevice trait （在 motor_core/device.rs 定义）&#xa;调用方只看到统一接口 send_mit / send_pos_vel 等；厂商差异封装在 protocol.rs" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontStyle=2;fontColor=#666666" vertex="1" parent="1">
+                    <mxGeometry x="620" y="920" width="1230" height="70" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ LAYER 1: CORE ============ -->
+                <mxCell id="L1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1030" width="1800" height="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-t" value="第 1 层｜核心抽象 + 硬件驱动  motor_core/src/" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#444444" vertex="1" parent="1">
+                    <mxGeometry x="120" y="1040" width="700" height="25" as="geometry"/>
+                </mxCell>
+                <!-- core abstractions sub-box -->
+                <mxCell id="L1-core-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="120" y="1075" width="850" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-core-t" value="核心抽象（与硬件无关）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=13;fontStyle=1;fontColor=#666666" vertex="1" parent="1">
+                    <mxGeometry x="130" y="1080" width="830" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-bus" value="bus.rs&#xa;─────&#xa;trait CanBus&#xa;  send / recv / shutdown&#xa;struct CanFrame&#xa;  arbitration_id, data[8], dlc" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="135" y="1110" width="265" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-ctrl" value="controller.rs  ★&#xa;─────&#xa;struct CoreController&#xa;  bus + devices HashMap&#xa;  polling_thread 后台接收&#xa;  add_device / enable_all" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="410" y="1110" width="275" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-dev" value="device.rs&#xa;─────&#xa;trait MotorDevice&#xa;  motor_id, on_feedback&#xa;  send_mit/pos_vel/...&#xa;厂商都要实现这个" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="695" y="1110" width="265" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-model" value="model.rs&#xa;─────&#xa;MotorModelSpec&#xa;  pmax/vmax/tmax&#xa;ModelCatalog&#xa;PvTLimits" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="135" y="1220" width="265" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-err" value="error.rs&#xa;─────&#xa;enum MotorError&#xa;  Io / InvalidArgument&#xa;  Timeout / BusClosed&#xa;type Result&lt;T&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="410" y="1220" width="275" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-lib" value="lib.rs&#xa;─────&#xa;pub use bus::*;&#xa;pub use controller::*;&#xa;pub use device::*;&#xa;（模块入口）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="695" y="1220" width="265" height="100" as="geometry"/>
+                </mxCell>
+                <!-- bus implementations sub-box -->
+                <mxCell id="L1-impl-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="990" y="1075" width="890" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-impl-t" value="硬件总线实现（impl CanBus for ...）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=13;fontStyle=1;fontColor=#666666" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="1080" width="870" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-dms" value="dm_serial.rs ★&#xa;─────&#xa;达妙 USB-CAN 串口桥&#xa;/dev/ttyACM0 @ 921600&#xa;封装达妙的 AT 协议&#xa;reBot 用这个！" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1005" y="1110" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-sc" value="socketcan.rs&#xa;─────&#xa;Linux 原生 SocketCAN&#xa;（can0/can1 接口）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1275" y="1110" width="275" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-scfd" value="socketcanfd.rs&#xa;─────&#xa;Linux SocketCAN-FD&#xa;(高速 CAN-FD，cfg linux)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="1110" width="305" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-pcan" value="pcan.rs&#xa;─────&#xa;Windows PEAK CAN&#xa;(PCAN-USB 驱动, cfg windows)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+                    <mxGeometry x="1005" y="1220" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="L1-impl-note" value="4 种总线后端都实现 trait CanBus&#xa;用户选一个（Controller 构造方式决定）" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontStyle=2;fontColor=#666666" vertex="1" parent="1">
+                    <mxGeometry x="1275" y="1235" width="590" height="85" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ HARDWARE ============ -->
+                <mxCell id="HW-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;dashed=1;strokeWidth=2" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1380" width="1800" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-t" value="物理硬件" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#8b0000" vertex="1" parent="1">
+                    <mxGeometry x="120" y="1390" width="700" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-usbcan" value="达妙 USB-CAN 桥接板&#xa;(USB ↔ CAN，921600bps 串口)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="140" y="1425" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-pcan" value="PEAK PCAN-USB&#xa;(Windows)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="420" y="1425" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-sc" value="Linux SocketCAN&#xa;(CAN-USB / can0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="640" y="1425" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-canbus" value="CAN 总线&#xa;1 Mbps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="870" y="1425" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="HW-motors" value="5 家电机硬件&#xa;达妙 · RobStride · MyActuator · HighTorque · Hexfellow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="1060" y="1425" width="820" height="70" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ ARROWS ============ -->
+                <mxCell id="a54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="L5-box" target="L4-box">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a54-l" value="import motorbridge" style="text;html=1;strokeColor=none;fillColor=#ffffff;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="820" y="255" width="160" height="25" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="a43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#9673a6;endArrow=classic;" edge="1" parent="1" source="L4-box" target="L3-box">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a43-l" value="ctypes FFI 调用 libmotor_abi.so" style="text;html=1;strokeColor=none;fillColor=#ffffff;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="820" y="525" width="240" height="25" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="a32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#d79b00;endArrow=classic;" edge="1" parent="1" source="L3-box" target="L2-box">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a32-l" value="trait dispatch 到具体厂商" style="text;html=1;strokeColor=none;fillColor=#ffffff;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="820" y="745" width="220" height="25" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="a21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#666666;endArrow=classic;" edge="1" parent="1" source="L2-box" target="L1-box">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a21-l" value="依赖 motor_core (CanBus / MotorDevice)" style="text;html=1;strokeColor=none;fillColor=#ffffff;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="820" y="1015" width="280" height="25" as="geometry"/>
+                </mxCell>
+
+                <mxCell id="a1h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="L1-box" target="HW-box">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a1h-l" value="操作系统驱动 / 串口 / PEAK SDK" style="text;html=1;strokeColor=none;fillColor=#ffffff;fontSize=11;fontStyle=2" vertex="1" parent="1">
+                    <mxGeometry x="820" y="1345" width="240" height="25" as="geometry"/>
+                </mxCell>
+
+                <!-- ============ EXTERNAL DEPS ============ -->
+                <mxCell id="ext-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#d79b00;dashed=1" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="85" width="340" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="ext-t" value="依赖产物：libmotor_abi.so / .dll / .dylib" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontStyle=1;fontColor=#8b5a00" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="85" width="340" height="42" as="geometry"/>
+                </mxCell>
+
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

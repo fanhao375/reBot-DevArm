@@ -1,0 +1,543 @@
+# reBot-DevArm 学习指南（一）：环境搭建与项目认识
+
+> 本文档面向想要学习和复现 reBot Arm B601 机械臂的开发者
+> 前置知识：基本的 Python 使用经验，了解什么是机械臂
+> 最后更新：2026.04.13
+
+---
+
+## 第一步：获取项目代码
+
+### 1.1 克隆主仓库
+
+```bash
+git clone https://github.com/Seeed-Projects/reBot-DevArm.git
+cd reBot-DevArm
+```
+
+### 1.2 克隆软件仓库
+
+主仓库只有硬件资料，软件代码在两个独立仓库，需要单独拉取：
+
+```bash
+mkdir software && cd software
+
+# 底层电机控制库
+git clone https://github.com/tianrking/MotorBridge.git
+
+# 上层运动学控制库（注意：代码在 develop 分支）
+git clone https://github.com/vectorBH6/reBotArm_control_py.git
+cd reBotArm_control_py
+git checkout develop
+cd ..
+```
+
+### 1.3 确认目录结构
+
+```
+reBot-DevArm/
+├── hardware/           硬件图纸、BOM、电机资料
+├── software/
+│   ├── MotorBridge/            底层电机控制
+│   └── reBotArm_control_py/   上层运动学控制
+├── media/
+└── README_zh.md
+```
+
+---
+
+## 第二步：了解这台机械臂
+
+在写代码之前，先搞清楚硬件是什么。
+
+### 2.1 整机参数
+
+| 参数 | 数值 |
+|------|------|
+| 自由度 | 6轴 + 1夹爪 |
+| 大关节电机 | 达妙 DM4340P × 3（底座/肩部/大臂，峰值 27Nm） |
+| 小关节电机 | 达妙 DM4310 × 4（小臂/腕部×2/夹爪，峰值 7Nm） |
+| 通信方式 | CAN 总线 @ 1Mbps，菊花链串联 |
+| 供电 | 24V / 350W 开关电源 |
+| 推荐负载 | ≤ 1.5 kg |
+| 控制频率 | 500 Hz |
+
+### 2.2 关节配置
+
+来自 `software/reBotArm_control_py/config/robot.yaml`：
+
+| 关节 | 电机型号 | CAN ID | 用途 |
+|------|---------|--------|------|
+| joint1 | DM4340P | 0x01 | 底座旋转 |
+| joint2 | DM4340P | 0x02 | 肩部俯仰 |
+| joint3 | DM4340P | 0x03 | 大臂 |
+| joint4 | DM4310 | 0x04 | 小臂 |
+| joint5 | DM4310 | 0x05 | 腕部俯仰 |
+| joint6 | DM4310 | 0x06 | 腕部旋转 |
+
+### 2.3 控制链路
+
+```
+用户指令（目标位姿）
+    ↓
+reBotArm_control_py（逆运动学 → 轨迹规划 → 重力补偿）
+    ↓
+MotorBridge（编码为 CAN 帧）
+    ↓
+CAN 总线 @ 1Mbps
+    ↓
+7 个达妙电机（内置 FOC 驱动器 + 双编码器）
+```
+
+### 2.4 推荐阅读
+
+先读这些文档，对硬件有个整体认识：
+
+- [ ] `hardware/reBot_B601_DM/readme_zh.md` — BOM 物料清单
+- [ ] `hardware/reBot_B601_DM/Hardware_Summary_zh.md` — 硬件总结（如果有）
+- [ ] `hardware/reBot_B601_DM/Motor_Datasheets/README.md` — 电机参数汇总（如果有）
+- [ ] `hardware/reBot_B601_DM/performance_testing/Performance_Testing_zh.md` — 性能测试
+
+---
+
+## 第三步：搭建 Python 环境
+
+### 3.0 Windows 用户必看：安装 WSL2
+
+> **为什么需要 WSL2？** Pinocchio（运动学核心库）在 Windows 上 pip 编译会卡死。
+> ROS2、LeRobot 等后续工具也只支持 Linux。WSL2 是 Windows 内置的 Linux，最省事。
+
+#### 3.0.1 开启 WSL 功能（管理员 PowerShell）
+
+```powershell
+wsl --install --no-distribution
+```
+
+装完**重启电脑**。
+
+#### 3.0.2 下载 Ubuntu 22.04（需要 VPN 或耐心等待）
+
+```powershell
+# 建文件夹（建议放非 C 盘，C 盘空间不够的话）
+mkdir F:\WSL
+
+# 设置代理（如果有 VPN，端口改成你自己的）
+$env:HTTP_PROXY="http://127.0.0.1:7890"
+$env:HTTPS_PROXY="http://127.0.0.1:7890"
+
+# 下载（约 1.1GB）
+Invoke-WebRequest -Uri https://aka.ms/wslubuntu2204 -OutFile F:\WSL\ubuntu-22.04.appx -Proxy http://127.0.0.1:7890
+```
+
+> 如果没有 VPN，去掉 `-Proxy` 参数和 `$env` 设置，但速度会很慢。
+> 也可以用浏览器直接打开 https://aka.ms/wslubuntu2204 下载。
+
+#### 3.0.3 解压并安装到指定目录
+
+```powershell
+# 第一层解压
+Rename-Item F:\WSL\ubuntu-22.04.appx ubuntu-22.04.zip
+Expand-Archive F:\WSL\ubuntu-22.04.zip F:\WSL\extract
+
+# 第二层解压（x64 版本）
+Rename-Item F:\WSL\extract\Ubuntu_2204.1.7.0_x64.appx ubuntu-x64.zip
+Expand-Archive F:\WSL\extract\ubuntu-x64.zip F:\WSL\extract\x64
+
+# 导入到指定目录（直接装到 F 盘，不占 C 盘）
+wsl --import Ubuntu-22.04 F:\WSL\Ubuntu F:\WSL\extract\x64\install.tar.gz
+```
+
+#### 3.0.4 进入 Ubuntu
+
+```powershell
+wsl -d Ubuntu-22.04
+```
+
+> 如果提示代理警告（localhost proxy not mirrored），忽略即可，不影响使用。
+
+#### 3.0.5 清理下载文件（可选，节省约 2GB 空间）
+
+```powershell
+Remove-Item F:\WSL\ubuntu-22.04.zip
+Remove-Item F:\WSL\extract -Recurse
+```
+
+### 3.1 安装 Python 环境（在 WSL2 Ubuntu 中）
+
+```bash
+# 更新系统并安装 Python
+apt update && apt install -y python3 python3-pip python3-venv
+
+# 验证
+python3 --version
+```
+
+### 3.2 安装项目依赖
+
+```bash
+pip3 install pin numpy pyyaml matplotlib meshcat motorbridge
+```
+
+> Linux 下 `pin`（Pinocchio）有预编译二进制包，几分钟就装好，不会像 Windows 一样卡死。
+
+### 3.3 验证安装
+
+```bash
+python -c "import pinocchio; print('Pinocchio OK:', pinocchio.__version__)"
+python -c "import meshcat; print('MeshCat OK')"
+python -c "import numpy; print('NumPy OK:', numpy.__version__)"
+```
+
+全部输出 OK 就说明环境没问题。
+
+### 3.5 安装 MotorBridge（电机控制）
+
+```bash
+pip install motorbridge -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+> **注意**：MotorBridge 的实际电机控制功能需要在 Linux + CAN 硬件下运行。
+> Windows 上可以安装但只能用于代码阅读和仿真测试。
+
+---
+
+## 第四步：运动学学习（不需要硬件）
+
+这部分纯数学计算，不需要连接真实电机。
+
+### 4.1 正运动学（FK）
+
+输入 6 个关节角度 → 算出末端执行器在空间中的位置和姿态。
+
+```bash
+cd software/reBotArm_control_py
+python example/5_fk_test.py
+```
+
+交互示例：
+```
+> 0 0 0 0 0 0          # 所有关节归零
+> 45 -30 15 -60 90 180  # 各关节不同角度
+```
+
+输出包含：
+- 末端位置 (X, Y, Z)，单位：米
+- 旋转矩阵 (3×3)
+- 欧拉角 (Roll/Pitch/Yaw)，单位：度
+
+#### 理解要点
+- 读 `reBotArm_control_py/kinematics/` 源码
+- 理解 URDF 模型如何描述机械臂的连杆和关节
+- 理解 Pinocchio 如何进行正运动学计算
+
+### 4.2 逆运动学（IK）
+
+输入末端目标位置 → 解算出 6 个关节应该转到什么角度。
+
+```bash
+python example/6_ik_test.py
+```
+
+交互示例：
+```
+> 0.25 0.0 0.15              # 只给位置
+> 0.25 0.0 0.15 0 0 0        # 位置 + 姿态
+```
+
+#### 理解要点
+- IK 不一定有唯一解（可能有多个解或无解）
+- Pinocchio 使用迭代方法求解
+- 理解工作空间的概念（并非所有位置都能到达）
+
+---
+
+## 第五步：单电机控制学习（需要硬件）
+
+> 以下内容需要：达妙电机 + USB2CAN 模块 + 24V 电源 + Ubuntu 系统
+
+### 5.1 硬件连接
+
+```
+电脑 USB → USB2CAN 模块 → XT30 线 → 达妙电机 ← 24V 电源
+```
+
+### 5.2 设备权限
+
+```bash
+sudo chmod 666 /dev/ttyACM0
+```
+
+### 5.3 扫描电机
+
+```bash
+motorbridge-cli scan --vendor damiao --transport dm-serial \
+  --serial-port /dev/ttyACM0 --serial-baud 921600
+```
+
+### 5.4 单电机调试
+
+```bash
+python example/0x01damiao_text.py
+```
+
+交互命令：
+| 命令 | 说明 |
+|------|------|
+| `mit <角度> [vel kp kd tau]` | MIT 模式控制 |
+| `posvel <角度> [vlim]` | 位置速度模式 |
+| `vel <速度>` | 速度模式 |
+| `enable` / `disable` | 使能/失能 |
+| `set_zero` | 设置当前位置为零点 |
+| `state` | 查看电机状态 |
+
+### 5.5 零位校准
+
+```bash
+python example/2_zero_and_read.py
+```
+
+### 5.6 理解要点
+
+- 读 `config/robot.yaml` 了解每个关节的 CAN ID 和 PID 参数
+- 读 MotorBridge 的 `motor_vendors/damiao/` 理解 CAN 协议实现
+- 三种控制模式的区别：
+  - **MIT 模式**：位置+速度+Kp+Kd+力矩前馈，最灵活
+  - **位置速度模式**：给目标位置和最大速度，电机内部闭环
+  - **速度模式**：恒速旋转
+
+---
+
+## 第六步：真机控制（需要完整机械臂）
+
+> 需要：组装好的 6 轴机械臂 + 全部接线
+
+### 6.1 IK 实时控制
+
+```bash
+python example/7_arm_ik_control.py
+```
+
+输入末端位姿，机械臂实时运动到目标位置。
+
+### 6.2 轨迹规划控制
+
+```bash
+python example/8_arm_traj_control.py
+```
+
+SE(3) 测地线轨迹，平滑运动，不会突然跳变。
+
+### 6.3 重力补偿
+
+```bash
+python example/9_gravity_compensation.py
+```
+
+机械臂"悬浮"在空中，可以用手自由拖动，松手后保持姿态不掉落。
+
+### 6.4 重力补偿 + 锁定
+
+```bash
+python example/10_gravity_compensation_lock.py
+```
+
+---
+
+## 第七步：MeshCat 可视化（无硬件学习）⭐
+
+> **重要**：这部分完全不需要硬件，在浏览器里就能看到 3D 机械臂模型。
+> 是学习运动学、验证算法的最佳工具。
+
+### 7.1 环境准备
+
+确保已安装 `meshcat`：
+
+```bash
+pip3 install meshcat
+```
+
+### 7.2 修复 WSL2 软链接问题（仅 WSL2 用户）
+
+如果你在 WSL2 里通过 `/mnt/f` 访问 Windows 文件，需要先修复 Git 软链接：
+
+```bash
+cd /mnt/f/chengshenzhilu/Robot/reBot-DevArm/software/reBotArm_control_py/urdf
+rm reBot-DevArm_description_fixend
+ln -s reBot-DevArm_fixend_description reBot-DevArm_description_fixend
+ls -la | grep description  # 验证：应该看到 l 开头的软链接
+```
+
+**原因**：Windows Git 把软链接存成文本文件，WSL2 读不到。
+
+### 7.3 工具 1：fk_sim.py — 正运动学可视化
+
+**功能**：输入关节角 → 浏览器显示机械臂姿态
+
+```bash
+cd /mnt/f/chengshenzhilu/Robot/reBot-DevArm/software/reBotArm_control_py
+python3 example/sim/fk_sim.py
+```
+
+**操作**：
+1. 终端打印 `http://127.0.0.1:7000/static/` → 在 Windows 浏览器打开
+2. 输入 6 个关节角（度），空格分隔：
+   ```
+   0 0 0 0 0 0          # 归零姿态
+   0 -90 0 0 0 0        # 大臂水平
+   45 -30 15 -60 90 180 # 复杂姿态
+   ```
+3. 浏览器里机械臂实时更新
+
+**浏览器操作**：
+- 左键拖 = 旋转视角
+- 右键拖 = 平移
+- 滚轮 = 缩放
+
+### 7.4 工具 2：ik_sim.py — 逆运动学可视化
+
+**功能**：输入目标位置 → 机械臂自动求解关节角并摆到目标
+
+```bash
+python3 example/sim/ik_sim.py
+```
+
+**操作**：
+1. 输入目标位置 `x y z`（米）：
+   ```
+   0.25 0.0 0.2
+   ```
+2. 或输入目标位姿 `x y z roll pitch yaw`（米 + 弧度）：
+   ```
+   0.3 0.0 0.25 0 0.5 0
+   ```
+
+**浏览器画面**：
+- **红色小球** — 目标位置
+- **三色坐标轴**（RGB = XYZ）— 目标姿态
+- **机械臂** — 自动摆到求解出的姿态
+
+**终端输出**：
+```
+[收敛] 迭代=9 误差=5.57e-05m
+关节角度(deg): [-0.046, -2.981, -6.408, 3.427, -0.046, 0.006]
+```
+
+**改进版特性**（已修复原版问题）：
+- ✅ 显示目标点标记（红球 + 坐标轴）
+- ✅ 连续求解时从上一个位置出发（不会每次从零位重启）
+- ✅ 收敛率大幅提升
+
+### 7.5 工具 3：traj_sim.py — 轨迹规划可视化 ⭐⭐⭐
+
+**功能**：从当前位置 → 目标位置的完整轨迹规划 + 动画回放
+
+```bash
+python3 example/sim/traj_sim.py
+```
+
+**操作**：
+1. 终端显示当前末端位置：`pos[0.253 0.000 0.172]`
+2. 输入目标位姿（同 ik_sim）：
+   ```
+   0.3 0.0 0.25
+   ```
+3. 程序自动规划轨迹并播放动画
+
+**浏览器画面**：
+- **灰色路径线** — 规划的参考轨迹（SE(3) 测地线）
+- **绿色路径线** — 实际跟踪轨迹（CLIK 输出）
+- **机械臂动画** — 沿轨迹逐帧播放（1-2 秒）
+
+**终端输出**：
+```
+============================================================
+  轨迹: min_jerk  耗时=31.8ms  点数=51
+  时长=1.00s  dt=0.02s  零空间=0.1
+  关节: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0] → [-0.0, -32.3, -17.7, -14.6, -0.0, 0.0]
+============================================================
+  IK 成功率: 96.1%  最大误差: 3.376e-04  平均误差: 5.237e-05
+```
+
+**价值**：
+- 这是 `reBotArm_control_py_运行流程.drawio` 里**路径 A（move_to_traj）的无硬件版**
+- 完整展示 IK → SE(3) 测地线 → CLIK → 动画播放 的全流程
+- 跟踪误差 < 0.1mm，验证算法质量
+
+### 7.6 推荐学习路径
+
+1. **先看文档**（理解概念）：
+   - `software/URDF_入门指南.md` — 什么是 URDF、Link、Joint
+   - `software/MeshCat_可视化指南.md` — MeshCat 工具详细教程
+   - `software/reBot-DevArm_URDF详解.md` — 逐行解读本项目 URDF
+
+2. **再跑工具**（动手实践）：
+   - `fk_sim.py` → 理解正运动学
+   - `ik_sim.py` → 理解逆运动学
+   - `traj_sim.py` → 理解轨迹规划
+
+3. **最后读源码**（深入原理）：
+   - `reBotArm_control_py/kinematics/` — 运动学实现
+   - `example/sim/visualizer.py` — MeshCat 封装
+
+### 7.7 常见问题
+
+**Q: 浏览器打不开 MeshCat 地址？**
+
+A: Windows 代理拦截了 localhost。解决方案：
+- 浏览器代理设置 → "请勿对以下列条目使用代理" → 添加 `127.0.0.1;localhost`
+- 或用无痕/隐身模式打开
+
+**Q: 看不到 3D 模型 / 显示空白？**
+
+A: URDF 路径错误。检查：
+```bash
+ls -la urdf/ | grep description
+# 应该看到 reBot-DevArm_description_fixend -> reBot-DevArm_fixend_description
+```
+
+**Q: 输入关节角后没反应？**
+
+A: 输入格式错误。确保：
+- 用英文输入法
+- 6 个数字，空格分隔（不是逗号）
+- 例如：`0 -90 0 0 0 0`
+
+---
+
+## 常见问题
+
+### Q: pip install pin 失败怎么办？
+
+Windows 上 Pinocchio 通过 pip 安装可能有问题，推荐用 conda：
+```bash
+conda install -c conda-forge pinocchio
+```
+
+### Q: 没有硬件能学什么？
+
+**完全可以学！** 无硬件情况下可以：
+- ✅ 跑通 MeshCat 可视化三件套（fk_sim / ik_sim / traj_sim）
+- ✅ 学习正运动学（FK）和逆运动学（IK）
+- ✅ 理解轨迹规划算法（SE(3) 测地线 + CLIK）
+- ✅ 阅读 MotorBridge 源码理解 CAN 协议
+- ✅ 阅读 URDF 文件理解机械结构
+
+**推荐顺序**：先跑完第七步（MeshCat 可视化），再读源码。
+
+### Q: Windows 能控制真机吗？
+
+MotorBridge 对 Windows 是实验性支持（仅 PCAN）。推荐使用 Ubuntu 22.04 或 WSL2。
+
+### Q: 电机通信协议在哪看？
+
+- `hardware/reBot_B601_DM/Motor_Datasheets/` 里有完整的电机说明书 PDF
+- `Motor_Datasheets/README.md` 有 CAN 协议帧格式汇总
+
+---
+
+## 下一篇预告
+
+学习指南（二）将涵盖：
+- ROS2 Humble 环境搭建与 MoveIt2 使用（待官方发布）
+- Isaac Sim 仿真环境配置（待官方发布）
+- LeRobot 模仿学习框架适配（待官方发布）

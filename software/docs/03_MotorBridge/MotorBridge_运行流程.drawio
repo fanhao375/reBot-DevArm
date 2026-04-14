@@ -1,0 +1,176 @@
+<mxfile host="app.diagrams.net">
+    <diagram id="motorbridge-runtime" name="MotorBridge 运行流程">
+        <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="2100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+
+                <mxCell id="title" value="MotorBridge 运行流程&#xa;「Python send_mit() → 电机转动 + 反馈回读」完整数据流" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=22;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="300" y="20" width="1200" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- =========== LEFT COLUMN: SEND FLOW =========== -->
+                <mxCell id="col-send" value="↓ 发送流程（Send Path）&#xa;用户命令 → 电机执行" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=17;fontStyle=1;fontColor=#b85450" vertex="1" parent="1">
+                    <mxGeometry x="100" y="100" width="700" height="50" as="geometry"/>
+                </mxCell>
+
+                <!-- S1 user -->
+                <mxCell id="s1" value="① 用户代码（Python）&#xa;motor.send_mit(pos=1.5, vel=0, kp=10, kd=1, tau=0.5)&#xa;─────────────────────────&#xa;📂 用户脚本 / reBotArm_control_py/actuator/arm.py" style="shape=parallelogram;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;perimeter=parallelogramPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="100" y="170" width="700" height="90" as="geometry"/>
+                </mxCell>
+
+                <!-- S2 Python core.py -->
+                <mxCell id="s2" value="② Python 绑定层（core.py）&#xa;class Motor.send_mit 调用&#xa;→ self._abi.lib.motor_handle_send_mit(ptr, pos, vel, kp, kd, tau)&#xa;→ _ok(rc, &quot;send_mit&quot;) 检查返回码&#xa;─────────────────────────&#xa;📂 bindings/python/src/motorbridge/core.py → Motor.send_mit()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="290" width="700" height="120" as="geometry"/>
+                </mxCell>
+
+                <!-- S3 abi.py ctypes -->
+                <mxCell id="s3" value="③ ctypes FFI 桥（abi.py）&#xa;按已声明的签名转换参数：&#xa;  c_void_p(ptr) / c_float(pos) / c_float(vel) / ...&#xa;进入 libmotor_abi.so / .dll / .dylib 动态库&#xa;─────────────────────────&#xa;📂 bindings/python/src/motorbridge/abi.py → get_abi().lib" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="440" width="700" height="120" as="geometry"/>
+                </mxCell>
+
+                <!-- Boundary Python <-> Rust -->
+                <mxCell id="boundary1" value="━━━  Python ↔ Rust 语言边界  ━━━" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=12;fontStyle=2;fontColor=#999999" vertex="1" parent="1">
+                    <mxGeometry x="100" y="575" width="700" height="25" as="geometry"/>
+                </mxCell>
+
+                <!-- S4 C ABI Rust -->
+                <mxCell id="s4" value="④ C ABI 入口（Rust extern &quot;C&quot;）&#xa;pub extern &quot;C&quot; fn motor_handle_send_mit(&#xa;    ptr: *mut MotorHandle, pos, vel, kp, kd, tau: f32) -&gt; i32&#xa;把 *mut Handle 解引用为 &amp;dyn MotorDevice&#xa;─────────────────────────&#xa;📂 motor_abi/src/motor_control_ffi.rs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="610" width="700" height="125" as="geometry"/>
+                </mxCell>
+
+                <!-- S5 vendor dispatch -->
+                <mxCell id="s5" value="⑤ trait 分发到具体厂商&#xa;device.send_mit(pos, vel, kp, kd, tau)&#xa;因为 device 实例是 DamiaoMotor，所以进入：&#xa;impl MotorDevice for DamiaoMotor { fn send_mit(...) }&#xa;─────────────────────────&#xa;📂 motor_vendors/damiao/src/motor.rs → DamiaoMotor::send_mit()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="765" width="700" height="125" as="geometry"/>
+                </mxCell>
+
+                <!-- S6 protocol encode (key step) -->
+                <mxCell id="s6" value="⑥ CAN 协议编码（关键步骤）&#xa;protocol::encode_mit_cmd(pos, vel, kp, kd, tau, limits)&#xa;把 5 个 f32 根据 pmax/vmax/tmax 映射到 16/12 bit 整数&#xa;─────────────────────────&#xa;📂 motor_vendors/damiao/src/protocol.rs → encode_mit_cmd()&#xa;&#xa;输出：CanFrame { id: 0x01, data: [16b_pos, 12b_vel+12b_kp, 12b_kd+12b_tau], dlc: 8 }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="920" width="700" height="155" as="geometry"/>
+                </mxCell>
+
+                <!-- S7 bus send -->
+                <mxCell id="s7" value="⑦ 通用总线发送&#xa;self.bus.send(frame)  （bus 是 Arc&lt;dyn CanBus&gt;）&#xa;根据用户创建 Controller 时选的方式分发到：&#xa;  - DmSerialBus（reBot 用）/ SocketCanBus / PcanBus&#xa;───────────────────────��─&#xa;📂 motor_core/src/controller.rs → CoreController.bus.send()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1105" width="700" height="125" as="geometry"/>
+                </mxCell>
+
+                <!-- S8 dm_serial -->
+                <mxCell id="s8" value="⑧ 达妙 USB-CAN 串口协议封装&#xa;DmSerialBus::send(frame) 把 CanFrame 包成达妙 AT 协议：&#xa;   [AA 头 | 扩展标志 | CAN ID(4B) | DLC | Data(8B) | 校验 | 尾 55]&#xa;然后 serial.write(bytes) 写入串口&#xa;─────────────────────────&#xa;📂 motor_core/src/dm_serial.rs → DmSerialBus::send()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1260" width="700" height="125" as="geometry"/>
+                </mxCell>
+
+                <!-- S9 hardware -->
+                <mxCell id="s9" value="⑨ 物理链路&#xa;串口 /dev/ttyACM0 @ 921600 bps&#xa;  → USB 电缆&#xa;  → 达妙 USB-CAN 桥接板 解析 AT 帧 → 发 CAN&#xa;  → CAN 总线 1 Mbps → 电机（ID=1）&#xa;─────────────────────────&#xa;📦 硬件：USB → USB-CAN桥 → CAN → 达妙电机" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1415" width="700" height="140" as="geometry"/>
+                </mxCell>
+
+                <!-- S10 motor action -->
+                <mxCell id="s10" value="⑩ 电机执行&#xa;达妙 MCU 解析 MIT 命令 → 位置环 + 速度环 + 前馈力矩&#xa;电机转到 pos=1.5 rad 附近（由 kp/kd/tau 决定跟踪行为）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;align=center" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1585" width="700" height="85" as="geometry"/>
+                </mxCell>
+
+                <!-- =========== RIGHT COLUMN: FEEDBACK FLOW =========== -->
+                <mxCell id="col-fb" value="↑ 反馈流程（Feedback Path）&#xa;电机状态 → 后台线程 → 用户读取" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=17;fontStyle=1;fontColor=#6c8ebf" vertex="1" parent="1">
+                    <mxGeometry x="950" y="100" width="750" height="50" as="geometry"/>
+                </mxCell>
+
+                <!-- F10 motor broadcast -->
+                <mxCell id="f10" value="⓵ 电机自动广播状态帧&#xa;达妙电机每收到一条命令，就回发一条反馈 CAN 帧&#xa;  arbitration_id = feedback_id (例：0x11)&#xa;  data = [pos_16b, vel_12b, torq_12b, t_mos_8b, t_rotor_8b, status_4b]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="1585" width="720" height="85" as="geometry"/>
+                </mxCell>
+
+                <!-- F9 hardware upstream -->
+                <mxCell id="f9" value="⓶ 反馈帧走硬件上行&#xa;电机 → CAN 总线 → USB-CAN 桥 (包成 AT 帧) → 串口 → USB 入机器" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center" vertex="1" parent="1">
+                    <mxGeometry x="960" y="1470" width="720" height="70" as="geometry"/>
+                </mxCell>
+
+                <!-- F8 dm_serial parse -->
+                <mxCell id="f8" value="⓷ 达妙串口协议解析&#xa;DmSerialBus::recv 读串口字节流 → 按 AT 协议头尾切帧&#xa;→ 校验 → 解码为 CanFrame&#xa;─────────────────────────&#xa;📂 motor_core/src/dm_serial.rs → DmSerialBus::recv()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="1320" width="720" height="120" as="geometry"/>
+                </mxCell>
+
+                <!-- F7 polling thread (key) -->
+                <mxCell id="f7" value="⓸ 后台接收线程（Polling Thread）  ★ 异步&#xa;CoreController 启动时就创建了一个 std::thread，循环体：&#xa;  loop {&#xa;    let frame = bus.recv(timeout)?;        // 阻塞读&#xa;    let id = frame.arbitration_id;&#xa;    if let Some(dev) = devices.get(&amp;motor_id_for(id)) {&#xa;        dev.on_feedback(frame);&#xa;    }&#xa;  }&#xa;─────────────────────────&#xa;📂 motor_core/src/controller.rs → polling thread" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="1125" width="720" height="175" as="geometry"/>
+                </mxCell>
+
+                <!-- F6 decode feedback -->
+                <mxCell id="f6" value="⓹ 厂商侧解码 + 更新缓存&#xa;DamiaoMotor::on_feedback(frame) 被调用&#xa;→ protocol::decode_sensor_feedback(frame.data)&#xa;→ 得到 (pos, vel, torq, t_mos, t_rotor, status)&#xa;→ 塞入 self.cached_state（Arc&lt;Mutex&lt;MotorState&gt;&gt;）&#xa;─────────────────────────&#xa;📂 motor_vendors/damiao/src/motor.rs → on_feedback()&#xa;📂 motor_vendors/damiao/src/protocol.rs → decode_sensor_feedback()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="925" width="720" height="180" as="geometry"/>
+                </mxCell>
+
+                <!-- F5 cached state -->
+                <mxCell id="f5-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=3;dashed=1" vertex="1" parent="1">
+                    <mxGeometry x="960" y="790" width="720" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="f5" value="💾 共享状态缓存（内存中）&#xa;每个 motor 持有一份最新的 MotorState&#xa;后台线程写 / 用户线程读，Mutex 保护、不阻塞硬件" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=12;fontStyle=1;fontColor=#8b6f00" vertex="1" parent="1">
+                    <mxGeometry x="970" y="810" width="700" height="80" as="geometry"/>
+                </mxCell>
+
+                <!-- F4 user call get_state -->
+                <mxCell id="f4" value="⓺ 用户调用 motor.get_state()&#xa;任意线程，任意时刻&#xa;→ motor_handle_get_state(ptr, out_state)&#xa;→ 拷贝 cached_state 到 CState 结构体&#xa;─────────────────────────&#xa;📂 motor_abi/src/state_ffi.rs → motor_handle_get_state()&#xa;📂 bindings/python/src/motorbridge/core.py → Motor.get_state()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="630" width="720" height="145" as="geometry"/>
+                </mxCell>
+
+                <!-- F3 Python user gets MotorState -->
+                <mxCell id="f3" value="⓻ Python 用户拿到 MotorState 对象&#xa;state = motor.get_state()&#xa;print(state.pos, state.vel, state.torq, state.t_mos)&#xa;─────────────────────────&#xa;📂 bindings/python/src/motorbridge/models.py → MotorState dataclass" style="shape=parallelogram;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;perimeter=parallelogramPerimeter;align=left;spacingLeft=12" vertex="1" parent="1">
+                    <mxGeometry x="960" y="430" width="720" height="120" as="geometry"/>
+                </mxCell>
+
+                <!-- ========== ARROWS SEND ========== -->
+                <mxCell id="es1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s1" target="s2"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s2" target="s3"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s3" target="s4"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s4" target="s5"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s5" target="s6"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s6" target="s7"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s7" target="s8"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s8" target="s9"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="es9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#b85450;endArrow=classic;" edge="1" parent="1" source="s9" target="s10"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+                <!-- ========== ARROWS FEEDBACK (bottom-up) ========== -->
+                <mxCell id="ef1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f10" target="f9"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f9" target="f8"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f8" target="f7"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f7" target="f6"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f6" target="f5-box"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f5-box" target="f4"><mxGeometry relative="1" as="geometry"/></mxCell>
+                <mxCell id="ef7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=3;strokeColor=#6c8ebf;endArrow=classic;" edge="1" parent="1" source="f4" target="f3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+                <!-- ========== Cross-column coupling arrow (motor action → feedback) ========== -->
+                <mxCell id="cross1" value="电机执行命令后&#xa;立刻回发反馈帧" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#999999;dashed=1;endArrow=classic;fontSize=10;fontStyle=2" edge="1" parent="1" source="s10" target="f10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- ========== TIMING / NOTES ========== -->
+                <mxCell id="notes-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1" vertex="1" parent="1">
+                    <mxGeometry x="100" y="1720" width="1580" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="notes-t" value="关键理解" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=14;fontStyle=1;fontColor=#8b6f00" vertex="1" parent="1">
+                    <mxGeometry x="750" y="1730" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="note-1" value="1️⃣ 发送与接收是两条独立的线程&#xa;   用户线程调 send_mit → 走左边红色链路 → 同步返回&#xa;   后台 polling_thread 一直在收 → 走右边蓝色链路 → 写到缓存&#xa;   用户调 get_state 时只读缓存，不阻塞 CAN" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;spacingLeft=15" vertex="1" parent="1">
+                    <mxGeometry x="120" y="1770" width="750" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="note-2" value="2️⃣ 协议层是厂商唯一差异点&#xa;   trait MotorDevice 统一所有厂商对外接口&#xa;   具体的 CAN 帧怎么编码，只存在于 motor_vendors/{vendor}/protocol.rs&#xa;   加新厂商只需实现一份 protocol.rs + motor.rs（照 template/ 写）" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;spacingLeft=15" vertex="1" parent="1">
+                    <mxGeometry x="880" y="1770" width="780" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="note-3" value="3️⃣ 三种 bus 后端是运行时选择&#xa;   Controller.from_dm_serial() / Controller('can0') / Controller.from_socketcanfd()&#xa;   → 构造不同的 impl CanBus 实例 → 动态分发&#xa;   同一套厂商驱动可以跑在任意后端上" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;spacingLeft=15" vertex="1" parent="1">
+                    <mxGeometry x="120" y="1880" width="750" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="note-4" value="4️⃣ CAN 帧数据压缩（MIT 模式）&#xa;   5 个 f32（位置/速度/Kp/Kd/力矩） = 20 字节原始数据&#xa;   必须压进 8 字节 CAN data，所以用 16bit/12bit 定点&#xa;   pmax/vmax/tmax（型号相关）决定每个 bit 代表的物理量大小" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;spacingLeft=15" vertex="1" parent="1">
+                    <mxGeometry x="880" y="1880" width="780" height="90" as="geometry"/>
+                </mxCell>
+
+                <!-- ========== LEGEND ========== -->
+                <mxCell id="leg-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1" vertex="1" parent="1">
+                    <mxGeometry x="100" y="2000" width="1580" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg-t" value="图例：  🟥 发送路径  🟦 反馈路径   节点颜色：绿=用户 / 蓝=Python绑定 / 紫=C ABI / 橙=厂商驱动 / 灰=motor_core / 红=硬件" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontStyle=2;fontColor=#555555" vertex="1" parent="1">
+                    <mxGeometry x="100" y="2000" width="1580" height="40" as="geometry"/>
+                </mxCell>
+
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
