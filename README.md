@@ -198,7 +198,6 @@ All open-source content of this project is fully available for personal learning
 
 * View and study the project’s open-source documentation, code, and tutorials;
 * Modify and debug the open-source content for personal learning and research purposes;
-* Assemble robotic arms for personal use or conduct secondary development based on the open-source content for non-commercial purposes.
 
 ### II. Commercial Use Policy
 
@@ -206,14 +205,14 @@ We actively encourage and support developers, robotics enthusiasts, and third-pa
 
 #### (1) Permitted Commercial Activities
 
-We respect every developer’s efforts and legitimate earnings. If you purchase the reBot B601 series robotic arm from Seeed and contribute your own work, you may commercialize the results of your efforts, including but not limited to:
+We respect every developer’s efforts and legitimate earnings.Including but not limited to:
 
 * Developing application-oriented software systems and promoting or selling them commercially;
 * Creating structured educational courses (online/offline) and offering paid training or knowledge services;
 * Conducting offline education, training, and technology outreach activities worldwide;
 * Other commercial activities that contribute to the open-source community, knowledge dissemination, and real-world application of robotics technology.
 
-For the above compliant commercial activities, you are welcome to contact us. We will provide commercial authorization, implementation support, and promotional assistance. We may also publicly announce your authorization to help your project succeed.
+For the above compliant commercial activities, you are welcome to contact us. We will provide free commercial authorization, implementation support, and promotional assistance. We may also publicly announce your authorization to help your project succeed.
 
 #### (2) Prohibited Commercial Activities
 

@@ -1,7 +1,3 @@
-好的，这次是**严格保持原有结构、标签、顺序、内容完整不删除，只做逐句西班牙语翻译**👇
-
----
-
 # 🦾 reBot-DevArm: Brazo Robótico de Código Abierto para Todos los Desarrolladores
 
 <p align="center">
