@@ -7,6 +7,7 @@
 | 文档 | 类型 | 说明 |
 |------|------|------|
 | **reBotArm_control_py_说明.md** | 文字 | 代码架构、模块职责、API 说明 |
+| **重力补偿详解/** | 文字+图表 | 重力补偿原理、数学推导、代码详解（含架构图/序列图/流程图） |
 | **reBotArm_control_py_architecture.drawio** | 架构图 | 5 层架构可视化（用户代码 → RobotArm → Kinematics → Pinocchio → MotorBridge） |
 | **reBotArm_control_py_运行流程.drawio** | 流程图 | 从"末端坐标"到"电机转动"的完整数据流，每步标注源文件路径 |
 
@@ -30,10 +31,17 @@
 
 ## 学习路径
 
+### 路径 1：运动学入门（FK/IK/轨迹规划）
 1. **先看 说明.md** — 理解整体架构
 2. **再看 architecture.drawio** — 看模块关系
 3. **最后看 运行流程.drawio** — 理解数据流
 4. **跑 example/sim/** — 无硬件验证理解
+
+### 路径 2：动力学进阶（重力补偿）
+1. **先完成路径 1** — 理解运动学基础
+2. **看 重力补偿详解/README.md** — 理解物理原理和数学推导
+3. **跑 example/9_gravity_compensation.py** — 验证基础重力补偿（需要真机）
+4. **跑 example/10_gravity_compensation_lock.py** — 验证进阶版（末端速度锁止）
 
 ## 相关资源
 

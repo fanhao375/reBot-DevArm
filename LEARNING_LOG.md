@@ -180,3 +180,196 @@
 3. **工作空间限制**：推荐半径 < 450mm（70% reach），超出会 IK 无解
 4. **零位末端位置**：`(0.253, 0.000, 0.172)` m，约 25cm 正前方、17cm 高
 5. **下一步**：等 04.20 Isaac Sim 官方教程发布，到时候已经有 Pinocchio + URDF 基础，上手会很快
+
+
+---
+
+## 2026-04-16
+
+### 重力补偿深入学习
+
+#### 1. 安装可视化工具集
+
+- 克隆 `markdown-viewer/skills` 仓库到 `/tmp/`
+- 软链接 4 个 skills 到 `~/.claude/skills/`:
+  - `uml` — PlantUML 类图/序列图/活动图
+  - `architecture` — HTML/CSS 分层架构图
+  - `infographic` — YAML 流程图/时间线/对比图
+  - `mindmap` — PlantUML 思维导图
+- **目的**: 以后读代码时可以快速生成可视化图表辅助理解
+
+#### 2. 重力补偿代码解析
+
+- **核心文件**: `example/9_gravity_compensation.py` (基础漂浮版)
+- **控制律**: `τ = g(q) + kp·(q_target - q) + kd·(0 - q̇)`
+  - `g(q)` — 重力补偿项 (前馈)
+  - `kp·Δq` — 位置误差反馈 (刚度)
+  - `kd·Δq̇` — 速度阻尼 (避免震荡)
+- **效果**: 机械臂漂浮在空中,松手不掉,轻推会移动
+- **底层**: Pinocchio 的 `computeGeneralizedGravity()` 函数,基于 RNEA 算法
+
+#### 3. 代码架构梳理
+
+生成了 3 张可视化图表:
+
+**3.1 分层架构图** (`architecture_代码架构.md`)
+
+
+**3.2 函数调用序列图** (`sequence_函数调用序列.md`)
+- 用户代码 → 500Hz 控制循环 → `compute_generalized_gravity()` → `pin.computeGeneralizedGravity()` → RNEA 算法
+- 完整展示了从业务代码到底层算法的调用链
+
+**3.3 控制循环流程图** (`control_loop_控制循环流程.md`)
+- 5 个步骤: 读取关节位置 → 计算重力补偿 → MIT 控制律 → 打印力矩 → 循环
+- 频率: 500Hz (2ms 周期)
+
+#### 4. 文档整理
+
+- 新建 `software/docs/02_reBotArm_control_py/重力补偿详解/` 目录
+- 生成 4 个文档:
+  - `README.md` — 完整教程 (7789 字节)
+    - 什么是重力补偿 (问题 + 解决方案)
+    - 物理原理 (动力学方程 τ = M·q̈ + C·q̇ + g(q))
+    - 数学推导 (RNEA 算法 + MIT 控制律)
+    - 代码架构 (4 层架构)
+    - 代码详解 (核心代码逐行解释)
+    - 实战示例 (9 号和 10 号例程)
+    - 常见问题 (FAQ)
+  - `architecture_代码架构.md` — 4 层架构图
+  - `sequence_函数调用序列.md` — UML 序列图
+  - `control_loop_控制循环流程.md` — Infographic 流程图
+- 更新 `software/docs/README.md` 和 `software/docs/02_reBotArm_control_py/README.md` 索引
+
+#### 5. 同步 upstream 更新
+
+- 配置 git 代理 (端口 10808)
+- `git fetch upstream` 发现 2 个新提交:
+  - `b876c69` Merge pull request #15
+  - `c3cee75` Create DISCLAIMER.md (免责声明文档)
+- **DISCLAIMER.md 要点**:
+  - 产品定位: DIY 套件,需自行组装调试
+  - 安全风险: 高速高扭矩,可能夹伤/撞击/砸伤
+  - 责任划分: 厂家只对出厂材料缺陷负责
+  - 禁止场景: 医疗/生命支持/载人/水下/工业高危等
+  - 免保条款: 拆机/改装/进水/过保/无发票等不保修
+
+#### 关键收获
+
+1. **重力补偿 = 前馈控制**: 提前算出重力力矩 `g(q)`,让电机不用对抗重力
+2. **RNEA 算法**: Recursive Newton-Euler Algorithm,O(n) 复杂度,适合实时控制
+3. **MIT 控制律**: `τ = g(q) + kp·Δq + kd·Δq̇`,简单但有效
+4. **代码分层清晰**: 业务层 → 封装层 → 计算层 → 底层,易于理解和维护
+5. **可视化工具**: 以后读代码可以快速生成架构图/序列图/流程图
+
+#### 下一步
+
+- 继续学习 10 号例程 (进阶锁止版):
+  - 末端速度锁止 (v_ee > 0.04 或 w_ee > 0.08 时更新目标)
+  - 积分项 (抵消重力补偿误差)
+  - 更高刚度 (kp=8, kd=1.5)
+- 深入 Pinocchio 的 `computeGeneralizedGravity()` 实现
+- 理解动力学模型的 M、C、g 三项
+
+#### 6. 踩坑：Markdown 流程图渲染器选型
+
+**问题**：用 markdown-viewer/skills 生成的 3 个图，在 VS Code 里只有 `architecture_代码架构.md`（HTML/CSS）能直接看，另外两个都是空白：
+- `sequence_函数调用序列.md` 用 PlantUML（` ```plantuml `）→ 不渲染
+- `control_loop_控制循环流程.md` 用 Infographic（` ```infographic `）→ 不渲染
+
+**原因**：
+| 引擎 | VS Code 原生支持 | 备注 |
+|------|----------------|------|
+| HTML/CSS | ✅ 是 | universal，任何渲染器都行 |
+| Mermaid | ✅ 是（已装 `bierner.markdown-mermaid`） | GitHub/Typora 也原生支持 |
+| PlantUML | ❌ 否 | 需要 `jebbs.plantuml` 插件 + Java + Graphviz |
+| Infographic | ❌ 否 | YAML 自定义语法，只有特定浏览器扩展能渲染 |
+
+**解决**：把两个不渲染的图都改成 mermaid 格式
+- `sequenceDiagram` 替代 PlantUML 序列图（保留 actor / participant / activate / Note）
+- `flowchart TD` 替代 infographic 流程图（用 `classDef` 着色）
+
+**关键收获**：
+1. **选图表引擎要先看渲染器**：图再漂亮，渲染不出来等于零
+2. **mermaid 是最稳的跨平台选择**：VS Code、GitHub、Typora、Obsidian 都原生支持
+3. **HTML/CSS 是 fallback**：复杂图（带颜色块、装饰）走 HTML/CSS 最稳
+4. **PlantUML 适合本地工具链**：如果要导出 PNG/SVG 用 PlantUML 更强，但写在 md 里看就别用了
+
+#### 7. 踩坑：上游 `get_gravity()` 函数与 Pinocchio 3.9 不兼容
+
+**症状**：跑 `example/sim/gravity_sim.py` 报错
+```
+AttributeError: 'numpy.ndarray' object has no attribute 'x'
+  File "...dynamics/robot_model.py", line 133, in get_gravity
+    return np.array([g.linear.x, g.linear.y, g.linear.z])
+```
+
+**原因**：上游代码（`reBotArm_control_py/dynamics/robot_model.py:133`）写的是
+```python
+return np.array([g.linear.x, g.linear.y, g.linear.z])  # 假设 .linear 有 .x .y .z
+```
+这套 API 是**老版 Pinocchio**（2.x 时代）的，`pin.Motion.linear` 返回 `pin.Vector3`，可以用 `.x/.y/.z` 取分量。
+
+**新版 Pinocchio 3.9.0**（CHANGELOG 2026-04-13 第 2 条装的版本）已经把 `pin.Motion.linear` 改成直接返回 `numpy.ndarray`，没有 `.x` 属性了。所以上游函数在新版 Pinocchio 上必崩。
+
+**正确写法**（任一种都行）：
+```python
+g_vec = np.asarray(model.gravity.linear)              # 最简
+g_vec = np.array([g.linear[0], g.linear[1], g.linear[2]])  # 索引访问
+```
+
+**怎么处理的**：
+1. **没动上游库** —— 改了就和官方分叉，将来同步麻烦
+2. **在我们自己的 `gravity_sim.py` 里绕开**：把 `get_gravity(model)` 调用换成 `np.asarray(model.gravity.linear)`，记一行注释说明原因
+3. **可选**：将来给上游提 issue/PR
+
+**关键收获**：
+1. **Pinocchio 2.x → 3.x 有 API breaking change**：老代码（特别是 GitHub 上 2-3 年前的项目）很可能踩
+2. **类似踩坑可能还有**：所有形如 `motion.linear.x / motion.angular.x / placement.translation.x` 的代码，在新版都要改成索引或 numpy
+3. **遇到外部库 bug 的处理顺序**：能在自己代码里绕开 → 绕开（不动上游）；不能绕开 → 提 issue + 本地 monkey patch；最后才考虑 fork 改源码
+4. **类比踩过的坑**：之前 `6_ik_test.py` 也是上游 bug（参数名不匹配），那次直接改了 example 文件（属于 example 不是核心库，改了不影响同步），这次是核心库（`dynamics/`），就不动它
+
+#### 8. 踩坑：仿真不会自动检查关节限位（用户发现 ⭐）
+
+**现场**：跑 `gravity_sim.py` 时输入 `0 -45 90 0 0 0` 和 `0 -60 60 -30 30 0`，看到 j2 暴增到 -8.7 N·m，CC 直觉地问"是不是有些超脱了物理极限呀，有些B它并不能那么弯折吧"。
+
+**结论：CC 直觉对，这两个姿态真机做不到。**
+
+**URDF 里 reBot-DevArm 的关节限位**（`urdf/reBot-DevArm_fixend.urdf`）：
+
+| 关节 | URDF 字段 | 实际范围 | 备注 |
+|------|----------|---------|------|
+| j1 base_yaw       | `[-3.14, +3.14]` | -180° ~ +180° | 全圈 |
+| **j2 shoulder**   | `[-3.14, **0**]`  | **-180° ~ 0°** | ⚠️ 只能往下 |
+| **j3 elbow**      | `[-3.14, **0**]`  | **-180° ~ 0°** | ⚠️ 只能往下 |
+| j4 wrist_roll     | `[-1.87, +1.57]`  | -107° ~ +90°   | |
+| j5 wrist_pitch    | `[-1.57, +1.57]`  | -90° ~ +90°    | |
+| j6 end_roll       | `[-6.28, +6.28]`  | -360° ~ +360°  | 多圈 |
+
+**关键**：**j2 / j3 的 upper = 0**，意味着这两个关节**只能往负方向弯**。这不是 URDF 配错，是真实机械限制——大臂和小臂背后有挡块、肘关节有偏置盖板，物理上不允许往反方向折。
+
+**为什么超限会让 τ_g 暴涨？**
+仿真把机械臂掰成了真机不可能的姿态，质心被甩到肩关节后方，杠杆变长，力矩自然爆表。
+
+**Pinocchio 的默认行为**：
+- `pin.forwardKinematics()` / `pin.computeGeneralizedGravity()` **不会检查限位**，给什么 q 算什么
+- 限位信息存在 `model.lowerPositionLimit` / `model.upperPositionLimit`（np.ndarray，弧度）
+- 用户代码自己负责 validate
+
+**修复方案**（已应用到 `gravity_sim.py`）：
+1. 启动时打印所有关节的 URDF 限位
+2. 每次输入后用 `check_joint_limits()` 检查，超限**只警告不阻止**（仿真允许"看一下超限会怎样"是有学习价值的）
+3. 推荐姿态全部改成满足限位的版本：
+   ```
+   0 0 0 0 0 0
+   0 -90 0 0 0 0
+   0 -45 -90 0 0 0      # 原来错写成 +90，肘要往后收
+   0 -60 -60 30 30 0    # 原来错写成 +60
+   0 -120 -30 0 0 0
+   ```
+
+**更深层收获**：
+1. **运动学/动力学计算都不带限位检查**——这是工业惯例（计算和约束分离）
+2. **真机 vs 仿真的鸿沟**：仿真能算的，真机未必做得到（限位、碰撞、奇异点）
+3. **直觉是好滤镜**：当数据"看起来不对劲"时，先怀疑物理边界，再怀疑算法
+4. **效率对比工具**：URDF 里 `effort` 字段是单关节扭矩上限（j2/j3 = 27 N·m，j4/j5/j6 = 7 N·m）。下次可以加一个"超 effort 警告"，提示这个姿态真机也撑不住
+

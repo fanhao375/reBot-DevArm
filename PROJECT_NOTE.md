@@ -44,6 +44,7 @@ reBot-DevArm/
 ```
 
 > 标 ★ 的是自己补充的内容，不属于官方仓库。
+> 本地工具目录：`.codex/` — Codex 专用项目记忆（已加入 `.gitignore`，不上传 GitHub）
 
 ---
 
@@ -126,3 +127,5 @@ reBot-DevArm/
 | 2026.04.13 | 文档归类整理：将文档移入 `software/docs/` 分类文件夹（00_新手入门/01_项目专用/02_reBotArm_control_py/03_MotorBridge），编写各级 README 索引 |
 | 2026.04.14 | 用 OpenCLI 抓取 7 个 wiki 页面（达妙电机/RobStride/DM夹爪/LeRobot/MoveIt2/ROS2/机器人总页面）；电机 wiki 双份存放（hardware/Motor_Wiki + software/wiki_docs）；修复全部 5 个文档的表格和代码格式 |
 | 2026.04.14 | Fork 官方仓库到 GitHub（fanhao375/reBot-DevArm）；配置 git remote（origin=个人Fork, upstream=官方仓库）；推送所有补充内容到 GitHub；编写 `GIT_GUIDE.md`（零基础 Git 操作指南，Fork/Clone/Push/Pull/同步上游完整教程） |
+| 2026.04.16 | 新建本地 `.codex/PROJECT_MEMORY_项目记忆.md`，把 `小红书进度/AI_HANDOFF_AI接手指南.md` 中的项目规则、环境约定、图表规范、小红书分离规则和工具使用说明同步为 Codex 专用项目记忆；更新 `.gitignore` 忽略 `.codex/` |
+| 2026.04.16 | 补齐 `software/reBotArm_control_py/example/sim/gravity_sim.py`（重力补偿仿真版，对应真机例程 9 号）；交互输入关节角 + MeshCat 显示质心球/重力线段 + 终端打印 6 个 τ_g（带条形图）；填补作者教学路径中缺失的 sim 仿真坑位 |

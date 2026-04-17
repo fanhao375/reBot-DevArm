@@ -1,6 +1,15 @@
 # 个人笔记和临时文件，不上传到 GitHub
 小红书进度/
 
+# 本地 AI 项目记忆，不上传到 GitHub
+.codex/
+
+# 本地 Claude Code skills 缓存
+.baoyu-skills/
+
+# Obsidian 编辑器个人工作区配置
+.obsidian/
+
 # Python 相关
 __pycache__/
 *.py[cod]

@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-04-17
+
+### 同步上游仓库 Seeed-Projects/reBot-DevArm
+
+- 修复 git 全局代理为 Clash 端口 `http://127.0.0.1:7890`（原 10808 失效）
+- `git fetch upstream` 抓取上游 10 个新提交（b876c69..4420c46）
+- `git merge upstream/main` 合并到本地 main，无冲突
+  - merge 提交：`36c42ce`
+  - 本地未提交修改先 stash，merge 后 pop 恢复
+- 上游新增内容：
+  - `hardware/reBot_B601_DM/3D_Printed_Parts/01_Joint6_7_Cable Restraint_A.step`（新增，关节 6/7 线缆约束件 A）
+  - `hardware/reBot_B601_DM/3D_Printed_Parts/01_Joint6_7_Cable Restraint_B.step`（新增，关节 6/7 线缆约束件 B）
+- 上游更新内容：
+  - 多语言根 README（购买链接、leader arm 链接、路线图、Python SDK wiki、演示视频、商用条款/免责声明修正��
+  - `hardware/reBot_B601_DM/readme*.md` 各语言版本同步更新
+- 未影响 `software/reBotArm_control_py` 控制代码目录和 URDF，学习进度不受影响
+- 尚未推送到 fork `origin/main`（等确认后再 push）
+
+---
+
 ## 2026-04-12
 
 ### 1. 同步官方仓库
@@ -266,3 +286,111 @@
   - 常见问题排查（换行符/嵌套仓库/认证/撤销提交）
   - 开源协议注意事项（CC BY-NC-SA 4.0 解读）
   - 推荐工作流程（日常开发/定期同步/分支开发）
+
+
+---
+
+## 2026-04-16
+
+### 1. 安装可视化 Skills（markdown-viewer/skills）
+- 克隆 `https://github.com/markdown-viewer/skills` 到 `/tmp/markdown-viewer-skills`
+- 软链接 4 个有用的 skills 到全局目录 `~/.claude/skills/`：
+  - `uml` — UML 类图、序列图、活动图（PlantUML）
+  - `architecture` — 分层架构图（HTML/CSS 嵌入）
+  - `infographic` — 流程图、时间线、对比图（YAML 语法）
+  - `mindmap` — 思维导图（PlantUML）
+- 目的：以后读代码时可以快速生成可视化图表
+
+### 2. 重力补偿代码解析文档
+- 新建 `software/docs/02_reBotArm_control_py/重力补偿详解/` 目录
+- 生成 4 个文档：
+  - `README.md` — 完整教程（7789 字节）
+    - 什么是重力补偿（问题 + 解决方案）
+    - 物理原理（动力学方程 τ = M·q̈ + C·q̇ + g(q)）
+    - 数学推导（RNEA 算法 + MIT 控制律）
+    - 代码架构（4 层架构）
+    - 代码详解（核心代码逐行解释）
+    - 实战示例（9 号和 10 号例程）
+    - 常见问题（FAQ）
+  - `architecture_代码架构.md` — 4 层架构图（HTML/CSS）
+    - 业务层（蓝色）：9/10 号例程
+    - 封装层（紫色）：dynamics API
+    - 计算层（绿色）：inverse_dynamics + inertia
+    - 底层（红色）：Pinocchio
+  - `sequence_函数调用序列.md` — UML 序列图
+    - 用户代码 → 控制循环 → API → 计算层 → Pinocchio
+    - 500Hz 循环的完整调用链
+  - `control_loop_控制循环流程.md` — Infographic 流程图
+    - 5 个步骤：读取关节位置 → 计算重力补偿 → MIT 控制 → 打印力矩 → 循环
+
+### 3. 文档结构统一规范
+- 更新 `software/docs/README.md` 速查表，加入重力补偿详解
+- 更新 `software/docs/02_reBotArm_control_py/README.md`：
+  - 文档列表加入重力补偿详解/
+  - 学习路径分为路径 1：运动学入门和路径 2：动力学进阶
+- 文件命名规范：统一使用英文_中文格式（如 `sequence_函数调用序列.md`）
+- 确保所有代码解析文档都在 `software/docs/` 下，按模块分类
+
+### 4. 同步 upstream 更新
+- 配置 git 代理（端口 10808）
+- `git fetch upstream` 发现 2 个新提交：
+  - `b876c69` Merge pull request #15 from tianrking/patch-1
+  - `c3cee75` Create DISCLAIMER.md（免责声明文档）
+- DISCLAIMER.md 内容：
+  - 产品定位：DIY 套件，需自行组装调试
+  - 安全风险：高速高扭矩，可能夹伤、撞击、砸伤
+  - 责任划分：厂家只对出厂材料缺陷负责，用户自行组装错误/超载/改装等导致的事故不负责
+  - 禁止场景：医疗、生命支持、载人、水下、工业高危等
+  - 免保条款：拆机、改装、进水、过保、无发票等不保修
+
+### 5. 修复图表渲染问题（PlantUML/Infographic → Mermaid）
+- 问题：VS Code 中除 `architecture_代码架构.md`（HTML/CSS）外，PlantUML 序列图和 Infographic 流程图都无法直接渲染（需要额外插件/浏览器扩展）
+- 解决：利用已安装的 `bierner.markdown-mermaid` 插件，把两个不渲染的图改写为 mermaid 格式
+- 改动文件：
+  - `sequence_函数调用序列.md` — PlantUML `@startuml` → `mermaid sequenceDiagram`
+    - 保留 actor / participant / activate / Note 语义
+    - 末尾追加一个简化的 `flowchart LR` 调用层次图
+  - `control_loop_控制循环流程.md` — Infographic YAML → `mermaid flowchart TD`
+    - 5 个步骤节点 + 循环判断
+    - 用 `classDef` 着色：初始化（蓝）/ 循环体（黄）/ 计算（红）/ 控制（绿）/ 结束（紫）
+- 选型理由：mermaid 在 VS Code、GitHub、Typora 都原生支持，跨平台一致；HTML/CSS 架构图也保留（universal 渲染）
+
+### 6. 建立 Codex 本地项目记忆
+- 新建本地目录 `.codex/`，用于存放 Codex 专用项目记忆快照
+- 新建 `.codex/PROJECT_MEMORY_项目记忆.md`
+  - 来源：`小红书进度/AI_HANDOFF_AI接手指南.md`
+  - 同步内容：
+    - 项目定位与当前阶段
+    - 文档体系分工与自动更新规则
+    - 环境约束（VS Code 路径、Pinocchio/WSL2、Git 代理 10808）
+    - 图表规范（首选 Mermaid，其次 HTML/CSS）
+    - 小红书子项目分离规则与工具链约定
+    - OpenCLI 用法、命名规范、常见翻车点
+- 更新 `.gitignore`：忽略 `.codex/`，确保该记忆文件只做本地使用、不上传 GitHub
+- 更新 `PROJECT_NOTE.md`：登记 `.codex/` 本地工具目录和本次新增记忆文件
+
+### 7. 补齐重力补偿仿真版（example/sim/gravity_sim.py）
+- 背景：`example/sim/` 下原有 fk_sim / ik_sim / traj_sim 三件套（对应作者真机例程 5/6/8 号），唯独 9/10 号重力补偿没有仿真版
+- 新建 `software/reBotArm_control_py/example/sim/gravity_sim.py`（约 170 行）
+  - 对应真机例程：`example/9_gravity_compensation.py`
+  - 模式参考：`example/sim/fk_sim.py`（交互输入关节角）
+  - 复用 `example/sim/visualizer.py` 的 `Visualizer` 类，通过其 `meshcat` 属性扩展自定义节点
+- 功能：
+  - 交互输入 6 个关节角（度）→ MeshCat 实时显示姿态
+  - 在每个 link 质心位置画**红色球**（半径 ∝ √质量）
+  - 从每个质心向下画**绿色重力线段**（长度 ∝ m·g）
+  - 终端打印 6 个关节的 τ_g（带条形图，附 max 和 Σ|τ_g|）
+- 关键 Pinocchio API：
+  - `model.inertias[i].mass` / `.lever` — link i 的质量和质心（局部坐标）
+  - `data.oMi[i].act(lever)` — 质心转世界坐标
+  - `compute_generalized_gravity(model, q, data)` 内部已更新 `data.oMi`，无需重复 forwardKinematics
+- 后续：跑通后整理小红书素材（推荐姿态对比图：归零 vs 大臂水平 vs 折叠）
+
+### 8. 修复 gravity_sim.py 上游 API 不兼容
+- 症状：`get_gravity(model)` 报 `AttributeError: 'numpy.ndarray' object has no attribute 'x'`
+- 根因：上游 `dynamics/robot_model.py:133` 用 `g.linear.x/.y/.z` 取分量，这是 Pinocchio 2.x 的 API；新版 3.9.0 已把 `pin.Motion.linear` 改成直接返回 `numpy.ndarray`
+- 处理：**不动上游**（避免和官方分叉），在 `gravity_sim.py` 里用 `np.asarray(model.gravity.linear)` 直接读
+- 附记：这类 `Motion.linear.x` / `Placement.translation.x` 的老 API 在上游可能还有，遇到再绕
+
+--- 
+

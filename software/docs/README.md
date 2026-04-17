@@ -74,6 +74,7 @@
 | 看懂 reBot URDF 每一行 | `01_项目专用/reBot-DevArm_URDF详解.md` |
 | 理解 MeshCat 仿真代码怎么工作 | `01_项目专用/reBot-DevArm_MeshCat仿真代码详解.md` |
 | 理解运动学算法（FK/IK/轨迹规划） | `02_reBotArm_control_py/reBotArm_control_py_说明.md` |
+| **理解重力补偿原理和代码** | `02_reBotArm_control_py/重力补偿详解/README.md` |
 | 看数据流（末端坐标→电机转动） | `02_reBotArm_control_py/reBotArm_control_py_运行流程.drawio` |
 | 理解 CAN 协议和电机驱动 | `03_MotorBridge/MotorBridge_说明.md` |
 | 看电机控制的发送/反馈流程 | `03_MotorBridge/MotorBridge_运行流程.drawio` |
