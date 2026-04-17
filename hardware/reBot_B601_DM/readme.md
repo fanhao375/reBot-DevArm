@@ -17,6 +17,7 @@
 
 The current BOM is the component list for the **reBot Arm B601 DM** robotic arm, which uses the **Damiao 43 series motors**. Another version, the **reBot Arm B601 RS** robotic arm, uses **RobStride motors**. [Please see the list here](../reBot_B601_RS/README.md)
 
+
 # 📦 File Structure
 
 * `3D_Printed_Parts/`: STEP files for all 3D-printed parts.

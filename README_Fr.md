@@ -19,6 +19,21 @@
   <strong>100 % entièrement open source · IA incarnée · Intégration matériel-logiciel · Gratuit pour un usage personnel/éducatif · L’utilisation commerciale nécessite une autorisation</strong>
 </p>
 
+<table align="center">
+  <tr>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        <img src="https://img.icons8.com/ios-filled/100/ff0000/youtube-play.png" width="40">
+      </a>
+    </td>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        About The reBot Arm
+      </a>
+    </td>
+  </tr>
+</table>
+
 <p align="center">
   <strong>
     <a href="./README_zh.md">简体中文</a> &nbsp;|&nbsp;
@@ -44,9 +59,16 @@
 - 🔩 **Liste BOM** : détails complets jusqu’aux spécifications et aux liens d’achat de chaque vis.
 - 💻 **Logiciels & algorithmes** : SDK Python, ROS1/2, Isaac Sim, LeRobot, etc.
 
-Vous pouvez acheter les pièces restantes sur le magasin SeeedStudio en fonction des composants que vous possédez déjà (mise en vente prévue le 15 avril 2026).
+# Obtenez votre propre bras robotique reBot Arm
 
-[Laissez vos informations ici, nous vous enverrons à l’avance le lien de pré-commande en quantité limitée.](https://forms.gle/1MwdVKUqkuGu3C7L7)
+- Nous proposons cinq options de kits sur [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) :
+  - **Kit Corps du Bras + Moteurs** : Comprend uniquement les moteurs et les faisceaux de câblage du bras robotique.
+  - **Kit Structure du Corps du Bras** : Comprend uniquement les composants structurels mécaniques.
+  - **Kit Complet de Préhenseur** : Comprend les moteurs, les faisceaux de câblage et les composants structurels du préhenseur.
+  - **Kit Complet** : Comprend l'ensemble complet du corps du bras robotique et du préhenseur.
+  - **Bras Robotique Pré-assemblé** : Bras robotique fini entièrement assemblé.
+
+- Vous pouvez également acheter le [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html)
 
 ## 🗺️ Feuille de route & état
 
@@ -58,12 +80,12 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 | **Utilisation de base des moteurs** | ✅ Terminé | Contrôle de mouvement de base et encapsulation d’API | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **Open source des nouvelles pièces structurelles STEP 3D et de la BOM** | ✅ Terminé | Fichiers STEP de toutes les pièces de la nouvelle version, BOM des pièces et prix de référence de toutes les pièces usinées | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_fr.md) |
 | **Référence pour les tests de performance sur machine réelle** | ✅ Terminé  | Référence de performance du bras robotisé en fonctionnement normal et extrême |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_Fr.md) |
-| **Vidéo d’assemblage** | 🚧 En cours | Étapes d’assemblage ultra détaillées et vidéo | [Prévu : 2026.04.20] |
+| **Vidéo d’assemblage** | ✅ Terminé | Étapes d’assemblage ultra détaillées et vidéo | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 En cours  | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d’optimisation | [Prévu : 2026.04.20] |
-| **SDK Python** | ✅ Optimisation continue, PR bienvenues | Bibliothèque de moteurs universelle prenant en charge plusieurs marques de moteurs articulaires | [motorbridge](https://github.com/tianrking/MotorBridge) |
-| **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/)|
+| **SDK Python** | ✅ Optimisation continue, PR bienvenues | Intégration tout-en-un de la lecture, de l’écriture et du contrôle des moteurs Robstride, Damiao, Mota, Gaoqing, Hexfellow et autres moteurs. | [Tutoriel pour prendre en main MotorBridge](https://motorbridge.seeedstudio.com) et [Interface Web](https://rebot-devarm.w0x7ce.eu/) |
+| **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Simulation Isaac Sim** | 🚧 En cours  | Importation de modèles USD et activation de la téléopération simulée | [Prévu : 2026.04.20] |
-| **Intégration LeRobot** | 🚧 En cours  | Adaptation au framework d’entraînement Hugging Face LeRobot | [Prévu : 2026.04.30] |
+| **Intégration LeRobot** | ✅ Terminé  | Adaptation au framework d’entraînement Hugging Face LeRobot |  [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
 | **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
 | **Lancement d’une série de cours entièrement gratuits** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
 

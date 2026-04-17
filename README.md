@@ -5,6 +5,7 @@
   <img src="./media/v1.0.png" alt="reBot-DevArm Banner">
 </p>
 
+
 <p align="center">
     <!-- Replaced with CC BY-NC-SA 4.0 badge, explicitly indicating non-commercial use -->
     <a href="./LICENSE">
@@ -25,6 +26,21 @@
 </p>
 
 
+<table align="center">
+  <tr>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        <img src="https://img.icons8.com/ios-filled/100/ff0000/youtube-play.png" width="40">
+      </a>
+    </td>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        About The reBot Arm
+      </a>
+    </td>
+  </tr>
+</table>
+
 <p align="center">
   <strong>
     <a href="./README_zh.md">简体中文</a> &nbsp;|&nbsp;
@@ -42,6 +58,7 @@
     <img src="https://img.shields.io/badge/Documentation-📕-blue" alt="robotics wiki"></a>
 </p>
 
+
 ## 📖 Introduction
 
 **reBot-DevArm (reBot Arm B601 DM and reBot Arm B601 RS)** is a robotic arm project dedicated to lowering the barrier to learning Embodied AI. We focus on **"True Open Source"** — not just the code, we unreservedly open source everything:
@@ -50,19 +67,16 @@
 - 🔩 **BOM List**: Detailed down to the specifications and purchase links for every single screw.
 - 💻 **Software & Algorithms**: Python SDK, ROS1/2, Isaac Sim, LeRobot, etc.
 
-## Build Your Own reBot Arm
+## Get Your Own reBot Arm
 
-- We offer five kit options:
+- We offer five kit options  at  [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) :
   - **Arm Body Motor Kit**: Includes only motors and wiring harnesses for the robotic arm.
   - **Arm Body Structural Kit**: Includes only mechanical structural components.
   - **Gripper Complete Kit**: Includes motors, wiring harnesses and structural components for the gripper.
   - **Full Kit**: Includes the complete set of the robotic arm body and gripper.
   - **Pre‑assembled Robotic Arm**: Fully assembled finished robotic arm.
 
-You may purchase the remaining parts from the SeeedStudio Store based on the components you already have (expected availability: April 15, 2026).
-
-[You can leave your information here, and we will send you the limited pre-order link in advance.](https://forms.gle/1MwdVKUqkuGu3C7L7)
-
+- You can also purchase the [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315)
 
 ## 🗺️ Roadmap & Status
 
@@ -74,15 +88,14 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Basic Motor Usage** | ✅ Completed | Basic motion control and API encapsulation | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **Open-Sourcing of the New STEP 3D Structural Parts and BOM** | ✅ Completed | STEP files for all parts in the new version, parts BOM, and reference prices for all machined components | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme.md) |
 | **Reference for Real Machine Performance Testing** | ✅ Completed   | Performance Reference of Robotic Arm under Normal and Extreme Operating Conditions |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing.md) |
-| **Assembly Video** | 🚧 In Progress | Ultra-detailed assembly steps and video | [Expected: 2026.04.20] |
+| **Assembly Video** | ✅ Completed | Ultra-detailed assembly steps and video | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 In Progress  | Core drivers have been completed, and MoveIt2 is currently being optimized | [Expected: 2026.04.20] |
-| **Python SDK** | ✅Continuously optimized, PRs welcome | Universal motor library supporting multiple brands of joint motors | [Motorbridge](https://github.com/tianrking/MotorBridge) |
-| **Pinocchio Integration** | 🚧 In Progress  | Adaptation to the Pinocchio framework, enabling forward/inverse kinematics and gravity compensation for the robotic arm | [Wiki](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) ||
+| **Python SDK** | ✅Continuously optimized, PRs welcome | One-stop integration of motor read/write and control for Robstride, Damiao, Mota, Gaoqing, Hexfellow and other motors. | [Getting Started with Motorbridge](https://motorbridge.seeedstudio.com) and [Web UI](https://rebot-devarm.w0x7ce.eu/)|
+| **Pinocchio Integration** |  ✅ Completed  | Adaptation to the Pinocchio framework, enabling forward/inverse kinematics and gravity compensation for the robotic arm | [Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Isaac Sim Simulation** | 🚧 In Progress  | Import USD models and enable simulated teleoperation | [Expected: 2026.04.20] |
-| **LeRobot Integration** | 🚧 In Progress  | Adaptation to the Hugging Face LeRobot training framework | [Expected: 2026.04.30] |
+| **LeRobot Integration** | ✅ Completed  | Adaptation to the Hugging Face LeRobot training framework | [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
 | **Gradual Updates of the Latest Algorithms** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 | **Launch of a Series of Completely Free Courses** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
-
 
 
 ### reBot Arm B601 RS
@@ -202,7 +215,6 @@ All open-source content of this project is fully available for personal learning
 
 * View and study the project’s open-source documentation, code, and tutorials;
 * Modify and debug the open-source content for personal learning and research purposes;
-* Assemble robotic arms for personal use or conduct secondary development based on the open-source content for non-commercial purposes.
 
 ### II. Commercial Use Policy
 
@@ -210,14 +222,14 @@ We actively encourage and support developers, robotics enthusiasts, and third-pa
 
 #### (1) Permitted Commercial Activities
 
-We respect every developer’s efforts and legitimate earnings. If you purchase the reBot B601 series robotic arm from Seeed and contribute your own work, you may commercialize the results of your efforts, including but not limited to:
+We respect every developer’s efforts and legitimate earnings.Including but not limited to:
 
 * Developing application-oriented software systems and promoting or selling them commercially;
 * Creating structured educational courses (online/offline) and offering paid training or knowledge services;
 * Conducting offline education, training, and technology outreach activities worldwide;
 * Other commercial activities that contribute to the open-source community, knowledge dissemination, and real-world application of robotics technology.
 
-For the above compliant commercial activities, you are welcome to contact us. We will provide commercial authorization, implementation support, and promotional assistance. We may also publicly announce your authorization to help your project succeed.
+For the above compliant commercial activities, you are welcome to contact us. We will provide free commercial authorization, implementation support, and promotional assistance. We may also publicly announce your authorization to help your project succeed.
 
 #### (2) Prohibited Commercial Activities
 

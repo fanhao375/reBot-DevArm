@@ -14,7 +14,6 @@
   </strong>
 </p>
 
-当前BOM为reBot Arm B601 DM机械臂清单，所使用的是Damiao43系列电机，另一款reBot Arm B601 RS机械臂所使用的是RobStride电机，[清单请看这里](../reBot_B601_RS/README.md)
 
 # 📦 文件结构
 *   `3D_Printed_Parts/`: 所有3D打印文件的Step。

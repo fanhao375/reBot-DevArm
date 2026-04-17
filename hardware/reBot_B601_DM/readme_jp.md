@@ -16,6 +16,7 @@
 
 現在の BOM は、**Damiao 43 シリーズモーター**を使用する **reBot Arm B601 DM** ロボットアームの部品リストです。もう一つのバージョンである **reBot Arm B601 RS** ロボットアームは、**RobStride モーター**を使用しています。[一覧はこちらをご覧ください](../reBot_B601_RS/README_zh.md)
 
+
 # 📦 ファイル構成
 
 * `3D_Printed_Parts/`：すべての 3D プリント部品の STEP ファイル

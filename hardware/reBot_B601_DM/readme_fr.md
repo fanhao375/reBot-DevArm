@@ -15,6 +15,8 @@
 
 La nomenclature actuelle (BOM) est la liste des composants du bras robotique **reBot Arm B601 DM**, qui utilise les **moteurs de la série Damiao 43**. Une autre version, le bras robotique **reBot Arm B601 RS**, utilise des **moteurs RobStride**. [Veuillez consulter la liste ici](../reBot_B601_RS/README.md)
 
+
+
 # 📦 Structure des fichiers
 
 * `3D_Printed_Parts/` : fichiers STEP de toutes les pièces imprimées en 3D.

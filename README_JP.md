@@ -19,6 +19,21 @@
   <strong>100% 完全オープンソース · Embodied AI · ハードウェア・ソフトウェア統合 · 個人利用/教育利用は無料 · 商用利用には認可が必要</strong>
 </p>
 
+<table align="center">
+  <tr>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        <img src="https://img.icons8.com/ios-filled/100/ff0000/youtube-play.png" width="40">
+      </a>
+    </td>
+    <td>
+      <a href="https://www.youtube.com/watch?v=ONbpv3seiG8">
+        About The reBot Arm
+      </a>
+    </td>
+  </tr>
+</table>
+
 <p align="center">
   <strong>
     <a href="./README_zh.md">简体中文</a> &nbsp;|&nbsp;
@@ -37,7 +52,6 @@
 </p>
 
 
-
 ## 📖 はじめに
 
 **reBot-DevArm（reBot Arm B601 DM および reBot Arm B601 RS）** は、Embodied AI の学習ハードルを下げることに取り組むロボットアームプロジェクトです。私たちは **「真のオープンソース」** に重点を置いています。コードだけでなく、あらゆるものを惜しみなくオープンソース化します：
@@ -48,16 +62,14 @@
 
 ## ご自身のreBot Armを入手するには
 
-- 5種類のキットをご用意しています
+- 5種類のキットをご用意しています [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html)
   - **アーム本体モーターキット**：モーターとワイヤーハーネスのみを含むキット
   - **アーム本体構造部品キット**：構造部品のみを含むキット
   - **アームグリッパーフルキット**：グリッパー用モーター、配線、構造部品を含むキット
   - **フルキット**：アーム本体とグリッパーをセットにしたフルセット
   - **組立済みアーム**：完成品として組み立てられたロボットアーム
 
-ご自身が既にお持ちの部品に合わせて、SeeedStudioモールにて残りのパーツをご購入いただけます（入荷予定：2026年4月15日）。
-
-[こちらに情報をご登録いただければ、数量限定の事前予約リンクを事前にお送りいたします。](https://forms.gle/1MwdVKUqkuGu3C7L7)
+- [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html) もご購入いただけます
 
 ## 🗺️ ロードマップ & ステータス
 
@@ -69,12 +81,12 @@
 | **モーター基本使用** | ✅ 完了 | 基本的なモーション制御と API ラッパー化 | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
 | **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | ✅ 完了 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_jp.md) |
 | **実機性能テスト参考** | ✅ 完了  | 通常動作および限界動作におけるロボットアームの性能参考 |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_JP.md) |
-| **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定：2026.04.20] |
+| **組み立て動画** | ✅ 完了 | 超詳細な組み立て手順と動画 | [reBot Arm B601-DM の使い始め](https://wiki.seeedstudio.com/ja/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 進行中  | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定：2026.04.20] |
-| **Python SDK** | ✅継続的な最適化、PR歓迎 | 複数ブランドの関節モーターに対応する汎用モーターライブラリ | [motorbridge](https://github.com/tianrking/MotorBridge) |
-| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[Wiki](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/)  |
+| **Python SDK** | ✅継続的な最適化、PR歓迎 | Robstride、Damiao、脉塔（モータ）、高擎（ゴーチン）、Hexfellow など各種モーターの読み書きと制御をワンストップで統合しています。 |[MotorBridgeの使い方入門チュートリアル](https://motorbridge.seeedstudio.com) および [Web UI](https://rebot-devarm.w0x7ce.eu/) |
+| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/)  |
 | **Isaac Sim シミュレーション** | 🚧 進行中  | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定：2026.04.20] |
-| **LeRobot 対応** | 🚧 進行中  | Hugging Face LeRobot 学習フレームワークへの対応 | [予定：2026.04.30] |
+| **LeRobot 対応** | ✅ 完了  | Hugging Face LeRobot 学習フレームワークへの対応 | [LeRobot ベースの reBot Arm B601-DM と reBot 102 Leader 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_lerobot/) |
 | **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
 | **完全無料コースシリーズの提供** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
 
