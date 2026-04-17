@@ -48,14 +48,14 @@
 
 ## Consigue tu propio brazo reBot Arm
 
-- Ofrecemos cinco versiones de kits [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Structure-Kit-p-6753.html):
+- Ofrecemos cinco versiones de kits [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html):
   - **Kit de motor del brazo**: incluye solo motores y cableado del brazo robótico.
   - **Kit estructural del brazo**: incluye solo componentes mecánicos estructurales.
   - **Kit completo de pinza (gripper)**: incluye motor, cableado y componentes estructurales de la pinza.
   - **Kit completo**: brazo robótico + pinza.
   - **Brazo ensamblado**: brazo robótico preensamblado.
 
-
+- También puedes comprar el [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html)
 
 ## 🗺️ Hoja de ruta y estado
 

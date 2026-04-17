@@ -44,7 +44,16 @@
 - 🔩 **Liste BOM** : détails complets jusqu’aux spécifications et aux liens d’achat de chaque vis.
 - 💻 **Logiciels & algorithmes** : SDK Python, ROS1/2, Isaac Sim, LeRobot, etc.
 
+# Obtenez votre propre bras robotique reBot Arm
 
+- Nous proposons cinq options de kits sur [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) :
+  - **Kit Corps du Bras + Moteurs** : Comprend uniquement les moteurs et les faisceaux de câblage du bras robotique.
+  - **Kit Structure du Corps du Bras** : Comprend uniquement les composants structurels mécaniques.
+  - **Kit Complet de Préhenseur** : Comprend les moteurs, les faisceaux de câblage et les composants structurels du préhenseur.
+  - **Kit Complet** : Comprend l'ensemble complet du corps du bras robotique et du préhenseur.
+  - **Bras Robotique Pré-assemblé** : Bras robotique fini entièrement assemblé.
+
+- Vous pouvez également acheter le [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html)
 
 ## 🗺️ Feuille de route & état
 

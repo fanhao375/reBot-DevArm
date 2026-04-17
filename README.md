@@ -54,13 +54,14 @@
 
 ## Get Your Own reBot Arm
 
-- We offer five kit options  at  [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Structure-Kit-p-6753.html) :
+- We offer five kit options  at  [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) :
   - **Arm Body Motor Kit**: Includes only motors and wiring harnesses for the robotic arm.
   - **Arm Body Structural Kit**: Includes only mechanical structural components.
   - **Gripper Complete Kit**: Includes motors, wiring harnesses and structural components for the gripper.
   - **Full Kit**: Includes the complete set of the robotic arm body and gripper.
   - **Pre‑assembled Robotic Arm**: Fully assembled finished robotic arm.
 
+- You can also purchase the [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315)
 
 ## 🗺️ Roadmap & Status
 

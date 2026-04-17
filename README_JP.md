@@ -47,14 +47,14 @@
 
 ## ご自身のreBot Armを入手するには
 
-- 5種類のキットをご用意しています [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Structure-Kit-p-6753.html)
+- 5種類のキットをご用意しています [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html)
   - **アーム本体モーターキット**：モーターとワイヤーハーネスのみを含むキット
   - **アーム本体構造部品キット**：構造部品のみを含むキット
   - **アームグリッパーフルキット**：グリッパー用モーター、配線、構造部品を含むキット
   - **フルキット**：アーム本体とグリッパーをセットにしたフルセット
   - **組立済みアーム**：完成品として組み立てられたロボットアーム
 
-
+- [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html) もご購入いただけます
 
 ## 🗺️ ロードマップ & ステータス
 
