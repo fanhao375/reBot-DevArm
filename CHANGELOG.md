@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-04-21
+
+### 同步上游 Seeed-Projects/reBot-DevArm
+
+- `git fetch upstream` + `git merge upstream/main`，merge commit `50a52ee`
+- 上游 2 个新 commit（`4420c46..b837833`）：新增腕部相机支架
+  - `hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step`（D435i / Gemini 2）
+  - `hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step`（D405 / Gemini 305）
+  - 配套效果图 3 张 + Star Arm 102 主臂图
+  - README_zh / README_es 新增"可选硬件"章节（腕部相机 + 主臂选项）
+- 新建 `上游更新记录/2026-04-21_同步详情.md` 记录详细内容
+- `git push origin main` 推送到 fork
+
+---
+
 ## 2026-04-17
 
 ### 同步上游仓库 Seeed-Projects/reBot-DevArm

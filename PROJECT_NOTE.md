@@ -4,7 +4,7 @@
 在官方仓库基础上，补充了电机资料、硬件总结、以及官方新发布的软件代码。
 
 > 官方仓库：https://github.com/Seeed-Projects/reBot-DevArm
-> 最后同步：2026.04.12
+> 最后同步：2026.04.21（详情见 [`上游更新记录/`](./上游更新记录/README.md)）
 
 ---
 
@@ -40,7 +40,8 @@ reBot-DevArm/
 ├── CHANGELOG.md                    ★ 操作日志（每次改动记录）
 ├── LEARNING_LOG.md                 ★ 学习笔记（踩坑、理解、发现）
 ├── LEARNING_GUIDE_01.md            ★ 复现教程（给别人看的学习指南）
-└── GIT_GUIDE.md                    ★ Git 操作指南（Fork/同步/推送教程）
+├── GIT_GUIDE.md                    ★ Git 操作指南（Fork/同步/推送教程）
+└── 上游更新记录/                    ★ 每次从上游 merge 后的详细内容分析
 ```
 
 > 标 ★ 的是自己补充的内容，不属于官方仓库。
