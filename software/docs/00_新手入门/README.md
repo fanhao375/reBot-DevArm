@@ -23,5 +23,5 @@
 
 ## 相关资源
 
-- 主教程：`../../LEARNING_GUIDE_01.md` 第七步
+- 主教程：`../../复现教程_01.md` 第七步
 - 代码示例：`../reBotArm_control_py/example/sim/`

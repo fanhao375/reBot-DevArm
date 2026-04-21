@@ -140,7 +140,7 @@ git status
 git add .
 
 # 或者只添加特定文件
-git add PROJECT_NOTE.md CHANGELOG.md
+git add 项目总览.md 操作日志.md
 ```
 
 ### 4.3 提交到本地仓库
@@ -158,7 +158,7 @@ git commit -m "添加学习笔记和补充资料"
 ```bash
 git commit -m "添加学习笔记和补充资料
 
-- 新增项目文档体系（PROJECT_NOTE/CHANGELOG/LEARNING_LOG）
+- 新增项目文档体系（项目总览/操作日志/学习笔记）
 - 补充硬件资料（电机说明书、硬件总结）
 - 新增完整文档中心（docs/）
 - 抓取并修复 8 个 wiki 教程页面
