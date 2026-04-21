@@ -414,7 +414,15 @@
 
 ## 2026-04-22
 
-### 1. 新建遥操作系统目录
+### 1. 电机说明书版本整理
+- 新增最新版说明书 PDF：
+  - `DM-J4310-2EC V1.2减速电机说明书V1.2定稿.pdf`（2025.11，对应关节 2-5 小关节）
+  - `DM-J4340-2ECV1.1减速电机说明书 V1.1 定稿.pdf`（2025.11，45 页完整版，对应关节 1 和肩部大关节）
+- 旧版 PDF 归档到 `Motor_Datasheets/旧版/`（V1.0/V1.1 保留备查）
+- 更新 `Motor_Datasheets/README.md`：文件名、章节标题同步为最新版本号
+- 用 pypdf 验证新版 PDF 比旧版内容更完整（J4340：14页→45页，版本 V1.0→V1.1）
+
+### 2. 新建遥操作系统目录
 - 在项目根目录新建 `遥操作/` 文件夹
 - 以 git submodule 方式引入 [servodevelop/Star-Arm-102](https://github.com/servodevelop/Star-Arm-102) → `遥操作/StarArm_102/`
 - 编写 `遥操作/README.md`：遥操作概念说明、Star Arm 102-LD 与 reBot Arm B601 的主从关系、LeRobot 数据采集工作流、submodule 初始化命令
