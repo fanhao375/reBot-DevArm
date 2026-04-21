@@ -112,10 +112,37 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Gradual Updates of the Latest Algorithms** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 | **Launch of a Series of Completely Free Courses** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 
-
-
 ---
 
+## ⚙️ Hardware Specifications
+
+reBot-DevArm is designed for desktop Embodied AI applications, balancing payload capacity with flexibility.
+
+| Parameter | reBot Arm B601-DM |
+| :--- | :--- |
+| **Recommended Continuous Payload** | Less than 1.5 kg within 70% of arm reach workspace |
+| **Recommended Payload** | **1.5 kg** |
+| **Max Reach** | **650 mm** |
+| **Weight** | Approx. 4.5 kg |
+| **Repeatability** | < 0.2 mm |
+| **Degrees of Freedom (DOF)** | 6 DOF + 1 Gripper (Open source CAN servo gripper and joint motor gripper coming soon) |
+| **Supported Platforms/Ecosystems** | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, Python SDK |
+| **Supply Voltage** | DC 24V |
+
+## 🧹Optional Hardware
+###  Wirst Camera Mount
+| 32×32 UVC  | Intel D435i | Intel D405 & Gemini 305 | Gemini 2|
+| --- | --- | --- | --- | 
+| Comming Soon | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> | 
+| Comming soon | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+
+###  Compatible with Leader Arm
+| Star Arm 102-LD  |  Open to compatibility integration  | 
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  |Comming soon| 
+|  [Github repo](https://github.com/servodevelop/Star-Arm-102) |Comming soon |
+
+---
 
 ### 🎓 Full-Stack Robotics Ecosystem
 reBot-DevArm is not just a robotic arm, but a robotics learning community. We share the following general tutorials for free:
@@ -137,21 +164,6 @@ reBot-DevArm is not just a robotic arm, but a robotics learning community. We sh
 
 ---
 
-## ⚙️ Hardware Specifications
-
-reBot-DevArm is designed for desktop Embodied AI applications, balancing payload capacity with flexibility.
-
-| Parameter | reBot Arm B601-DM |
-| :--- | :--- |
-| **Recommended Continuous Payload** | Less than 1.5 kg within 70% of arm reach workspace |
-| **Recommended Payload** | **1.5 kg** |
-| **Max Reach** | **650 mm** |
-| **Weight** | Approx. 4.5 kg |
-| **Repeatability** | < 0.2 mm |
-| **Degrees of Freedom (DOF)** | 6 DOF + 1 Gripper (Open source CAN servo gripper and joint motor gripper coming soon) |
-| **Supported Platforms/Ecosystems** | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, Python SDK |
-| **Supply Voltage** | DC 24V |
-
 ## 🙌 References & Acknowledgments
 The path of open source is never lonely. The birth of the reBot-DevArm project would not be possible without the full support of Seeed Studio, the global open source community, and excellent hardware partners. We pay our highest respects to the following projects and teams:
 
@@ -164,7 +176,7 @@ The path of open source is never lonely. The birth of the reBot-DevArm project w
 Thanks to the following manufacturers for providing high-performance motor and actuator solutions:
 *   **[Damiao Technology](https://www.damiaokeji.com/)**
 *   **[Robstride](https://robstride.com/)**
-*   **[Fashion Star](https://fashionrobo.com/)**
+*   **[Fashion Star](https://fashionstar.com.hk/wiki/)**
 
 ### 💡 Inspiration
 This project is deeply inspired by the following excellent open source projects:

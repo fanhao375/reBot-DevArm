@@ -108,6 +108,37 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 
 ---
 
+## ⚙️ Spécifications matérielles
+
+reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en équilibrant la capacité de charge utile et la flexibilité.
+
+| Paramètre | reBot Arm B601-DM |
+| :--- | :--- |
+| **Charge continue recommandée** | Moins de 1,5 kg dans 70 % de l’espace de travail de portée du bras |
+| **Charge utile recommandée** | **1,5 kg** |
+| **Portée maximale** | **650 mm** |
+| **Poids** | Environ 4,5 kg |
+| **Répétabilité** | < 0,2 mm |
+| **Degrés de liberté (DOF)** | 6 DOF + 1 pince (pince servo CAN open source et pince à moteur d’articulation bientôt disponibles) |
+| **Plateformes/écosystèmes pris en charge** | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, SDK Python |
+| **Tension d’alimentation** | DC 24V |
+
+----
+
+## 🧹 Accessoires optionnels
+### Support de caméra au poignet
+| UVC 32×32 | Intel D435i | Intel D405 et Gemini 305 | Gemini 2 |
+| --- | --- | --- | --- |
+| Bientôt disponible | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
+| Bientôt disponible | [Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+
+### Compatible avec le bras Leader
+| Star Arm 102-LD | Ouvert à l'intégration et la compatibilité |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | Bientôt disponible |
+|  [Dépôt Github](https://github.com/servodevelop/Star-Arm-102) | Bientôt disponible |
+
+
 
 ### 🎓 Écosystème robotique full-stack
 reBot-DevArm n’est pas seulement un bras robotique, mais une communauté d’apprentissage de la robotique. Nous partageons gratuitement les tutoriels généraux suivants :
@@ -129,20 +160,6 @@ reBot-DevArm n’est pas seulement un bras robotique, mais une communauté d’a
 
 ---
 
-## ⚙️ Spécifications matérielles
-
-reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en équilibrant la capacité de charge utile et la flexibilité.
-
-| Paramètre | reBot Arm B601-DM |
-| :--- | :--- |
-| **Charge continue recommandée** | Moins de 1,5 kg dans 70 % de l’espace de travail de portée du bras |
-| **Charge utile recommandée** | **1,5 kg** |
-| **Portée maximale** | **650 mm** |
-| **Poids** | Environ 4,5 kg |
-| **Répétabilité** | < 0,2 mm |
-| **Degrés de liberté (DOF)** | 6 DOF + 1 pince (pince servo CAN open source et pince à moteur d’articulation bientôt disponibles) |
-| **Plateformes/écosystèmes pris en charge** | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, SDK Python |
-| **Tension d’alimentation** | DC 24V |
 
 ## 🙌 Références & remerciements
 Le chemin de l’open source n’est jamais solitaire. La naissance du projet reBot-DevArm n’aurait pas été possible sans le soutien total de Seeed Studio, de la communauté open source mondiale et d’excellents partenaires matériels. Nous exprimons notre plus profond respect aux projets et équipes suivants :
@@ -156,7 +173,7 @@ Le chemin de l’open source n’est jamais solitaire. La naissance du projet re
 Merci aux fabricants suivants pour avoir fourni des solutions de moteurs et d’actionneurs hautes performances :
 *   **[Damiao Technology](https://www.damiaokeji.com/)**
 *   **[Robstride](https://robstride.com/)**
-*   **[Fashion Star](https://fashionrobo.com/)**
+*   **[Fashion Star](https://fashionstar.com.hk/wiki/)**
 
 ### 💡 Inspiration
 Ce projet est profondément inspiré par les excellents projets open source suivants :

@@ -106,6 +106,39 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 
 ---
 
+## ⚙️ Especificaciones de hardware
+
+reBot-DevArm está diseñado para aplicaciones de IA Corpórea en escritorio, equilibrando capacidad de carga y flexibilidad.
+
+| Parameter                      | reBot Arm B601-DM                                                                            |
+| :----------------------------- | :------------------------------------------------------------------------------------------- |
+| **Carga continua recomendada** | Menos de 1.5 kg dentro del 70% del alcance                                                   |
+| **Carga recomendada**          | **1.5 kg**                                                                                   |
+| **Alcance máximo**             | **650 mm**                                                                                   |
+| **Peso**                       | Aprox. 4.5 kg                                                                                |
+| **Repetibilidad**              | < 0.2 mm                                                                                     |
+| **Grados de libertad (DOF)**   | 6 DOF + 1 pinza (pinza servo CAN de código abierto y pinza con motor articular próximamente) |
+| **Plataformas compatibles**    | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, Python SDK                                        |
+| **Voltaje de alimentación**    | DC 24V                                                                                       |
+
+----
+
+## 🧹 Hardware opcional
+### Soporte de cámara de muñeca
+| UVC 32×32 | Intel D435i | Intel D405 y Gemini 305 | Gemini 2 |
+| --- | --- | --- | --- |
+| Próximamente disponible | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
+| Próximamente disponible | [Archivo STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [Archivo STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[Archivo STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+
+### Compatible con el brazo Leader
+| Star Arm 102-LD | Abierto para integración y compatibilidad |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | Próximamente disponible |
+|  [Repositorio de Github](https://github.com/servodevelop/Star-Arm-102) | Próximamente disponible |
+
+-----
+
+
 ### 🎓 Ecosistema completo de robótica
 
 reBot-DevArm no es solo un brazo robótico, sino también una comunidad de aprendizaje en robótica. Compartimos los siguientes tutoriales generales de forma gratuita:
@@ -128,21 +161,6 @@ reBot-DevArm no es solo un brazo robótico, sino también una comunidad de apren
 
 ---
 
-## ⚙️ Especificaciones de hardware
-
-reBot-DevArm está diseñado para aplicaciones de IA Corpórea en escritorio, equilibrando capacidad de carga y flexibilidad.
-
-| Parameter                      | reBot Arm B601-DM                                                                            |
-| :----------------------------- | :------------------------------------------------------------------------------------------- |
-| **Carga continua recomendada** | Menos de 1.5 kg dentro del 70% del alcance                                                   |
-| **Carga recomendada**          | **1.5 kg**                                                                                   |
-| **Alcance máximo**             | **650 mm**                                                                                   |
-| **Peso**                       | Aprox. 4.5 kg                                                                                |
-| **Repetibilidad**              | < 0.2 mm                                                                                     |
-| **Grados de libertad (DOF)**   | 6 DOF + 1 pinza (pinza servo CAN de código abierto y pinza con motor articular próximamente) |
-| **Plataformas compatibles**    | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, Python SDK                                        |
-| **Voltaje de alimentación**    | DC 24V                                                                                       |
-
 ## 🙌 Referencias y agradecimientos
 
 El camino del código abierto nunca es solitario. El nacimiento del proyecto reBot-DevArm no sería posible sin el apoyo total de Seeed Studio, la comunidad global de código abierto y excelentes socios de hardware. Expresamos nuestro mayor respeto a los siguientes proyectos y equipos:
@@ -159,7 +177,7 @@ Gracias a los siguientes fabricantes por proporcionar soluciones de motores y ac
 
 * **[Damiao Technology](https://www.damiaokeji.com/)**
 * **[Robstride](https://robstride.com/)**
-* **[Fashion Star](https://fashionrobo.com/)**
+* **[Fashion Star](https://fashionstar.com.hk/wiki/)**
 
 ### 💡 Inspiración
 
