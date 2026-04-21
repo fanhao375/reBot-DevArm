@@ -4,8 +4,10 @@
 
 | File | Description |
 |------|-------------|
-| `DM-J4310-2EC_V1.1_Manual.pdf` | DM-J4310-2EC V1.1 gear motor instruction manual (English) |
-| `DM-J4340P-2EC_Manual.pdf` | DM-J4340P-2EC gear motor instruction manual (Chinese) |
+| `DM-J4310-2EC V1.2减速电机说明书V1.2定稿.pdf` | DM-J4310-2EC **V1.2** 减速电机说明书（官方最新，2025.11） |
+| `DM-J4340-2ECV1.1减速电机说明书 V1.1 定稿.pdf` | DM-J4340-2EC **V1.1** 减速电机说明书（官方最新，2025.11，45页完整版） |
+
+> 旧版（V1.0/V1.1）已归档到 `旧版/` 子目录。
 
 Source: [Damiao Technology](https://www.mdmbot.com/) | [Damiao Gitee](https://gitee.com/kit-miao/damiao)
 
@@ -13,7 +15,7 @@ Source: [Damiao Technology](https://www.mdmbot.com/) | [Damiao Gitee](https://gi
 
 ## Motor Specifications Summary
 
-### DM-J4310-2EC V1.1 (x4, for joints 2-5)
+### DM-J4310-2EC V1.2 (x4，关节 2-5 小关节)
 
 | Category | Parameter | Value |
 |----------|-----------|-------|
@@ -46,7 +48,7 @@ Source: [Damiao Technology](https://www.mdmbot.com/) | [Damiao Gitee](https://gi
 
 ---
 
-### DM-J4340P-2EC (x3, for joints 1 and shoulder)
+### DM-J4340-2EC V1.1 (x3，关节 1 和肩部大关节)
 
 | Category | Parameter | 24V Version | 48V Version |
 |----------|-----------|-------------|-------------|

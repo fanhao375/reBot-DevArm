@@ -33,6 +33,9 @@ reBot-DevArm/
 │   ├── wiki_docs/                  ★ wiki 教程离线版（8 个页面，含图片缓存）
 │   └── README_zh.md                软件部分详细说明
 │
+├── 遥操作/                          ★ 遥操作系统（主动臂 + LeRobot 数据采集）
+│   ├── StarArm_102/                ★ Star Arm 102-LD 主动臂（git submodule）
+│   └── README.md                   ★ 遥操作系统说明（角色分工 + 使用方法）
 ├── media/                          项目宣传图片
 ├── README_zh.md                    官方中文说明（含路线图）
 ├── README.md                       官方英文说明

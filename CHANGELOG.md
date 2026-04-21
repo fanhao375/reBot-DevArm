@@ -409,3 +409,13 @@
 
 --- 
 
+
+---
+
+## 2026-04-22
+
+### 1. 新建遥操作系统目录
+- 在项目根目录新建 `遥操作/` 文件夹
+- 以 git submodule 方式引入 [servodevelop/Star-Arm-102](https://github.com/servodevelop/Star-Arm-102) → `遥操作/StarArm_102/`
+- 编写 `遥操作/README.md`：遥操作概念说明、Star Arm 102-LD 与 reBot Arm B601 的主从关系、LeRobot 数据采集工作流、submodule 初始化命令
+- 更新 `PROJECT_NOTE.md` 项目结构树，添加 `遥操作/` 条目
