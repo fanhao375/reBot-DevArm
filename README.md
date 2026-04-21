@@ -112,8 +112,6 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Gradual Updates of the Latest Algorithms** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 | **Launch of a Series of Completely Free Courses** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 
-
-
 ---
 
 
@@ -151,6 +149,20 @@ reBot-DevArm is designed for desktop Embodied AI applications, balancing payload
 | **Degrees of Freedom (DOF)** | 6 DOF + 1 Gripper (Open source CAN servo gripper and joint motor gripper coming soon) |
 | **Supported Platforms/Ecosystems** | ROS1, ROS2, LeRobot, Pinocchio, Isaac Sim, Python SDK |
 | **Supply Voltage** | DC 24V |
+
+## 🧹Optional Hardware
+###  Wirst Camera Mount
+| 32×32 UVC  | Intel D435i | Intel D405 & Gemini 305 | Gemini 2|
+| --- | --- | --- | --- | 
+| Comming Soon | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> | 
+| Comming soon | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+
+###  Compatible with Leader Arm
+| Star Arm 102-LD  |  Open to compatibility integration  | 
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  |Comming soon| 
+|  [Github repo](https://github.com/servodevelop/Star-Arm-102) |Comming soon |
+
 
 ## 🙌 References & Acknowledgments
 The path of open source is never lonely. The birth of the reBot-DevArm project would not be possible without the full support of Seeed Studio, the global open source community, and excellent hardware partners. We pay our highest respects to the following projects and teams:
