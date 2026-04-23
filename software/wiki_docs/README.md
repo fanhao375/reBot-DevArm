@@ -2,7 +2,7 @@
 
 > 使用 OpenCLI 从 wiki.seeedstudio.com 抓取的官方教程，离线保存方便学习。
 > 抓取工具：`opencli web read --url <URL> --output <DIR> --download-images true`
-> 最后更新：2026.04.14
+> 最后更新：2026.04.23
 
 ---
 
@@ -13,6 +13,8 @@
 | 文件夹 | 来源 | 说明 |
 |--------|------|------|
 | **Getting_Started_with_Pinocchio_and_MeshCat_for_reBot_Arm_B601-DM** | [链接](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) | reBot Arm 的 Pinocchio + MeshCat 入门教程 |
+| **reBot_Arm_B601-DM_Visual_Grasping_Demo** | [链接](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_grasping_demo/) | reBot Arm B601-DM 视觉夹取 Demo（YOLO + Orbbec Gemini 2 + 手眼标定） |
+| **reBot_Arm_B601-DM_in_Lerobot** | [链接](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_lerobot/) | reBot Arm B601-DM 接入 LeRobot 的官方入门教程 |
 | **达妙系列电机** | [链接](https://wiki.seeedstudio.com/cn/damiao_series/) | 达妙 43 系列电机完整教程（规格参数、CAN 协议、C++/Python 控制） |
 | **RobStride_电机控制完整指南** | [链接](https://wiki.seeedstudio.com/cn/robstride_control/) | RobStride 电机多语言控制（Python/C++/Rust/Arduino） |
 | **DM_Gripper_-_Assembly_Guide_with_Demo** | [链接](https://wiki.seeedstudio.com/dm_gripper/) | 达妙夹爪组装指南和演示 |
@@ -33,3 +35,4 @@
 - 电机相关的 3 个文档在 `hardware/reBot_B601_DM/Motor_Wiki/` 也有一份副本
 - 所有文档含图片本地缓存（`images/` 文件夹），断网也能查看
 - 文档内容为抓取时的快照，如需最新版本请访问原始链接
+- Windows 下如需重新抓取，优先从 Git Bash 进入 `/c/Users/12440/AppData/Roaming/npm` 后执行 `./opencli web read ...`
