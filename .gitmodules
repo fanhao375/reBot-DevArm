@@ -7,5 +7,5 @@
 	branch = main
 [submodule "software/reBotArm_control_py"]
 	path = software/reBotArm_control_py
-	url = https://github.com/vectorBH6/reBotArm_control_py.git
+	url = https://github.com/fanhao375/reBotArm_control_py.git
 	branch = develop

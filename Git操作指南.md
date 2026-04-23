@@ -265,6 +265,12 @@ git config --global core.autocrlf true
 
 所以对这些目录，不要再手动删 `.git` 或重新 `git add` 整个目录。
 
+如果你需要长期修改某个 submodule，正确流程是：
+1. 先 fork 那个子仓库到自己账号
+2. 在子仓库里提交并推送修改
+3. 回到主仓库，更新 `.gitmodules`（如需改到你的 fork）和 submodule 指针
+4. 再提交主仓库
+
 两种处理方式：
 1. **作为子模块**（推荐，如果是外部项目）：
    ```bash
