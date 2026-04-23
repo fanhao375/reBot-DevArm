@@ -1,3 +1,11 @@
 [submodule "遥操作/StarArm_102"]
 	path = 遥操作/StarArm_102
 	url = https://github.com/servodevelop/Star-Arm-102
+[submodule "software/MotorBridge"]
+	path = software/MotorBridge
+	url = https://github.com/tianrking/MotorBridge.git
+	branch = main
+[submodule "software/reBotArm_control_py"]
+	path = software/reBotArm_control_py
+	url = https://github.com/vectorBH6/reBotArm_control_py.git
+	branch = develop

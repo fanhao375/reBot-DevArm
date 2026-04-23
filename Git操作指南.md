@@ -57,13 +57,18 @@ https://github.com/Seeed-Projects/reBot-DevArm
 
 直接 Clone 你的 Fork：
 ```bash
-git clone https://github.com/你的用户名/reBot-DevArm.git
+git clone --recurse-submodules https://github.com/你的用户名/reBot-DevArm.git
 cd reBot-DevArm
 ```
 
 然后添加官方仓库作为 upstream（方便以后同步）：
 ```bash
 git remote add upstream https://github.com/Seeed-Projects/reBot-DevArm.git
+```
+
+如果你已经先用普通 `git clone` 拉下来了，也可以补执行：
+```bash
+git submodule update --init --recursive
 ```
 
 ### 2.2 如果你已经有本地仓库（本文档的情况）
@@ -188,6 +193,9 @@ git push -u origin main
 # 拉取远程更新并变基
 git pull origin main --rebase
 
+# 同步子模块到主仓库记录的版本
+git submodule update --init --recursive
+
 # 再次推送
 git push
 ```
@@ -213,6 +221,7 @@ git pull upstream main
 ### 6.2 推送到你的 Fork
 
 ```bash
+git submodule update --init --recursive
 git push origin main
 ```
 
@@ -249,6 +258,13 @@ git config --global core.autocrlf true
 
 你添加的文件夹里有 `.git` 子目录（嵌套仓库）。
 
+**本仓库当前已正式使用 submodule 管理这些外部项目：**
+- `software/MotorBridge`
+- `software/reBotArm_control_py`
+- `遥操作/StarArm_102`
+
+所以对这些目录，不要再手动删 `.git` 或重新 `git add` 整个目录。
+
 两种处理方式：
 1. **作为子模块**（推荐，如果是外部项目）：
    ```bash
@@ -261,6 +277,11 @@ git config --global core.autocrlf true
    rm -rf software/MotorBridge/.git
    git add software/MotorBridge
    ```
+
+如果你只是拉了主仓库但目录是空的，正确做法是：
+```bash
+git submodule update --init --recursive
+```
 
 ### Q3: 推送时要求输入用户名密码？
 
