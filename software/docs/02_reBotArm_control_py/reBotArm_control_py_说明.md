@@ -96,7 +96,7 @@ pos, rot, T = compute_fk(model, [0,0,0,0,0,0])  # 归零 → (0.253, 0, 0.172)
 | `trajectory_planner.py` | `plan_joint_space_trajectory(...)` | 关节空间轨迹规划（直接插值关节角度） |
 | | `compute_traj_stats()` | 轨迹统计信息 |
 
-**数据流**（move_to_traj 的完��路径）：
+**数据流**（move_to_traj 的完整路径）：
 ```
 目标位姿 → IK 解出目标角度
        → plan_cartesian_geodesic_trajectory() 规划笛卡尔轨迹

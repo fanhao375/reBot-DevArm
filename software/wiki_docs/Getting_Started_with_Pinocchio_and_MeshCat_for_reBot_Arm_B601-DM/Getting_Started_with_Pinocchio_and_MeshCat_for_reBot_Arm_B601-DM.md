@@ -221,7 +221,7 @@ uv run python example/5_fk_test.py> 0 0 0 0 0 0> 45 -30 15 -60 90 180
 
 * * *
 
-#### 6️⃣ Inverse Kinematics Test (`6_ik_test.py`)[​](#6��️⃣-inverse-kinematics-test-6_ik_testpy "Direct link to 6️⃣-inverse-kinematics-test-6_ik_testpy")
+#### 6️⃣ Inverse Kinematics Test (`6_ik_test.py`)[​](#6️⃣-inverse-kinematics-test-6_ik_testpy "Direct link to 6️⃣-inverse-kinematics-test-6_ik_testpy")
 
 Solve joint angles from desired end-effector pose.
 

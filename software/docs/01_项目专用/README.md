@@ -20,7 +20,7 @@
 - ✅ 完整的机械结构对应关系（URDF 名称 ↔ 实体零件 ↔ 电机型号）
 
 ### MeshCat 仿真代码详解
-- ✅ 4 个文件的调用关系图（visualizer 被其他三个 sim 调���）
+- ✅ 4 个文件的调用关系图（visualizer 被其他三个 sim 调用）
 - ✅ Visualizer 类初始化流程（URDF 加载 → MeshCat 服务 → Pinocchio 模型）
 - ✅ FK/IK/轨迹仿真的完整工作流程和关键参数
 - ✅ 仿真代码 ↔ 真机代码的对应关系（sim 版 vs 真机版函数映射）
