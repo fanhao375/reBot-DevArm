@@ -88,6 +88,7 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 | **Integración con Pinocchio** | ✅ Completado | Adaptación al framework Pinocchio para cinemática directa/inversa y compensación de gravedad | [Introducción a Pinocchio y MeshCat para reBot Arm B601-DM](https://wiki.seeedstudio.com/es/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Simulación en Isaac Sim** | 🚧 En progreso | Importación de modelos USD y teleoperación simulada | [Esperado: 2026.04.20] |
 | **Integración con LeRobot** | ✅ Completado | Adaptación al framework LeRobot de Hugging Face | [Introducción a reBot Arm B601-DM basado en LeRobot y reBot 102 Leader](https://wiki.seeedstudio.com/es/rebot_arm_b601_dm_lerobot/) |
+| **Integración con cámara de profundidad** | ✅ Completado | Demostración de agarre visual basada en YOLO y cámara de profundidad | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
 | **Actualizaciones graduales de los últimos algoritmos** | ⏳ Planificado | Actualización progresiva de algoritmos principales | En curso |
 | **Lanzamiento de una serie de cursos completamente gratuitos** | ⏳ Planificado | Actualización continua de contenidos educativos | En curso |
 ### reBot Arm B601 RS

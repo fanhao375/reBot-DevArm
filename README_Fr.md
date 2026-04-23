@@ -86,6 +86,7 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 | **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
 | **Simulation Isaac Sim** | 🚧 En cours  | Importation de modèles USD et activation de la téléopération simulée | [Prévu : 2026.04.20] |
 | **Intégration LeRobot** | ✅ Terminé  | Adaptation au framework d’entraînement Hugging Face LeRobot |  [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
+| **Intégration caméra de profondeur** | ✅ Terminé | Démonstration de préhension visuelle basée sur YOLO et une caméra de profondeur | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
 | **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
 | **Lancement d’une série de cours entièrement gratuits** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
 
@@ -260,4 +261,3 @@ Si vous êtes intéressé par une collaboration commerciale ou avez des besoins 
 ## ☎ Contactez-nous
 - **Progrès open source & support technique**-Yaohui : yaohui.zhu@seeed.cc
 - **Collaboration future & personnalisation**-Elaine : elaine.wu@seeed.cc
-

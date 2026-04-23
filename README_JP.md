@@ -87,6 +87,7 @@
 | **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/)  |
 | **Isaac Sim シミュレーション** | 🚧 進行中  | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定：2026.04.20] |
 | **LeRobot 対応** | ✅ 完了  | Hugging Face LeRobot 学習フレームワークへの対応 | [LeRobot ベースの reBot Arm B601-DM と reBot 102 Leader 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_lerobot/) |
+| **深度カメラ統合** | ✅ 完了 | YOLO と深度カメラに基づくビジュアル把持デモ | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
 | **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
 | **完全無料コースシリーズの提供** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
 

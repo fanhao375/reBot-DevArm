@@ -92,6 +92,7 @@
 | **Pinocchio 适配** | ✅ 完成 | 适配 Pinocchio框架、实现机械臂正逆运动学及动力学重力补偿功能 |[reBot Arm B601-DM 的 Pinocchio 与 MeshCat 入门指南](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_pinocchio_meshcat/)|
 | **Isaac Sim 仿真** | 🚧 进行中 | 导入USD模型并实现仿真遥操作 | [预计 2026.04.20]|
 | **LeRobot 适配** | 🚧 进行中 | 适配 Hugging Face LeRobot 训练框架 | [reBot Arm B601-DM Lerobot使用教程](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_lerobot/)|
+| **深度相机集成** | ✅ 完成 | 基于 YOLO 与深度相机的视觉夹取演示 | [reBot Arm B601-DM 视觉夹取 Demo](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_grasping_demo/) |
 | **逐步更新最新算法** | ⏳ 计划中 | 逐步更新主流算法 | 持续进行 |
 | **推出系列完全免费课程** | ⏳ 计划中 | 逐步更新主流算法 | 持续进行 |
 
