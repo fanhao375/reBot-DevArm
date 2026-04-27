@@ -1,7 +1,7 @@
 # 🤖 Descripción del hardware de código abierto reBot DevArm
 
 <p align="center">
-  <img src="../../media/v1.0.png" alt="Banner de reBot-DevArm">
+  <img src="../../media/v1.1.png" alt="Banner de reBot-DevArm">
 </p>
 <p align="center">
   <strong>
@@ -20,12 +20,12 @@ La BOM actual es la lista de componentes del brazo robótico **reBot Arm B601 DM
 * `3D_Printed_Parts/`: archivos STEP de todas las piezas impresas en 3D.
 * `Metal_Parts/`: archivos STEP de todas las piezas metálicas mecanizadas.
 * `Purchased_Parts/`: archivos STEP de todas las piezas compradas.
-* `reBot_B601_DM_v1.0_20260331.step`: archivo de ensamblaje completo del brazo robótico.
+* `reBot_B601_DM_v1.0_20260425.step`: archivo de ensamblaje completo del brazo robótico.
 
 # 📊 Lista de materiales (BOM)
 
 > [!WARNING]
-> Por la presente se declara: la BOM publicada **no** representa la versión final enviada por Seeed. Esta versión de código abierto `v1.0` está destinada a ayudar a los desarrolladores a reproducir el diseño por sí mismos con el menor costo posible y, por lo tanto, reduce algunos gastos innecesarios relacionados con detalles. La versión final enviada por Seeed incluirá detalles que aumentan el costo, como marcas antierrores grabadas con láser en las piezas metálicas, reemplazo de algunas piezas impresas en 3D por piezas metálicas para mayor durabilidad, ajustes de holgura y precisión de mecanizado basados en las tolerancias de las fábricas de procesamiento de metal (un equilibrio entre precisión y costo), personalización especial del arnés de cables (por ejemplo, añadiendo protección con malla trenzada) y otras optimizaciones de detalle. Sin embargo, la configuración estructural sigue siendo la misma.
+> Por la presente se declara: la BOM publicada **no** representa la versión final enviada por Seeed. Esta versión de código abierto `v1.1` está destinada a ayudar a los desarrolladores a reproducir el diseño por sí mismos con el menor costo posible y, por lo tanto, reduce algunos gastos innecesarios relacionados con detalles. La versión final enviada por Seeed incluirá detalles que aumentan el costo, como marcas antierrores grabadas con láser en las piezas metálicas, reemplazo de algunas piezas impresas en 3D por piezas metálicas para mayor durabilidad, ajustes de holgura y precisión de mecanizado basados en las tolerancias de las fábricas de procesamiento de metal (un equilibrio entre precisión y costo), personalización especial del arnés de cables (por ejemplo, añadiendo protección con malla trenzada) y otras optimizaciones de detalle. Sin embargo, la configuración estructural sigue siendo la misma.
 
 ---
 
@@ -103,9 +103,8 @@ La BOM actual es la lista de componentes del brazo robótico **reBot Arm B601 DM
 
 
 > [!WARNING]
-> Dado que este brazo robótico está diseñado para que lo monte y apriete los tornillos usted mismo, hemos seleccionado tornillos hexagonales estándar. No obstante, estos tornillos pueden aflojarse después de un funcionamiento prolongado, lo que afectará la precisión del brazo.
-Por ello, le recomendamos comprar adhesivo de fijación de roscas para aplicar en los tornillos, o bien usar directamente tornillos autoblocantes.
-Si elige tornillos autoblocantes, le recomendamos encarecidamente usar un destornillador eléctrico. Importante: utilícelo siempre con par de fuerza bajo o medio para evitar dañar los tornillos, lo que causaría desperfectos irreversibles.
+> Dado que todos tendrán que armar y atornillar por su cuenta, se han seleccionado tornillos hexagonales internos estándar. Después de un funcionamiento prolongado, los tornillos pueden aflojarse y afectar la precisión del brazo robótico.
+Por ello, es necesario comprar adicionalmente pegamento termofusible para realizar un tratamiento antiflojamiento en los tornillos de cada articulación. Si disponen de taladro eléctrico u otras herramientas, pueden adquirir tornillos antiflojamiento. Sin embargo, es muy importante usar la potencia mínima con el destornillador eléctrico para evitar dañar la rosca y causar pérdidas irreversibles.
 
 | Name | Specification / Model | Quantity | Reference Price | Notes |
 |------|----------|------|----------|------|
