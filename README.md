@@ -143,6 +143,13 @@ reBot-DevArm is designed for desktop Embodied AI applications, balancing payload
 |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  |Comming soon| 
 |  [Github repo](https://github.com/servodevelop/Star-Arm-102) |Comming soon |
 
+### DIY Finger
+| Soft Finger  |  Open to compatibility integration  | 
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |Comming soon| 
+| [Finger Mount(ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) and [Finger (TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |Coming soon |
+
+
 ---
 
 ### 🎓 Full-Stack Robotics Ecosystem

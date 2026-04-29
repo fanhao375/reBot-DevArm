@@ -140,6 +140,13 @@ reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en é
 |  [Dépôt Github](https://github.com/servodevelop/Star-Arm-102) | Bientôt disponible |
 
 
+### Doigt souple DIY
+| Doigt souple | Intégration compatible ouverte |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |Bientôt disponible|
+| [Support de doigt (ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) et [Doigt (TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |Bientôt disponible |
+
+---
 
 ### 🎓 Écosystème robotique full-stack
 reBot-DevArm n’est pas seulement un bras robotique, mais une communauté d’apprentissage de la robotique. Nous partageons gratuitement les tutoriels généraux suivants :
