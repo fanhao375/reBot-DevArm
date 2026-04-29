@@ -10,6 +10,10 @@
 # Obsidian 编辑器个人工作区配置
 .obsidian/
 
+# 本地调试工具和数据，不上传到 GitHub（exe 太大，调试数据是个人的）
+hardware/测试工具/
+hardware/测试数据/
+
 # Python 相关
 __pycache__/
 *.py[cod]
