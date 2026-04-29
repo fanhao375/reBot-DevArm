@@ -325,6 +325,208 @@ GitHub 仓库页面 → Settings → 拉到最底部 → Delete this repository
 
 ---
 
+## 进阶：复刻工程的 Git 操作
+
+> 本章节适合做"复刻工程"（如本仓库）的场景：主仓库 + 多个 submodule，需要长期维护、版本可回滚。
+>
+> 详见 [`复刻基线维护原则.md`](./复刻基线维护原则.md)。
+
+### 1. 检查上游有没有更新
+
+**主仓库**：
+```bash
+git fetch upstream
+git log HEAD..upstream/main --oneline       # 看上游有几个新 commit
+git rev-list --count HEAD..upstream/main    # 数量统计（0 = 无更新）
+```
+
+**所有 submodule 一起检查**：
+```bash
+git submodule foreach 'git fetch && git log HEAD..@{upstream} --oneline | head -5'
+git submodule foreach 'git rev-list --count HEAD..@{upstream}'
+```
+
+输出 `0` 表示该 submodule 已是最新。
+
+### 2. 把 submodule 切换到自己的 fork
+
+适用场景：原来 submodule 直连原作者仓库，你 fork 后想让主仓库指向自己的 fork（保证依赖永远可控）。
+
+**步骤**：
+
+```bash
+# (1) 修改 .gitmodules 中的 url（用编辑器手动改，或用 git config）
+# 例：把 software/MotorBridge 的 url 改成你的 fork
+git config -f .gitmodules submodule.software/MotorBridge.url \
+  https://github.com/你的用户名/motorbridge.git
+
+# (2) 同步 .gitmodules 变更到 .git/config
+git submodule sync
+
+# (3) 进入 submodule，把 origin 改成你的 fork，再加一个 upstream 指向原作者
+cd software/MotorBridge
+git remote set-url origin https://github.com/你的用户名/motorbridge.git
+git remote add upstream https://github.com/原作者/motorbridge.git
+git remote -v   # 验证
+
+# (4) 验证连通性
+git fetch origin
+git fetch upstream
+
+# (5) 回主仓库提交 .gitmodules 变更
+cd ../..
+git add .gitmodules
+git commit -m "切换 MotorBridge submodule 到个人 fork"
+```
+
+**注意**：
+- submodule 锁定的 commit 不变（fork 是从同一 commit 创建的，无需重新 checkout）
+- `.git/config` 里的 submodule URL 变化是本地的，不会被 git 跟踪
+- `.gitmodules` 才是入库的，必须 commit
+
+### 3. 打 baseline tag（阶段性可复现快照）
+
+适用场景：完成一个阶段性里程碑（比如所有 submodule 都已 fork 并验证），打 tag 锁定这个状态，将来出问题能回滚。
+
+```bash
+# 打带说明的 tag（推荐）
+git tag -a baseline-2026-04-29 -m "复刻基线 2026-04-29
+
+四个核心仓库的 submodule 锁定状态：
+- Seeed/reBot-DevArm: <commit hash>
+- fanhao375/motorbridge: <commit hash>
+- ...
+
+阶段性可复现基线：所有 submodule 都已 fork 并指向 fanhao375 账号。"
+
+# 查看所有 baseline tag
+git tag -l "baseline-*"
+
+# 查看 tag 详情
+git show baseline-2026-04-29
+
+# 将来回滚到某个 baseline
+git checkout baseline-2026-04-29
+git submodule update --init --recursive
+```
+
+**push tag 到 GitHub**（需要时）：
+```bash
+git push origin baseline-2026-04-29       # push 单个 tag
+git push origin --tags                    # push 所有 tag
+```
+
+### 4. submodule 升级走 sync 分支（不直接在 main 上做）
+
+适用场景：要升级某个 submodule 到新版本，但又怕搞坏复刻基线。
+
+**完整流程**：
+
+```bash
+# (1) 在自己的 fork 里合入上游最新代码（在 submodule 目录内）
+cd software/MotorBridge
+git fetch upstream
+git checkout main
+git merge upstream/main         # 或 git rebase upstream/main
+git push origin main            # 推送到自己的 fork
+
+# (2) 回主仓库，新建 sync 分支（不动 main）
+cd ../..
+git checkout -b sync/motorbridge-2026-04-29
+
+# (3) 在 sync 分支更新 submodule 指针
+cd software/MotorBridge
+git pull origin main           # 把 fork 最新拉下来
+cd ../..
+git add software/MotorBridge   # 主仓库把 submodule 指针更新
+git commit -m "升级 MotorBridge submodule 到 <版本号>"
+
+# (4) 跑最小验证（每个仓库的验证门槛见复刻基线维护原则.md）
+# - Python 包能装吗？能 import 吗？示例能跑吗？
+
+# (5) 验证通过后合入 main
+git checkout main
+git merge sync/motorbridge-2026-04-29
+git tag -a baseline-<日期> -m "升级 MotorBridge 到 <版本> 后的新基线"
+
+# (6) 验证失败的话直接丢弃 sync 分支
+git branch -D sync/motorbridge-2026-04-29
+# 然后写记录到 上游更新记录/<日期>_同步详情.md，说明为什么没升
+```
+
+### 5. 中文 commit message：用文件而非 HEREDOC
+
+**踩过的坑**：`git commit -m "$(cat <<'EOF' ... EOF)"` 在 Windows 上传中文会出现字符截断乱码（"快照" → "快�"）。
+
+**正确做法**：
+```bash
+# (1) 把 commit message 写到临时文件
+cat > .git/COMMIT_MSG_TEMP.txt <<'EOF'
+切换 MotorBridge submodule 到个人 fork
+
+详细说明...
+
+Co-Authored-By: ...
+EOF
+
+# (2) 用 -F 指定文件提交
+git commit -F .git/COMMIT_MSG_TEMP.txt
+
+# (3) 删除临时文件
+rm .git/COMMIT_MSG_TEMP.txt
+
+# (4) 验证 commit message 没乱码
+git log -1 --format=%B
+```
+
+或者直接用 `Write` 工具写文件，再用 `git commit -F` 提交（更可靠）。
+
+### 6. 撤销刚刚的 commit（还没 push 时）
+
+适用场景：commit 后发现 message 写错了，或者文件没全部加进去。
+
+```bash
+# 撤销最后一次 commit，但保留所有改动（最常用）
+git reset --soft HEAD~1
+
+# 改完后重新 commit
+git commit -F .git/COMMIT_MSG_TEMP.txt
+```
+
+**为什么不用 `git commit --amend`？**
+- amend 会改写历史 commit，对已 push 的 commit 危险
+- 本项目的规则是"创建新 commit 而非 amend"，养成 reset + 重 commit 的习惯更稳
+
+### 7. commit 要分层（不要把多类工作混一起）
+
+**反面教材**：
+```
+git commit -m "整理电机文档 + 修策略 + 升级 submodule + 改 .gitignore"
+```
+
+**正面做法**：分成多个独立 commit
+```bash
+git commit -m "整理达妙电机说明书为 Markdown"          # 第 1 个
+git commit -m "确立复刻基线维护原则"                  # 第 2 个
+git commit -m "切换 MotorBridge submodule 到个人 fork"  # 第 3 个
+git commit -m "升级 MotorBridge 到 v0.2.4"           # 第 4 个
+```
+
+**为什么**：以后用 `git bisect` 定位 bug、用 `git revert` 回滚某个变更时，分层 commit 能精准定位到一类工作，混在一起就只能整体回滚。
+
+### 8. 保护 upstream 不被误推送
+
+适用场景：fork 后在 submodule 里加了 upstream remote（指向原作者），如果不小心 `git push upstream` 会试图推到原作者仓库（虽然没权限）。
+
+**保险做法**：把 upstream 的 push URL 设成无效地址
+```bash
+cd software/MotorBridge
+git remote set-url --push upstream DISABLED
+# 之后 git push upstream 会直接报错，永远推不到原作者那
+```
+
+---
+
 ## 开源协议注意事项
 
 本项目使用 **CC BY-NC-SA 4.0** 协议，你需要遵守：
