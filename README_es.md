@@ -137,6 +137,13 @@ reBot-DevArm está diseñado para aplicaciones de IA Corpórea en escritorio, eq
 |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | Próximamente disponible |
 |  [Repositorio de Github](https://github.com/servodevelop/Star-Arm-102) | Próximamente disponible |
 
+### Dedo blando DIY
+| Dedo blando | Integración de compatibilidad abierta |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |Próximamente|
+| [Soporte de dedo (ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) y [Dedo (TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |Próximamente |
+
+
 -----
 
 

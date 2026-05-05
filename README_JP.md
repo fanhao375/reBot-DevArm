@@ -138,6 +138,13 @@ reBot-DevArm は、デスクトップ向け Embodied AI アプリケーション
 |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | 近日公開 |
 |  [Githubリポジトリ](https://github.com/servodevelop/Star-Arm-102) | 近日公開 |
 
+### DIY ソフトフィンガー
+| ソフトフィンガー | 互換性統合に対応可能 |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |近日公開|
+| [フィンガー取付台(ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) 及び [フィンガー本体(TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |近日公開 |
+
+
 ---
 
 
