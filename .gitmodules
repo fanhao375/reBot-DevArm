@@ -9,3 +9,7 @@
 	path = software/reBotArm_control_py
 	url = https://github.com/fanhao375/reBotArm_control_py.git
 	branch = develop
+[submodule "software/reBotArmController_ROS2"]
+	path = software/reBotArmController_ROS2
+	url = https://github.com/fanhao375/reBotArmController_ROS2.git
+	branch = main
