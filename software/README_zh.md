@@ -1,26 +1,29 @@
 # reBot-DevArm 软件资料总览
 
-> 整理日期：2026.04.14
-> 来源：reBot-DevArm 项目 2026年4月更新，新增 Python SDK 和 Pinocchio 适配
+> 整理日期：2026.05.06
+> 来源：reBot-DevArm 项目 2026年4-5月更新，新增 Python SDK、Pinocchio 适配和 ROS2 集成
 
 ---
 
 ## 这些东西从哪来的？
 
-reBot-DevArm 主仓库（hardware/）从一开始就有硬件资料，但**一直没有软件代码**。
-2026年4月更新后，路线图中两项标记为✅完成，指向了两个独立的外部仓库：
+reBot-DevArm 主仓库（hardware/）从一开始就有硬件资料，但核心控制软件长期放在独立仓库里。
+2026年4-5月更新后，路线图中的软件能力主要指向这些外部仓库：
 
 | 仓库 | 来源 | 说明 |
 |------|------|------|
-| **MotorBridge** | https://github.com/tianrking/MotorBridge | Python SDK 完成后指向的通用电机控制栈 |
+| **MotorBridge** | https://github.com/motorbridge/motorbridge | Python SDK 完成后指向的通用电机控制栈 |
 | **reBotArm_control_py** | https://github.com/vectorBH6/reBotArm_control_py | Pinocchio 完成后指向的运动学控制库 |
+| **reBotArmController_ROS2** | https://github.com/EclipseaHime017/reBotArmController_ROS2 | ROS2 集成教程实际引用的 ROS2 工作区 |
 | **wiki_docs** | https://wiki.seeedstudio.com/ | 官方 wiki 教程离线存档（10 个页面，OpenCLI 抓取） |
 
 这些仓库本质上仍是独立项目；当前仓库通过 `git submodule` 方式固定它们的版本，方便学习、同步和复现。
 
 说明：
-- `MotorBridge` 当前直接跟踪上游仓库
+- `MotorBridge` 当前 submodule 指向 `fanhao375/motorbridge`，上游源是 `motorbridge/motorbridge`
 - `reBotArm_control_py` 的源码上游是 `vectorBH6/reBotArm_control_py`，但本项目当前 submodule 指向 `fanhao375/reBotArm_control_py` 的 `develop`，用于承接本地修复并保证远端可复现
+- `reBotArmController_ROS2` 的当前可用上游是 `EclipseaHime017/reBotArmController_ROS2`；本项目 submodule 指向 `fanhao375/reBotArmController_ROS2` 的 `main`
+- 2026-05-06 检查时，`Seeed-Projects/reBotArmController_ROS2` 对 Git 仍返回 404，暂不作为 upstream
 
 ---
 
@@ -93,6 +96,13 @@ software/
 │   │       └── config/          关节名称配置
 │   └── pyproject.toml           Python 项目配置
 │
+├── reBotArmController_ROS2/     ROS2：reBot B601 控制工作区（main 分支）
+│   ├── src/rebotarm_bringup/    启动、配置、URDF/mesh、RViz
+│   ├── src/rebotarm_msgs/       ROS2 msg/srv/action 定义
+│   ├── src/rebotarmcontroller/  ROS2 控制节点、service、action、示例
+│   ├── README.md                英文说明
+│   └── README_zh.md             中文说明
+│
 ├── wiki_docs/                   官方 wiki 教程离线存档（OpenCLI 抓取）
 │   ├── Getting_Started_with_Pinocchio_.../  Pinocchio + MeshCat 入门
 │   ├── 达妙系列电机/                        达妙 43 系列电机完整教程
@@ -108,27 +118,27 @@ software/
 
 ---
 
-## 两个仓库的关系
+## 软件栈关系
 
 ```
-用户指令："移动到 x=0.3, y=0, z=0.2"
+ROS2 应用 / rqt / ros2 topic / action client
       │
       ▼
 ┌─────────────────────────────────────┐
-│  reBotArm_control_py（上层控制）     │
-│                                     │
-│  逆运动学 → 6个关节该转多少度        │
-│  轨迹规划 → 每个时间点的关节角度     │
-│  重力补偿 → 抵消自重的力矩           │
+│  reBotArmController_ROS2             │
+│  ROS2 topic / service / action 封装   │
 └──────────────┬──────────────────────┘
-               │ 调用
+               │ 调用 Python 控制库
                ▼
 ┌─────────────────────────────────────┐
-│  MotorBridge（底层电机控制）          │
-│                                     │
-│  把关节角度/力矩 → CAN 帧           │
-│  通过 CAN 总线 → 发给 7 个电机      │
-│  接收电机反馈 → 位置/速度/温度       │
+│  reBotArm_control_py                 │
+│  IK / 轨迹规划 / 重力补偿             │
+└──────────────┬──────────────────────┘
+               │ 调用电机 SDK
+               ▼
+┌─────────────────────────────────────┐
+│  MotorBridge                         │
+│  厂商电机驱动 / CAN 帧发送 / 反馈读取 │
 └──────────────┬──────────────────────┘
                │ CAN 总线
                ▼
@@ -230,6 +240,16 @@ software/
 - `reBotArm_control_py/controllers/` — CLIK 控制器
 - `urdf/` — URDF 模型（可用于 ROS/仿真）
 
+### 第六阶段：ROS2 集成
+
+> 目标：把 Python 控制库接入 ROS2 工作流
+
+1. 读 `reBotArmController_ROS2/README_zh.md` — 了解工作区结构和依赖
+2. 看 `src/rebotarm_msgs/` — 理解自定义 msg/srv/action 接口
+3. 看 `src/rebotarmcontroller/rebotarmcontroller/` — 理解 ROS2 节点如何调用 `reBotArm_control_py`
+4. 看 `src/rebotarm_bringup/launch/` — 理解 bringup、driver_only、RViz 的启动方式
+5. 真机验证前，先确认 `reBotArm_control_py` 和 `motorbridge` 的 Python 环境都能 import
+
 ---
 
 ## 环境要求
@@ -259,12 +279,12 @@ uv run python example/5_fk_test.py
 
 ---
 
-## 待发布内容（截至 2026.04.12）
+## 官方软件路线状态（截至 2026.05.06）
 
 | 模块 | 状态 | 预计时间 |
 |------|------|---------|
-| 组装视频 | 🚧 进行中 | 2026.04.20 |
-| ROS2 (Humble) + MoveIt2 | 🚧 进行中 | 2026.04.20 |
-| Isaac Sim 仿真 | 🚧 进行中 | 2026.04.20 |
-| LeRobot 适配 | 🚧 进行中 | 2026.04.30 |
+| 组装视频 | ✅ 完成 | 已上线 |
+| ROS2 集成 | ✅ 完成 | 代码在独立 ROS2 工作区，不在主仓库内置 |
+| Isaac Sim 仿真 | 🚧 进行中 | 2026.06.20 |
+| LeRobot 适配 | 🚧 进行中 | wiki 已上线，README_zh 仍标进行中 |
 | B601 RS 版硬件 | 🚧 进行中 | 2026.05 |

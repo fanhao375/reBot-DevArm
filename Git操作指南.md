@@ -261,6 +261,7 @@ git config --global core.autocrlf true
 **本仓库当前已正式使用 submodule 管理这些外部项目：**
 - `software/MotorBridge`
 - `software/reBotArm_control_py`
+- `software/reBotArmController_ROS2`
 - `遥操作/StarArm_102`
 
 所以对这些目录，不要再手动删 `.git` 或重新 `git add` 整个目录。
@@ -392,10 +393,12 @@ git commit -m "切换 MotorBridge submodule 到个人 fork"
 # 打带说明的 tag（推荐）
 git tag -a baseline-2026-04-29 -m "复刻基线 2026-04-29
 
-四个核心仓库的 submodule 锁定状态：
+五个核心仓库的 submodule 锁定状态：
 - Seeed/reBot-DevArm: <commit hash>
 - fanhao375/motorbridge: <commit hash>
-- ...
+- fanhao375/reBotArm_control_py: <commit hash>
+- fanhao375/reBotArmController_ROS2: <commit hash>
+- fanhao375/Star-Arm-102: <commit hash>
 
 阶段性可复现基线：所有 submodule 都已 fork 并指向 fanhao375 账号。"
 
