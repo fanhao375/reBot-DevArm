@@ -83,7 +83,7 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 | **Vidéo d’assemblage** | ✅ Terminé | Étapes d’assemblage ultra détaillées et vidéo | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 En cours  | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d’optimisation | [Prévu : 2026.04.20] |
 | **SDK Python** | ✅ Optimisation continue, PR bienvenues | Intégration tout-en-un de la lecture, de l’écriture et du contrôle des moteurs Robstride, Damiao, Mota, Gaoqing, Hexfellow et autres moteurs. | [Tutoriel pour prendre en main MotorBridge](https://motorbridge.seeedstudio.com) et [Interface Web](https://rebot-devarm.w0x7ce.eu/) |
-| **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) |
+| **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) ainsi que [Github code de contrôle](https://github.com/vectorBH6/reBotArm_control_py) |
 | **Simulation Isaac Sim** | 🚧 En cours  | Importation de modèles USD et activation de la téléopération simulée | [Prévu : 2026.04.20] |
 | **Intégration LeRobot** | ✅ Terminé  | Adaptation au framework d’entraînement Hugging Face LeRobot |  [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
 | **Intégration caméra de profondeur** | ✅ Terminé | Démonstration de préhension visuelle basée sur YOLO et une caméra de profondeur | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
@@ -140,6 +140,13 @@ reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en é
 |  [Dépôt Github](https://github.com/servodevelop/Star-Arm-102) | Bientôt disponible |
 
 
+### Doigt souple DIY
+| Doigt souple | Intégration compatible ouverte |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |Bientôt disponible|
+| [Support de doigt (ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) et [Doigt (TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |Bientôt disponible |
+
+---
 
 ### 🎓 Écosystème robotique full-stack
 reBot-DevArm n’est pas seulement un bras robotique, mais une communauté d’apprentissage de la robotique. Nous partageons gratuitement les tutoriels généraux suivants :

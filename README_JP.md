@@ -84,7 +84,7 @@
 | **組み立て動画** | ✅ 完了 | 超詳細な組み立て手順と動画 | [reBot Arm B601-DM の使い始め](https://wiki.seeedstudio.com/ja/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 進行中  | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定：2026.04.20] |
 | **Python SDK** | ✅継続的な最適化、PR歓迎 | Robstride、Damiao、脉塔（モータ）、高擎（ゴーチン）、Hexfellow など各種モーターの読み書きと制御をワンストップで統合しています。 |[MotorBridgeの使い方入門チュートリアル](https://motorbridge.seeedstudio.com) および [Web UI](https://rebot-devarm.w0x7ce.eu/) |
-| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/)  |
+| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/) および [Github 制御コード](https://github.com/vectorBH6/reBotArm_control_py) |
 | **Isaac Sim シミュレーション** | 🚧 進行中  | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定：2026.04.20] |
 | **LeRobot 対応** | ✅ 完了  | Hugging Face LeRobot 学習フレームワークへの対応 | [LeRobot ベースの reBot Arm B601-DM と reBot 102 Leader 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_lerobot/) |
 | **深度カメラ統合** | ✅ 完了 | YOLO と深度カメラに基づくビジュアル把持デモ | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
@@ -137,6 +137,13 @@ reBot-DevArm は、デスクトップ向け Embodied AI アプリケーション
 | --- | --- |
 |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | 近日公開 |
 |  [Githubリポジトリ](https://github.com/servodevelop/Star-Arm-102) | 近日公開 |
+
+### DIY ソフトフィンガー
+| ソフトフィンガー | 互換性統合に対応可能 |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |近日公開|
+| [フィンガー取付台(ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) 及び [フィンガー本体(TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |近日公開 |
+
 
 ---
 

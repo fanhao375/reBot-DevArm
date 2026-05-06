@@ -10,7 +10,7 @@ FILE_DESCRIPTION(
 
 FILE_NAME(
 /* name */ '02_Lower_Wrist_Link_R.step',
-/* time_stamp */ '2026-03-27T20:17:39+08:00',
+/* time_stamp */ '2026-04-01T22:27:04+08:00',
 /* author */ (''),
 /* organization */ (''),
 /* preprocessor_version */ 'ST-DEVELOPER v20.1',
@@ -1669,7 +1669,7 @@ SOLID_ANGLE_UNIT()
 #1594=PRODUCT_DEFINITION_SHAPE('',$,#1597);
 #1595=SHAPE_REPRESENTATION('',(#928),#1587);
 #1596=PRODUCT_DEFINITION_CONTEXT('part definition',#1601,'design');
-#1597=PRODUCT_DEFINITION('2026-03-27-20-17-39-356',
+#1597=PRODUCT_DEFINITION('2026-04-01-22-27-04-410',
 '02_Lower_Wrist_Link_R',#1598,#1596);
 #1598=PRODUCT_DEFINITION_FORMATION('',$,#1603);
 #1599=PRODUCT_RELATED_PRODUCT_CATEGORY('02_Lower_Wrist_Link_R',
@@ -1679,7 +1679,7 @@ SOLID_ANGLE_UNIT()
 #1601=APPLICATION_CONTEXT(
 'Core Data for Automotive Mechanical Design Process');
 #1602=PRODUCT_CONTEXT('part definition',#1601,'mechanical');
-#1603=PRODUCT('2026-03-27-20-17-39-356','02_Lower_Wrist_Link_R',
+#1603=PRODUCT('2026-04-01-22-27-04-410','02_Lower_Wrist_Link_R',
 'NOT SPECIFIED',(#1602));
 #1604=PRESENTATION_STYLE_ASSIGNMENT((#1605));
 #1605=SURFACE_STYLE_USAGE(.BOTH.,#1606);

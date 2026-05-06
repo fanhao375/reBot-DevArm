@@ -85,7 +85,7 @@ Estamos comprometidos a mantener y adaptarnos continuamente a los ecosistemas pr
 | **Video de ensamblaje** | ✅ Completado | Pasos de ensamblaje ultra detallados y video | [Primeros pasos con el reBot Arm B601-DM](https://wiki.seeedstudio.com/es/rebot_b601_dm_getting_started/) |
 | **ROS2 (Humble)** | 🚧 En progreso | Drivers principales completados, optimización de MoveIt2 en curso | [Esperado: 2026.04.20] |
 | **Python SDK** | ✅Optimización continua, PR bienvenidos | Integración integral en un solo lugar para la lectura, escritura y control de motores como Robstride, Damiao, Mota, Gaoqing, Hexfellow y otros. | [Tutorial para empezar a usar MotorBridge](https://motorbridge.seeedstudio.com) y [Interfaz Web](https://rebot-devarm.w0x7ce.eu/) |
-| **Integración con Pinocchio** | ✅ Completado | Adaptación al framework Pinocchio para cinemática directa/inversa y compensación de gravedad | [Introducción a Pinocchio y MeshCat para reBot Arm B601-DM](https://wiki.seeedstudio.com/es/rebot_arm_b601_dm_pinocchio_meshcat/) |
+| **Integración con Pinocchio** | ✅ Completado | Adaptación al framework Pinocchio para cinemática directa/inversa y compensación de gravedad | [Introducción a Pinocchio y MeshCat para reBot Arm B601-DM](https://wiki.seeedstudio.com/es/rebot_arm_b601_dm_pinocchio_meshcat/) y [Github Código de control](https://github.com/vectorBH6/reBotArm_control_py) |
 | **Simulación en Isaac Sim** | 🚧 En progreso | Importación de modelos USD y teleoperación simulada | [Esperado: 2026.04.20] |
 | **Integración con LeRobot** | ✅ Completado | Adaptación al framework LeRobot de Hugging Face | [Introducción a reBot Arm B601-DM basado en LeRobot y reBot 102 Leader](https://wiki.seeedstudio.com/es/rebot_arm_b601_dm_lerobot/) |
 | **Integración con cámara de profundidad** | ✅ Completado | Demostración de agarre visual basada en YOLO y cámara de profundidad | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
@@ -136,6 +136,13 @@ reBot-DevArm está diseñado para aplicaciones de IA Corpórea en escritorio, eq
 | --- | --- |
 |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/star_arm_102.jpg" height="100">  | Próximamente disponible |
 |  [Repositorio de Github](https://github.com/servodevelop/Star-Arm-102) | Próximamente disponible |
+
+### Dedo blando DIY
+| Dedo blando | Integración de compatibilidad abierta |
+| --- | --- |
+|  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Soft_Finger.png" height="100">  |Próximamente|
+| [Soporte de dedo (ABS/PLA)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Mount.step) y [Dedo (TPU 95+)](/hardware/reBot_B601_DM/3D_Printed_Parts/Soft_Gripper_Finger.step)  |Próximamente |
+
 
 -----
 
