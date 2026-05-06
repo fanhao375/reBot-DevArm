@@ -90,7 +90,7 @@
 | **Python SDK** | ✅ 完成  |一站式集成 Robstride、Damiao、脉塔、高擎、Hexfellow 等电机读写及控制。 | [上手使用 Motorbridge教程](https://motorbridge.seeedstudio.com) 以及  [Web UI](https://rebot-devarm.w0x7ce.eu/) |
 | **ROS2 集成** | ✅ 完成 | ROS2集成机械臂控制器、支持机械臂运动学、轨迹规划及重力补偿功能 |[reBot Arm B601-DM ROS2使用教程](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_ros2/)|
 | **Pinocchio 适配** | ✅ 完成 | 适配 Pinocchio框架、实现机械臂正逆运动学及动力学重力补偿功能 |[reBot Arm B601-DM 的 Pinocchio 与 MeshCat 入门指南](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_pinocchio_meshcat/) 以及 [Github 控制代码](https://github.com/vectorBH6/reBotArm_control_py)|
-| **Isaac Sim 仿真** | 🚧 进行中 | 导入USD模型并实现仿真遥操作 | [预计 2026.04.20]|
+| **Isaac Sim 仿真** | 🚧 进行中 | 导入USD模型并实现仿真遥操作 | [由于添加额外课程延迟： 2026.06.20]|
 | **LeRobot 适配** | 🚧 进行中 | 适配 Hugging Face LeRobot 训练框架 | [reBot Arm B601-DM Lerobot使用教程](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_lerobot/)|
 | **深度相机集成** | ✅ 完成 | 基于 YOLO 与深度相机的视觉夹取演示 | [reBot Arm B601-DM 视觉夹取 Demo](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_grasping_demo/) |
 | **逐步更新最新算法** | ⏳ 计划中 | 逐步更新主流算法 | 持续进行 |
