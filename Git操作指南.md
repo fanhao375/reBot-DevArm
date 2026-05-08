@@ -71,6 +71,26 @@ git remote add upstream https://github.com/Seeed-Projects/reBot-DevArm.git
 git submodule update --init --recursive
 ```
 
+#### 可选：在每个 submodule 里加 upstream
+
+主仓 `.gitmodules` 只指向 fanhao375 fork（origin），不出现原作者地址（这是项目规则，避免依赖混乱）。如果你也想追原作者上游、自己跑同步检查，clone 后在每个 submodule 内手动加 upstream：
+
+```bash
+# 底层电机控制
+git -C software/MotorBridge remote add upstream https://github.com/motorbridge/motorbridge.git
+
+# 上层运动学控制
+git -C software/reBotArm_control_py remote add upstream https://github.com/vectorBH6/reBotArm_control_py.git
+
+# ROS2 集成工作区
+git -C software/reBotArmController_ROS2 remote add upstream https://github.com/EclipseaHime017/reBotArmController_ROS2.git
+
+# 遥操作主臂
+git -C 遥操作/StarArm_102 remote add upstream https://github.com/servodevelop/Star-Arm-102.git
+```
+
+加完后 `git -C <submodule> fetch upstream` 即可获取原作者最新代码。upstream 配置只存在于本地 `.git/config`，不会通过 clone 复制，所以每次新 clone 都要重做这一步。
+
 ### 2.2 如果你已经有本地仓库（本文档的情况）
 
 查看当前 remote 配置：

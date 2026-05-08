@@ -2,7 +2,7 @@
 
 > 使用 OpenCLI 从 wiki.seeedstudio.com 抓取的官方教程，离线保存方便学习。
 > 抓取工具：`opencli web read --url <URL> --output <DIR> --download-images true`
-> 最后更新：2026.04.23
+> 最后更新：2026.05.08
 
 ---
 
@@ -18,6 +18,8 @@
 | **达妙系列电机** | [链接](https://wiki.seeedstudio.com/cn/damiao_series/) | 达妙 43 系列电机完整教程（规格参数、CAN 协议、C++/Python 控制） |
 | **RobStride_电机控制完整指南** | [链接](https://wiki.seeedstudio.com/cn/robstride_control/) | RobStride 电机多语言控制（Python/C++/Rust/Arduino） |
 | **DM_Gripper_-_Assembly_Guide_with_Demo** | [链接](https://wiki.seeedstudio.com/dm_gripper/) | 达妙夹爪组装指南和演示 |
+| **reBot_Arm_B601-DM_快速入门** | [链接](https://wiki.seeedstudio.com/cn/rebot_arm_b601_dm_quickstart/) | reBot Arm B601-DM 官方快速入门（开机、调试、第一个示例） |
+| **reBot_Arm_B601-DM_ROS2_Integration** | [链接](https://wiki.seeedstudio.com/rebot_arm_b601_dm_ros2_integration/) | ROS2 集成教程（2026-05-07 核查发现文档中给出的 Seeed-Projects 仓库地址 404，详见 `操作日志.md` 2026-05-07 条目） |
 
 ### 学习参考
 
