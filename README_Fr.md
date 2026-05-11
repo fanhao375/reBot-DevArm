@@ -5,12 +5,13 @@
 </p>
 
 <p align="center">
-    <!-- Replaced with CC BY-NC-SA 4.0 badge, explicitly indicating non-commercial use -->
     <a href="./LICENSE">
-        <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" alt="Licence : CC BY-NC-SA 4.0">
+    <img src="https://img.shields.io/badge/License-CERN--OHL--W--2.0--for--hardware-green.svg" alt="License: CERN-OHL-W-2.0">
+    </a>
+    <img src="https://img.shields.io/badge/License-Apache--2.0--for--software-pink.svg" alt="License: Apache-2.0">
     </a>
     <img src="https://img.shields.io/badge/Commercial-Contact%20Us-red.svg" alt="yaohui.zhu@seeed.cc">
-    <img src="https://img.shields.io/badge/ROS-Noetic%20%7C%20Humble-orange.svg" alt="Support ROS">
+    <img src="https://img.shields.io/badge/ROS-Noetic%20%7C%20Humble-orange.svg" alt="ROS Support">
     <img src="https://img.shields.io/badge/Framework-LeRobot-yellow.svg" alt="LeRobot">
     <img src="https://img.shields.io/badge/Framework-Isaac Sim-yellow.svg" alt="LeRobot">
 </p>
@@ -215,54 +216,38 @@ Ce projet est profondément inspiré par les excellents projets open source suiv
 [![Star History Chart](https://api.star-history.com/svg?repos=Seeed-Projects/reBot-DevArm&type=date&legend=top-left)](https://www.star-history.com/#Seeed-Projects/reBot-DevArm&type=date&legend=top-left)
 
 # Licence du projet reBot-DevArm
-Copyright (c) [2025] [Seeed Studio]
 
-Ce travail est concédé sous la **Licence internationale Creative Commons Attribution-NonCommercial-ShareAlike 4.0**.
-Pour consulter une copie de cette licence, visitez : http://creativecommons.org/licenses/by-nc-sa/4.0/
+- **Conception matérielle** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), publié sous licence [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)
+- **Code du firmware** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), publié sous licence [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
---------------------------------------------------------------------------------
+## Droits et restrictions
 
-## Déclaration des droits et restrictions
+Chers développeurs et experts du secteur, le projet de bras robotique reBot Arm a toujours adhéré aux valeurs fondamentales d'**Agilité, d'Ouverture, de Responsabilité et de Symbiose** au service de la communauté des développeurs. Notre vision est de permettre à chaque passionné de maîtriser systématiquement l'architecture matérielle et les principes logiciels des bras robotiques, et de vivre une expérience immersive avec les algorithmes de pointe de l'intelligence incarnée, grâce au projet reBot.
 
-L’objectif principal de ce projet open source est de promouvoir le partage des connaissances et de permettre aux développeurs et aux passionnés d’accéder aux technologies de pointe des bras robotiques et de les apprendre à un coût minimal. Nous fournissons une documentation et des tutoriels vidéo entièrement gratuits et accessibles au public afin d’aider les utilisateurs à démarrer rapidement, à mener des recherches approfondies et à promouvoir conjointement la popularisation et l’application pratique de la robotique.
+Pendant les cinq premiers mois suivant son lancement, le projet a utilisé la licence open source **CC BY-SA NC (Non-Commercial)**. L'intention initiale était de permettre à tous les développeurs et contributeurs de se concentrer sur l'itération et l'amélioration du produit pendant sa phase initiale, moins mature, sans être perturbés par des préoccupations commerciales, et de se consacrer pleinement à la co-construction et à l'optimisation du projet.
 
-### I. Politique d’utilisation non commerciale
+Après des mois de perfectionnement approfondi du produit et de maturation technique par Seeed Studio, **à compter du 11 mai 2026**, le projet reBot Arm est officiellement passé de la licence CC BY-SA NC à la licence open source **CERN-OHL-W 2.0**.
 
-Tout le contenu open source de ce projet est entièrement disponible pour l’apprentissage personnel, la recherche et l’usage non commercial. Les utilisateurs individuels sont autorisés à :
+À partir de ce moment, le projet atteint une **open source à 100 % sur l'ensemble de la chaîne (matériel et logiciel)** , accordant **des droits d'utilisation commerciale complets pour tous les scénarios**.
 
-* Consulter et étudier la documentation, le code et les tutoriels open source du projet ;
-* Modifier et déboguer le contenu open source à des fins d’apprentissage personnel et de recherche ;
-* Assembler des bras robotiques pour un usage personnel ou mener un développement secondaire basé sur le contenu open source à des fins non commerciales.
+Nous espérons que vous continuerez à participer, dans un esprit d'inclusion et de collaboration, à soutenir, maintenir et approfondir la communauté open source reBot Arm, à partager les fruits de l'open source et à construire ensemble un écosystème pour l'intelligence incarnée.
 
-### II. Politique d’utilisation commerciale
+Ce projet utilise différentes licences open source pour le matériel et le logiciel. Veuillez confirmer les termes de la licence applicables à la partie que vous utilisez.
 
-Nous encourageons et soutenons activement les développeurs, les passionnés de robotique et les plateformes tierces à mener un développement secondaire basé sur le bras robotique reBot et à promouvoir des applications concrètes dans le monde réel. Ce qui suit décrit les activités commerciales autorisées et interdites :
-
-#### (1) Activités commerciales autorisées
-
-Nous respectons les efforts et les revenus légitimes de chaque développeur. Si vous achetez le bras robotique reBot série B601 auprès de Seeed et apportez votre propre contribution, vous pouvez commercialiser les résultats de vos efforts, y compris mais sans s’y limiter :
-
-* Développer des systèmes logiciels orientés application et les promouvoir ou les vendre commercialement ;
-* Créer des cours éducatifs structurés (en ligne/hors ligne) et proposer des formations payantes ou des services de transmission de connaissances ;
-* Mener dans le monde entier des activités hors ligne d’éducation, de formation et de vulgarisation technologique ;
-* D’autres activités commerciales qui contribuent à la communauté open source, à la diffusion des connaissances et à l’application concrète des technologies robotiques.
-
-Pour les activités commerciales conformes ci-dessus, vous êtes les bienvenus pour nous contacter. Nous fournirons une autorisation commerciale, un support de mise en œuvre et une assistance promotionnelle. Nous pourrons également annoncer publiquement votre autorisation afin d’aider votre projet à réussir.
-
-#### (2) Activités commerciales interdites
-
-Il est interdit d’apporter de légères modifications au produit de ce projet, de remplacer la propriété intellectuelle, les logos ou les identifiants associés, puis de le vendre sous une marque auto-détenue. De telles actions ne constituent pas une innovation technique substantielle et ne profitent ni au développement des développeurs, ni à la communauté open source, ni au projet lui-même. Ces comportements sont considérés comme des violations, et nous nous réservons le droit d’agir.
-
-### III. Collaboration & contact
-
-Nous espérons collaborer avec tous les développeurs et partenaires dans un cadre conforme afin de promouvoir la maturité et le déploiement du projet de bras robotique reBot. Pour les individus et les organisations intéressés par la concrétisation d’applications robotiques dans le monde réel, nous proposons :
-
-* Un support pour les licences commerciales et la conformité en matière de propriété intellectuelle ;
-* Une assistance pour la promotion des solutions du projet ;
-* Des services de développement sur mesure pour les bras robotiques et les solutions associées ;
-* Des opportunités conjointes de R&D et de co-développement.
-
-Si vous êtes intéressé par une collaboration commerciale ou avez des besoins connexes, n’hésitez pas à nous contacter. Travaillons ensemble pour faire progresser l’adoption et l’industrialisation des technologies robotiques.
+| Élément / Licence                          | Matériel reBot : CERN-OHL-W-2.0                              | SDK logiciel reBot : Apache-2.0                              |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **✅ Utilisation commerciale autorisée**   | ✅ Autorisée                                                 | ✅ Autorisée                                                 |
+| **✅ Modification autorisée**              | ✅ Autorisée                                                 | ✅ Autorisée                                                 |
+| **✅ Redistribution autorisée**            | ✅ Autorisée                                                 | ✅ Autorisée                                                 |
+| **✅ Intégration/redistribution en source fermée** | ❌ Conditionnelle (voir [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) pour plus de détails) | ✅ Autorisée (aucune obligation de divulguer le code modifié) |
+| **⚠️ Conservation de la mention de copyright requise** | ✅ Requise                                                   | ✅ Requise                                                   |
+| **⚠️ Conservation du texte de la licence requise** | ✅ Requise                                                   | ✅ Requise                                                   |
+| **⚠️ Mention des modifications requise**  | ✅ Requise (avec date et description)                        | ✅ Requise (avec description des modifications)              |
+| **⚠️ Licence de brevet**                   | ✅ Licence de brevet explicite (voir [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) pour plus de détails) | ✅ Licence de brevet explicite                               |
+| **⚠️ Fourniture des sources lors de la distribution** | ✅ **Obligation** de fournir les "Sources Complètes" du matériel | ❌ Aucune obligation de fournir les sources                  |
+| **⚠️ Compatibilité avec les modules externes/fermés** | ✅ Autorisée (caractéristique Weakly Reciprocal)            | ✅ Totalement autorisée                                      |
+| **🔗 Relation avec d'autres composants/modules** | Les modules d'interface indépendants (External Material) peuvent conserver leur licence d'origine (fermée) | Aucune restriction, peut se lier à des bibliothèques sous n'importe quelle licence |
+| **📄 Texte officiel de la licence**        | [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)        | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)    |
 
 
 ## ☎ Contactez-nous
