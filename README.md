@@ -5,11 +5,11 @@
   <img src="./media/v1.0.png" alt="reBot-DevArm Banner">
 </p>
 
-
 <p align="center">
-    <!-- Replaced with CC BY-NC-SA 4.0 badge, explicitly indicating non-commercial use -->
     <a href="./LICENSE">
-    <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" alt="License: CC BY-NC-SA 4.0">
+    <img src="https://img.shields.io/badge/License-CERN--OHL--W--2.0--for--hardware-green.svg" alt="License: CERN-OHL-W-2.0">
+    </a>
+    <img src="https://img.shields.io/badge/License-Apache--2.0--for--software-pink.svg" alt="License: Apache-2.0">
     </a>
     <img src="https://img.shields.io/badge/Commercial-Contact%20Us-red.svg" alt="yaohui.zhu@seeed.cc">
     <img src="https://img.shields.io/badge/ROS-Noetic%20%7C%20Humble-orange.svg" alt="ROS Support">
@@ -218,54 +218,38 @@ This project is deeply inspired by the following excellent open source projects:
 [![Star History Chart](https://api.star-history.com/svg?repos=Seeed-Projects/reBot-DevArm&type=date&legend=top-left)](https://www.star-history.com/#Seeed-Projects/reBot-DevArm&type=date&legend=top-left)
 
 # reBot-DevArm Project License
-Copyright (c) [2025] [Seeed Studio]
 
-This work is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License**.
-To view a copy of this license, visit: http://creativecommons.org/licenses/by-nc-sa/4.0/
+- **Hardware Design** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), open-sourced under [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)
+- **Firmware Code** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), open-sourced under [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
---------------------------------------------------------------------------------
+## Rights and Restrictions
 
-## Rights and Restrictions Statement
+Dear developers and industry experts, the reBot Arm robotic arm project has always adhered to the core philosophy of **Agility, Openness, Responsibility, and Symbiosis** to serve the developer community. Our vision is to enable every enthusiast to systematically master the hardware architecture and software principles of robotic arms, and to gain an immersive experience with cutting-edge embodied intelligence algorithms through the reBot project.
 
-The core purpose of this open-source project is to promote knowledge sharing and enable developers and enthusiasts to access and learn cutting-edge robotic arm technologies at minimal cost. We provide completely free and publicly available documentation and video tutorials to help users get started quickly, conduct in-depth research, and jointly promote the popularization and practical application of robotics.
+For the first five months since launch, the project has been using the **CC BY-SA NC (Non-Commercial) open source license**. The original intention was to allow all developers and contributors to focus on iterating and improving the product during its initial, less mature phase, free from commercial concerns, and to fully dedicate themselves to project co-construction and optimization.
 
-### I. Non-Commercial Use Policy
+After months of in-depth product polishing and technical refinement by Seeed Studio, **effective May 11, 2026**, the reBot Arm project has officially transitioned from the CC BY-SA NC license to the **CERN-OHL-W 2.0 open source license**.
 
-All open-source content of this project is fully available for personal learning, research, and non-commercial use. Individual users are allowed to:
+From this point forward, the project achieves **100% full-stack open source (both hardware and software), granting full commercial compliance and usage rights for all scenarios**.
 
-* View and study the project’s open-source documentation, code, and tutorials;
-* Modify and debug the open-source content for personal learning and research purposes;
+We look forward to your continued participation with an inclusive and collaborative spirit, to sustain, maintain, and deepen the reBot Arm open source community, to share the fruits of open source, and together build an ecosystem for embodied intelligence.
 
-### II. Commercial Use Policy
+This project uses different open source licenses for Hardware and Software. Please confirm the license terms applicable to the part you are using.
 
-We actively encourage and support developers, robotics enthusiasts, and third-party platforms to carry out secondary development based on the reBot robotic arm and promote real-world applications. The following outlines permitted and prohibited commercial activities:
-
-#### (1) Permitted Commercial Activities
-
-We respect every developer’s efforts and legitimate earnings.Including but not limited to:
-
-* Developing application-oriented software systems and promoting or selling them commercially;
-* Creating structured educational courses (online/offline) and offering paid training or knowledge services;
-* Conducting offline education, training, and technology outreach activities worldwide;
-* Other commercial activities that contribute to the open-source community, knowledge dissemination, and real-world application of robotics technology.
-
-For the above compliant commercial activities, you are welcome to contact us. We will provide free commercial authorization, implementation support, and promotional assistance. We may also publicly announce your authorization to help your project succeed.
-
-#### (2) Prohibited Commercial Activities
-
-It is prohibited to make minor modifications to this project’s product, replace IP, logos, or related identifiers, and sell it under a self-owned brand. Such actions do not constitute substantial technical innovation and do not benefit developer growth, the open-source community, or the project itself. These behaviors are considered violations, and we reserve the right to take action.
-
-### III. Collaboration & Contact
-
-We hope to collaborate with all developers and partners within a compliant framework to promote the maturity and deployment of the reBot robotic arm project. For individuals and organizations interested in bringing real-world robotic applications to life, we offer:
-
-* Commercial licensing and intellectual property compliance support;
-* Assistance in promoting project solutions;
-* Custom development services for robotic arms and related solutions;
-* Joint R&D and co-development opportunities.
-
-If you are interested in commercial collaboration or have related needs, please feel free to contact us. Let’s work together to advance the adoption and industrialization of robotics technology.
-
+| Item / License                          | reBot Hardware: CERN-OHL-W-2.0                              | reBot Software SDK: Apache-2.0                              |
+| --------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| **✅ Commercial Use Allowed**           | ✅ Allowed                                                  | ✅ Allowed                                                  |
+| **✅ Modification Allowed**             | ✅ Allowed                                                  | ✅ Allowed                                                  |
+| **✅ Redistribution Allowed**           | ✅ Allowed                                                  | ✅ Allowed                                                  |
+| **✅ Closed-source Integration/Redistribution** | ❌ Conditional (see [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) for details) | ✅ Allowed (no need to disclose modified code)              |
+| **⚠️ Copyright Retention Required**     | ✅ Required                                                 | ✅ Required                                                 |
+| **⚠️ License Text Retention Required**  | ✅ Required                                                 | ✅ Required                                                 |
+| **⚠️ Modification Notice Required**     | ✅ Required (with date and description)                     | ✅ Required (with modification description)                 |
+| **⚠️ Patent Grant**                     | ✅ Explicit patent grant (see [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) for details) | ✅ Explicit patent grant                                    |
+| **⚠️ Source Provision upon Distribution** | ✅ **Must** provide hardware "Complete Source"              | ❌ No mandatory source provision requirement                |
+| **⚠️ External/Closed Module Compatibility** | ✅ Allowed (Weakly Reciprocal feature)                    | ✅ Fully allowed                                            |
+| **🔗 Relationship with Other Components/Modules** | Independent interface modules (External Material) may retain original closed license | No restrictions, can link with code under any license      |
+| **📄 Official License Full Text**       | [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)       | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)   |
 
 ## ☎ Contact Us
 - **Open‑Source Progress & Technical Support**-Yaohui: yaohui.zhu@seeed.cc

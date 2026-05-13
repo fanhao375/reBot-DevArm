@@ -5,16 +5,16 @@
 </p>
 
 <p align="center">
-    <!-- Reemplazado con insignia CC BY-NC-SA 4.0, indicando explícitamente uso no comercial -->
     <a href="./LICENSE">
-        <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" alt="Licencia: CC BY-NC-SA 4.0">
+    <img src="https://img.shields.io/badge/License-CERN--OHL--W--2.0--for--hardware-green.svg" alt="License: CERN-OHL-W-2.0">
+    </a>
+    <img src="https://img.shields.io/badge/License-Apache--2.0--for--software-pink.svg" alt="License: Apache-2.0">
     </a>
     <img src="https://img.shields.io/badge/Commercial-Contact%20Us-red.svg" alt="yaohui.zhu@seeed.cc">
-    <img src="https://img.shields.io/badge/ROS-Noetic%20%7C%20Humble-orange.svg" alt="Soporte ROS">
+    <img src="https://img.shields.io/badge/ROS-Noetic%20%7C%20Humble-orange.svg" alt="ROS Support">
     <img src="https://img.shields.io/badge/Framework-LeRobot-yellow.svg" alt="LeRobot">
     <img src="https://img.shields.io/badge/Framework-Isaac Sim-yellow.svg" alt="LeRobot">
 </p>
-
 <p align="center">
   <strong>100% Totalmente de Código Abierto · IA Corpórea · Integración Hardware-Software · Gratis para uso personal/educativo · El uso comercial requiere autorización</strong>
 </p>
@@ -219,52 +219,39 @@ Este proyecto está profundamente inspirado en los siguientes proyectos de códi
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Seeed-Projects/reBot-DevArm\&type=date\&legend=top-left)](https://www.star-history.com/#Seeed-Projects/reBot-DevArm&type=date&legend=top-left)
 
-# reBot-DevArm Project License
+# Licencia del proyecto reBot-DevArm
 
-Copyright (c) [2025] [Seeed Studio]
+- **Diseño de hardware** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), publicado bajo licencia [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)
+- **Código del firmware** © 2026 Seeed Studio Co., Ltd. (SeeedStudio), publicado bajo licencia [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
-Este trabajo está licenciado bajo la **Licencia Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**.
-Para ver una copia de esta licencia, visita: [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+## Derechos y restricciones
 
----
+Estimados desarrolladores y expertos de la industria, el proyecto del brazo robótico reBot Arm siempre se ha adherido a los valores fundamentales de **Agilidad, Apertura, Responsabilidad y Simbiosis** para servir a la comunidad de desarrolladores. Nuestra visión es permitir que cada entusiasta domine sistemáticamente la arquitectura del hardware y los principios del software de los brazos robóticos, y experimente de forma inmersiva los algoritmos de vanguardia de la inteligencia corporeizada a través del proyecto reBot.
 
-## Declaración de derechos y restricciones
+Durante los primeros cinco meses desde su lanzamiento, el proyecto ha utilizado la licencia de código abierto **CC BY-SA NC (No Comercial)**. La intención original era permitir que todos los desarrolladores y contribuyentes se concentraran en iterar y mejorar el producto durante su fase inicial, menos madura, sin ser molestados por preocupaciones comerciales, y dedicarse plenamente a la co-construcción y optimización del proyecto.
 
-El propósito principal de este proyecto de código abierto es promover el intercambio de conocimiento y permitir que desarrolladores y entusiastas accedan y aprendan tecnologías avanzadas de brazos robóticos a un costo mínimo. Proporcionamos documentación y tutoriales en video completamente gratuitos para ayudar a los usuarios a comenzar rápidamente, realizar investigaciones en profundidad y promover conjuntamente la aplicación práctica de la robótica.
+Después de meses de profundo pulido del producto y maduración técnica por parte de Seeed Studio, **a partir del 11 de mayo de 2026**, el proyecto reBot Arm ha pasado oficialmente de la licencia CC BY-SA NC a la licencia de código abierto **CERN-OHL-W 2.0**.
 
-### I. Política de uso no comercial
+A partir de este momento, el proyecto logra un **código abierto del 100% en toda la cadena (hardware y software)** , otorgando **derechos de uso comercial completos para todos los escenarios**.
 
-Todo el contenido de código abierto de este proyecto está disponible para aprendizaje personal, investigación y uso no comercial. Los usuarios pueden:
+Esperamos que continúen participando con un espíritu inclusivo y colaborativo, para sostener, mantener y profundizar la comunidad de código abierto reBot Arm, compartir los frutos del código abierto y construir juntos un ecosistema para la inteligencia corporeizada.
 
-* Ver y estudiar documentación, código y tutoriales;
-* Modificar y depurar el contenido para investigación personal;
-* Ensamblar brazos robóticos o realizar desarrollo secundario con fines no comerciales.
+Este proyecto utiliza diferentes licencias de código abierto para Hardware y Software. Por favor, confirme los términos de la licencia aplicables a la parte que está utilizando.
 
-### II. Política de uso comercial
-
-Fomentamos el desarrollo basado en reBot y su aplicación en el mundo real. A continuación:
-
-#### (1) Actividades comerciales permitidas
-
-* Desarrollo de software comercial;
-* Cursos educativos pagos;
-* Actividades educativas y de difusión tecnológica;
-* Otras actividades que impulsen la comunidad.
-
-#### (2) Actividades prohibidas
-
-Queda prohibido modificar superficialmente el producto y venderlo bajo marca propia.
-
-### III. Colaboración y contacto
-
-Ofrecemos:
-
-* Licencias comerciales;
-* Promoción de soluciones;
-* Desarrollo personalizado;
-* Colaboración en I+D.
-
-Si estás interesado, contáctanos.
+| Elemento / Licencia                    | Hardware de reBot: CERN-OHL-W-2.0                              | SDK de software de reBot: Apache-2.0                         |
+| -------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------ |
+| **✅ Uso comercial permitido**         | ✅ Permitido                                                   | ✅ Permitido                                                 |
+| **✅ Modificación permitida**          | ✅ Permitido                                                   | ✅ Permitido                                                 |
+| **✅ Redistribución permitida**        | ✅ Permitido                                                   | ✅ Permitido                                                 |
+| **✅ Integración/redistribución en código cerrado** | ❌ Condicional (ver [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) para más detalles) | ✅ Permitido (no es necesario divulgar el código modificado) |
+| **⚠️ Obligación de conservar el aviso de copyright** | ✅ Obligatorio                                                 | ✅ Obligatorio                                               |
+| **⚠️ Obligación de conservar el texto de la licencia** | ✅ Obligatorio                                                 | ✅ Obligatorio                                               |
+| **⚠️ Notificación de modificaciones requerida** | ✅ Obligatorio (con fecha y descripción)                      | ✅ Obligatorio (con descripción de las modificaciones)       |
+| **⚠️ Concesión de patentes**           | ✅ Concesión explícita de patentes (ver [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt) para más detalles) | ✅ Concesión explícita de patentes                           |
+| **⚠️ Obligación de proporcionar las fuentes al distribuir** | ✅ **Obligatorio** proporcionar las "Fuentes Completas" del hardware | ❌ Sin obligación de proporcionar las fuentes                |
+| **⚠️ Compatibilidad con módulos externos/cerrados** | ✅ Permitido (característica Weakly Reciprocal)               | ✅ Totalmente permitido                                      |
+| **🔗 Relación con otros componentes/módulos** | Los módulos de interfaz independientes (External Material) pueden conservar su licencia original (cerrada) | Sin restricciones, puede enlazarse con bibliotecas bajo cualquier licencia |
+| **📄 Texto oficial de la licencia**    | [CERN-OHL-W-2.0](https://ohwr.org/cern_ohl_w_v2.txt)          | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)    |
 
 ## ☎ Contact Us
 
