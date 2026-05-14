@@ -14,6 +14,9 @@
 hardware/测试工具/
 hardware/测试数据/
 
+# LeRobot 探索区（本地 clone 评估用，不入主仓 git）
+_lerobot_experiment/
+
 # Python 相关
 __pycache__/
 *.py[cod]
