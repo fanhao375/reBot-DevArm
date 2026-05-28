@@ -2,7 +2,7 @@
 # 🦾 reBot-DevArm: Open Source Robotic Arm for All Developers
 
 <p align="center">
-  <img src="./media/v1.0.png" alt="reBot-DevArm Banner">
+  <img src="./media/v1.1.png" alt="reBot-DevArm Banner">
 </p>
 
 <p align="center">
@@ -82,7 +82,11 @@
   - **Full Kit**: Includes the complete set of the robotic arm body and gripper.
   - **Pre‑assembled Robotic Arm**: Fully assembled finished robotic arm.
 
-- You can also purchase the [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315)
+- The Seeedstudio kit does not include a power adapter and C-clamps as standard accessories. This arrangement takes into account that users may power the unit via batteries or mount it with a custom DIY base. You may purchase a [power supply separately](https://www.seeedstudio.com/AC-DC-Power-Adapter-IEC-60320-C14-XT30-Female-24V-4-5A-1200mm-L190-W92-5-H36mm-p-6764.html) and [Power Cord](https://www.seeedstudio.com/reServer-AC-US-p-5052.html), or refer to the Mean Well power solution shown at the bottom of our [BOM](./hardware/reBot_B601_DM/readme.md/#about-power-supply).
+
+- You can also purchase the [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315) and [12V 10A Power Supply](https://www.seeedstudio.com/FY1209900-12V-10A-Power-Adapter-12V-10A-p-6496.html) You may also use the 12VDC power adapter of SO-ARM101 to supply power to the Leader.
+
+
 
 ## 🗺️ Roadmap & Status
 
@@ -137,9 +141,9 @@ reBot-DevArm is designed for desktop Embodied AI applications, balancing payload
 | **Supply Voltage** | DC 24V |
 
 ## Feedback from the community
-| <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
-| --- | --- | --- | --- | 
-| [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | [From Sameer Shah Teams](https://www.youtube.com/watch?v=fM01HolVl1U&t=15s) | 
+| <img src="/community/GEM-4.png" height="100"> | <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
+| --- | --- | --- | --- |  --- | 
+| [From GEM-4: Gemma Embodied 4 Physical Assistance](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1778618527713) | [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | [From Sameer Shah Teams](https://www.youtube.com/watch?v=fM01HolVl1U&t=15s) | 
 
 ## 🧹Optional Hardware
 ###  Wirst Camera Mount
