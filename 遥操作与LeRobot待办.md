@@ -26,13 +26,13 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 ---
 
-## 1. 当前状态（2026-05-15）
+## 1. 当前状态（2026-05-29）
 
 ### 1.1 已有硬件
 
 | 物品 | 状态 |
 |---|---|
-| reBot Arm B601-DM follower（达妙电机 6+1 DOF） | 🟡 电机已到，结构件待装 |
+| reBot Arm B601-DM follower（达妙电机 6+1 DOF） | ✅ 装机、ID、零点、Web UI、重力补偿、LeRobot follower 校准都已通过 |
 | reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8 舵机） | ❌ **没有**（2026-05-15 用户确认） |
 | SO-ARM101 leader（Feetech 国产舵机替代方案） | ❌ **没有**（2026-05-15 用户确认） |
 
@@ -42,11 +42,13 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 | 项目 | 当前版本 |
 |---|---|
-| `motorbridge` Python 包 | 0.2.8（Win + WSL 双端） |
-| `motorbridge-gateway` 命令行 | 0.2.8 |
+| 主仓源码基线 | `baseline-2026-05-28`，MotorBridge submodule 指向 v0.3.9 |
+| WSL 重力补偿环境 `motorbridge` Python 包 | 0.3.7（本次真机验证版本） |
+| LeRobot conda 环境 `motorbridge` Python 包 | 0.3.7（本次 follower 校准版本） |
+| `motorbridge-gateway` 命令行 | 0.3.7/0.3.9 需按实际终端环境确认 |
 | `reBotArm_control_py` | submodule `062bef9`（含 `RobotArm.fresh()`） |
-| LeRobot 主线 | clone 在 `_lerobot_experiment/lerobot/`（未装） |
-| `lerobot-robot-seeed-b601`（follower 适配器） | clone 在探索区，未装 |
+| LeRobot 主线 | clone 在 `_lerobot_experiment/lerobot/`，conda 环境已装，`lerobot 0.5.2` |
+| `lerobot-robot-seeed-b601`（follower 适配器） | 已装，`lerobot_robot_seeed_b601 0.1.2` |
 | `lerobot-teleoperator-rebot-arm-102`（leader 适配器） | clone 在探索区，未装 |
 
 ### 1.3 已确认的事实
@@ -56,6 +58,9 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
   - 真的 `import motorbridge`，调 `add_damiao_motor()`
   - 关节配置 3×DM4340P + 4×DM4310，跟 `arm.yaml` 完全一致
   - 继承 `lerobot.robots.Robot` 主线接口
+- 🟢 本机已用 `seeed_b601_dm_follower` 完成 follower 校准，校准文件为 `~/.cache/huggingface/lerobot/calibration/robots/seeed_b601_dm_follower/follower1.json`
+- 🟢 本机已确认总线扫描可发现 7 个达妙电机：`0x01..0x07`，反馈 ID `0x11..0x17`
+- 🟢 本机已确认官方 LeRobot `--teleop.type=keyboard` 不适合直接做 B601 关节 jog；本仓新增 `tools/lerobot_b601_keyboard_jog.py`，默认每按一次动 1 度
 - 🟢 HuggingFace LeRobot 主线**官方支持 SO-100/SO-101 leader**（`src/lerobot/teleoperators/so_leader/`，一等公民）
 - 🟢 `lerobot-robot-seeed-b601` 代码里有**"6 DOF leader 兼容"处理**（`if 'wrist_yaw' not in goal_pos: goal_pos['wrist_yaw'] = 0.0`），说明 SO-101 leader 控 reBot Arm follower 这条路**作者已经设计支持**
 
@@ -226,21 +231,23 @@ leader_control.stop_on_control_mode(0xff, 0x10, 0x00)
 - 7 电机 ID + 7 零点 + 拼装 + Web UI 整机控制 + 24V 短路检查
 - 详见 `装机烧录指南.md`
 
-#### 阶段 1：单臂基础验证 🟡 当前
+#### 阶段 1：单臂基础验证 ✅ 已完成（2026-05-29）
 
-- 跑 `9_gravity_compensation.py` 重力补偿（**最有成就感的 demo**）
+- 跑 `9_gravity_compensation.py` 无锁重力补偿（已通过）
+- 跑 `10_gravity_compensation_lock.py` 带锁重力补偿（已通过）
 - 详见 `装机烧录指南.md §6.4`（完整 WSL cookbook + usbipd-win 流程）
-- 跑 MotorBridge Web UI 拖滑块整机控制（已做过 ✅）
+- 跑 MotorBridge Web UI 拖滑块整机控制（已通过）
 - 单电机命令行测试可跳过（Web UI 覆盖了）
 - **不涉及 LeRobot**
 
-#### 阶段 2：LeRobot follower 验证（无 leader，**不花钱**）
+#### 阶段 2：LeRobot follower 验证 ✅ 已完成（2026-05-29）
 
-- 装环境：`pip install -e _lerobot_experiment/lerobot && pip install -e _lerobot_experiment/lerobot-robot-seeed-b601`
-- 跑 `lerobot-calibrate --robot.type=seeed_b601_dm_follower --robot.port=/dev/ttyACM0 --robot.can_adapter=damiao`
-- 用键盘 teleoperator（`--teleop.type=keyboard`）当 leader 测一次——能转动每个关节
-- **验证目标**：follower 适配器在我们这套硬件上能跑
-- **决策点**：跑通后判断是否真喜欢 LeRobot 路径——决定要不要往阶段 3 走
+- 已装环境：`lerobot 0.5.2` + `lerobot_robot_seeed_b601 0.1.2` + `motorbridge 0.3.7`
+- 已跑 `lerobot-calibrate --robot.type=seeed_b601_dm_follower --robot.port=/dev/ttyACM0 --robot.id=follower1 --robot.can_adapter=damiao`
+- 已保存 follower 校准文件
+- 已新增本地键盘 jog 工具：`tools/lerobot_b601_keyboard_jog.py`
+- **验证目标已达成**：follower 适配器在我们这套硬件上能跑
+- **当前决策点**：要不要进入阶段 3，选 SO-101 还是 reBot 102 leader
 
 #### 阶段 3：决策 Leader 选型 + 买
 
