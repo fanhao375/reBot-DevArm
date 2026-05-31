@@ -17,6 +17,9 @@ hardware/测试数据/
 # LeRobot 探索区（本地 clone 评估用，不入主仓 git）
 _lerobot_experiment/
 
+# DM 电源组装实拍图（~94MB，本地保留方便照着装，不上传 GitHub；在线版见上游 Seeed-Projects/reBot-DevArm）
+hardware/reBot_B601_DM/Assembly_Steps/powerstep_images/
+
 # Python 相关
 __pycache__/
 *.py[cod]
