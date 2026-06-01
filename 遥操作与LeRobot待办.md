@@ -26,17 +26,17 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 ---
 
-## 1. 当前状态（2026-05-29）
+## 1. 当前状态（2026-06-01）
 
 ### 1.1 已有硬件
 
 | 物品 | 状态 |
 |---|---|
 | reBot Arm B601-DM follower（达妙电机 6+1 DOF） | ✅ 装机、ID、零点、Web UI、重力补偿、LeRobot follower 校准都已通过 |
-| reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8 舵机） | ❌ **没有**（2026-05-15 用户确认） |
-| SO-ARM101 leader（Feetech 国产舵机替代方案） | ❌ **没有**（2026-05-15 用户确认） |
+| reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8 舵机） | 🟡 **决定做 102（2026-06-01）**：舵机已到货 + 自己 3D 打印结构件完成，**进入装配阶段**（⚠️ 官方装配教程尚未发布，见 §3.7） |
+| SO-ARM101 leader（Feetech 国产舵机替代方案） | ❌ 不做（已选 102） |
 
-> ⚠️ **Leader 端完全空白**：用户原话"102 也没有。没决定。用哪个就去打"——意思是决定哪个 leader 就 3D 打印 + 买配件。这变成一次**完整的新装**决策，不是"已有 X 再加 Y"的增量决策。
+> ⭐ **Leader 选型已落定（2026-06-01）：做 reBot Arm 102**。理由是要 7 DOF 完整匹配 + Seeed 配套设计（见 §2 决策矩阵"展示全部 7 关节 + 复杂任务"场景）。接受代价：~¥1k-2k + RA8 定制舵机的硬件 lock-in。当前在装配阶段。
 
 ### 1.2 已有软件
 
@@ -85,13 +85,15 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 ### 决策路径
 
-**当前状态（2026-05-15）**：用户确认**两台 leader 都没买**，决定哪个就 3D 打印 + 买配件。
+> ✅ **已决策（2026-06-01）：做 reBot Arm 102 leader**。舵机到货 + 3D 件打印完成，进入装配。下面的决策矩阵作为历史依据保留。
+
+**历史（2026-05-15）**：用户确认两台 leader 都没买，决定哪个就 3D 打印 + 买配件。
 
 | 场景 | 推荐 |
 |---|---|
-| 学习 LeRobot 框架 + 跑通官方 demo + 简单任务 AI 训练 | **SO-101 起步**（省钱 + 标准品 + LeRobot 一等公民支持） |
-| 展示 reBot Arm 全部 7 关节能力 + 复杂任务 + 严肃科研 | **102 必需**（不省那点钱浪费一个关节） |
-| 介于两者 / 还没想好 | **SO-101 起步**——leader/follower 解耦，未来要升级 102 不动 reBot Arm |
+| 学习 LeRobot 框架 + 跑通官方 demo + 简单任务 AI 训练 | SO-101 起步（省钱 + 标准品 + LeRobot 一等公民支持） |
+| 展示 reBot Arm 全部 7 关节能力 + 复杂任务 + 严肃科研 | **102 必需**（不省那点钱浪费一个关节）← **最终选择走这条** |
+| 介于两者 / 还没想好 | SO-101 起步——leader/follower 解耦，未来要升级 102 不动 reBot Arm |
 
 > ⭐ **真正的 lock-in 在 RA8 舵机本身（硬件层），不在协议/PCB/SDK 层**——这是评估开源硬件的核心标准。SO-101 在"供应链开放性"上结构性优势明显。
 
@@ -218,6 +220,42 @@ leader_control.stop_on_control_mode(0xff, 0x10, 0x00)
 
 > **意味着**：reBot Arm B601-DM 能"漂浮"是因为它是**力矩电机**，而 102 leader 永远不能"漂浮"是因为它是**位置伺服舵机**。这不是软件问题，是**硬件本质区别**。
 
+### 3.7 官方 102 装配教程状态 ⚠️ 未发布（2026-06-01 查证）
+
+- `遥操作/StarArm_102/Hardware/assembly/README.md` 当前内容只有一句："✨ 装配教程正在产出中，敬请期待。/ The assembly guide is currently in progress. Stay tuned."
+- 🟡 意味着：3D 件已打印、舵机已到货，但**官方图文装配步骤还没出**。装配可参考来源：
+  - `遥操作/StarArm_102/Hardware/cad/`（CAD 源文件）+ `Hardware/parts/`
+  - `遥操作/StarArm_102/Media/images/`（可能有装配参考图）
+  - B 站 / Seeed wiki 视频（需另找）
+- 🟡 **待办**：定期看 `servodevelop/Star-Arm-102` 上游 `Hardware/assembly/` 有没有更新（这正是我们 fork 跟踪的仓）。
+
+### 3.8 跨系统遥操作：102 leader 控 B601-DM follower，用哪个适配器 ❓
+
+⚠️ **关键集成点**：`遥操作/StarArm_102/Lerobot/lerobot-teleoperator-stararm102/README.md` 自带的例子是 **102 leader → 102 follower**（整套 StarArm）：
+
+```bash
+lerobot-teleoperate \
+    --robot.type=lerobot_robot_stararm102 \      # ← 102 follower，不是我们的 B601
+    --teleop.type=lerobot_teleoperator_stararm102 \
+    ...
+```
+
+但我们要的是 **102 leader → reBot Arm B601-DM（达妙/CAN）follower**，正确组合应该是：
+
+```bash
+lerobot-teleoperate \
+    --robot.type=seeed_b601_dm_follower \        # ← 我们已校准的达妙 follower
+    --robot.port=/dev/ttyACM0 --robot.can_adapter=damiao \
+    --teleop.type=<102 leader 适配器> \           # ← 待确认是哪个
+    --teleop.port=/dev/ttyUSB0 --teleop.id=...
+```
+
+❓ **待确认**：102 leader 适配器到底用哪个 / 关节名能不能跟 `seeed_b601_dm_follower` 对上：
+- 候选 A：`遥操作/StarArm_102/Lerobot/lerobot-teleoperator-stararm102`（servodevelop/FashionStar 官方）
+- 候选 B：`_lerobot_experiment/lerobot-teleoperator-rebot-arm-102`（Seeed 写的，§1.2 提到的，专门给 reBot Arm 配的）
+- ⭐ 直觉：**候选 B（Seeed 的 rebot-arm-102）更可能跟 b601 follower 关节名对齐**，因为它是 Seeed 为 reBot 生态写的。装配完成后实测确认。
+- 关联已知风险见 §3.5（Seeed 适配器接口跟主线对齐度）。
+
 ---
 
 ## 4. 分阶段路线图
@@ -249,15 +287,22 @@ leader_control.stop_on_control_mode(0xff, 0x10, 0x00)
 - **验证目标已达成**：follower 适配器在我们这套硬件上能跑
 - **当前决策点**：要不要进入阶段 3，选 SO-101 还是 reBot 102 leader
 
-#### 阶段 3：决策 Leader 选型 + 买
+#### 阶段 3：决策 Leader 选型 + 买 ✅ 已决策（2026-06-01）
 
-| 路径 | 触发 |
+**选择：做 reBot Arm 102 leader**（7 DOF 完整匹配 + Seeed 配套设计；接受 ~¥1k-2k + RA8 定制舵机锁定）。详见 §2 决策矩阵。
+
+进入装配阶段，子步骤：
+
+| 子步骤 | 状态 |
 |---|---|
-| 买 102 leader | 想要 7 DOF 完整匹配 + 配套设计；接受 ~¥1k-2k + 定制舵机锁定 |
-| **买 SO-101 leader**（推荐起步）| 6 DOF 够用 + 标准 Feetech 舵机 + ~¥800-900 + LeRobot 主线一等公民 |
-| 都不买 | 走"键盘控+数据采集"路径，跳过物理 leader |
+| 买舵机（7×FashionStar RA8） | ✅ 到货（2026-06-01） |
+| 3D 打印结构件 | ✅ 完成（2026-06-01，自己打印） |
+| 机械装配 | 🟡 待做（⚠️ 官方装配教程未发布，见 §3.7） |
+| 舵机 ID 烧录（7 个，UART/RS485） | 🟡 待做（参考 `Python_SDK/` + FashionStar SDK） |
+| 接线 + USB→RS485 转换器 + 上电测试 | 🟡 待做 |
+| 单臂 Python SDK 跑通（`Python_SDK/stararm102_ro.py` 读各关节角度） | 🟡 待做 |
 
-详见 §2 决策矩阵。
+完成后进入跨系统遥操作集成（见 §3.8）。
 
 #### 阶段 4：装摄像头 + LeRobot 视觉集成
 
