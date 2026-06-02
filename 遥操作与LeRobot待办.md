@@ -256,6 +256,53 @@ lerobot-teleoperate \
 - ⭐ 直觉：**候选 B（Seeed 的 rebot-arm-102）更可能跟 b601 follower 关节名对齐**，因为它是 Seeed 为 reBot 生态写的。装配完成后实测确认。
 - 关联已知风险见 §3.5（Seeed 适配器接口跟主线对齐度）。
 
+### 3.9 摄像头选型：主线用普通 RGB USB 即可，深度相机非必需 🟢 已查清（2026-06-01）
+
+#### 结论先行
+
+| 你的目标 | 该买啥 |
+|---|---|
+| **LeRobot AI 主线**（102 leader 遥操作 → 采数据 → 训 π0/ACT）← 你的实际目标 | **2 个普通 USB 摄像头**（腕部 + 俯视），深度相机**不用买** |
+| 想顺便玩官方 YOLO 抓取 demo（支线） | 再单加 **1 个深度相机**（Gemini2）装腕部 |
+
+#### 为什么主线不需要深度相机
+
+- 🟢 LeRobot 的具身大模型（**π0 / π0.5 / π0.6 / ACT / SmolVLA / GR00T / OpenVLA**）视觉输入**都是 RGB**。它们站在 VLM（如 PaliGemma）肩膀上，VLM 用互联网海量 RGB 图预训练，天生吃彩色图、不吃深度。
+- 🟢 你用普通 USB 摄像头采的「几路 RGB 视频 + 关节动作时序」**正是喂这类大模型的标准数据格式**，LeRobot 已集成 pi0 可直接微调。
+- ⚠️ 深度相机（RealSense/Gemini2）只对**传统 CV 路线**是硬需求 —— 见下。
+
+#### 为什么官方 YOLO 抓取 demo 必须用深度相机
+
+- demo 模型：**YOLO**（`yoloe-26l-seg.pt`，开放词汇分割版）+ **OBB**（带方向最小外接矩形，短轴=夹爪开合方向），**Eye-in-Hand** 手眼标定。
+- 原因：YOLO 是 **2D 模型**，只给「物体在画面哪个像素 + 朝向」，**不知道距离**。深度相机补上「距离」→ 算出 3D 抓取点 → 手眼标定换算机械臂坐标 → IK → 抓。
+- 对比：LeRobot 的 AI 是端到端学「RGB 像素 → 动作」，几何关系从大量 2D 演示里隐式学会，不需要显式深度。
+- demo 文档：`software/wiki_docs/reBot_Arm_B601-DM_Visual_Grasping_Demo/`。
+
+#### 安装位置（两种，别搞混）
+
+| 装法 | 位置 | 看到啥 |
+|---|---|---|
+| **腕部相机**（Eye-in-Hand） | 装手腕，跟夹爪一起动 | 夹爪正前方近距离特写 |
+| **俯视/固定相机**（Eye-to-Hand） | 三脚架/夹子，不动，俯瞰桌面 | 整个工作台全景 |
+
+- LeRobot 标准 = 2 个（腕部 + 俯视）；3 个（腕部 + 2 俯视角度）略好，边际收益递减、可选。
+- ❌ **别买 2 个深度相机**：第二个深度的「深度」LeRobot 根本不用，纯浪费钱。
+
+#### ⚠️ 关键坑（社区血泪）
+
+**腕部和俯视千万别买两个一模一样的型号** —— 两个相同 USB 摄像头会导致 **USB 路径冲突，直接搞崩 LeRobot 数据录制程序**。必须用**两个不同厂家/型号**。
+
+#### 购物清单（直接抄）
+
+| 位置 | 买啥 / 淘宝关键词 | 参考价 | 备注 |
+|---|---|---|---|
+| 腕部 | 小 USB 摄像头模组：`USB摄像头模组 免驱 UVC 2MP 带3米线` / `32x32 摄像头模组` | ¥30-80 | ⭐ 正好配仓里 `hardware/reBot_B601_DM/3D_Printed_Parts/UVC32_mount.step`（32×32 UVC 模组支架）；线要长 |
+| 俯视 | 普通网络摄像头：`罗技 C270` / `1080p USB摄像头 免驱` + `摄像头三脚架` | ¥100-300 | 跟腕部不同型号即可 |
+
+**选购认 3 条**：① UVC 免驱（Linux 直接认 `/dev/video*`）② 720p 起步、1080p 足够（别为 4K 多花钱）③ 两个不同型号。
+
+参考来源：[WowRobo SO-ARM 2MP 模组](https://shop.wowrobo.com/products/2mp-usb-camera-module-for-so-arm100-101-30fps-3m-cable)、[SO-ARM100 Overhead Cam Mount 32x32 UVC](https://github.com/TheRobotStudio/SO-ARM100/blob/main/Optional/Overhead_Cam_Mount_32x32_UVC_Module/README.md)、[Seeed SoArm in LeRobot wiki](https://wiki.seeedstudio.com/lerobot_so100m_new/)。
+
 ---
 
 ## 4. 分阶段路线图
@@ -308,9 +355,9 @@ lerobot-teleoperate \
 
 LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么动"的映射，纯关节角度不够。
 
-- 选型：RealSense（深度+RGB）/ Orbbec（性价比）/ 普通 USB camera（最简）
-- LeRobot 主线支持 RealSense 和 Orbbec
-- Seeed wiki 教程 §11 有具体配置方法
+> ✅ **选型已定调（2026-06-01）：主线买普通 RGB USB 摄像头即可，不需要深度相机**。完整论证见 §3.9。一句话：LeRobot 的具身大模型（π0 / ACT / SmolVLA）只吃 RGB，深度相机只有传统 YOLO 抓取 demo 才用（支线，可选）。
+>
+> **标准配置 = 2 个普通 USB 摄像头**：腕部（eye-in-hand）+ 俯视（eye-to-hand）。详细购物清单见 §3.9 / 支线1。
 
 > 没有摄像头：**只能采集关节空间数据**，能训练简单的"关节序列重现"模型，但学不出对环境的反应。
 
@@ -345,16 +392,25 @@ LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么�
 
 ### 平行支线 1：摄像头（跟主线绑定）
 
-**不是独立项目**——是阶段 4-5 的硬件依赖。但选型可以提前考虑：
+**不是独立项目**——是阶段 4-5 的硬件依赖。
 
-| 摄像头 | 价格 | 特点 | LeRobot 支持 |
-|---|---|---|---|
-| **Intel RealSense D435/D435i** | ~¥1500-2000 | 深度+RGB，最主流 | ✅ 一等公民 |
-| **Orbbec Gemini 2** | ~¥800-1200 | 深度+RGB，国产 | ✅ 一等公民 |
-| **普通 USB Webcam** | ~¥50-200 | 只 RGB | ✅ 通过 OpenCV |
-| **iPhone/iPad（DroidCam）** | 零成本（手机现成）| 只 RGB | ⚠️ 需要 wrapper |
+> ✅ **选型结论见 §3.9**：主线买**普通 RGB USB 摄像头 ×2**（腕部小模组 + 俯视罗技，两个别同款），深度相机非必需。下表为全部候选对比，供参考。
 
-reBot Arm 主仓 4-26 同步时加入了**腕部相机支架**设计（D435/Gemini2、D405/Gemini305 都有 STEP 文件），可以 3D 打印挂在 wrist_roll 上。
+| 摄像头 | 价格 | 特点 | LeRobot 支持 | 用途 |
+|---|---|---|---|---|
+| **小 USB 摄像头模组**（UVC 免驱，带长线） | ~¥30-80 | 只 RGB，小体积可上腕部 | ✅ OpenCV | ⭐ **腕部首选** |
+| **普通 USB Webcam**（罗技 C270/C920） | ~¥100-300 | 只 RGB | ✅ OpenCV | ⭐ **俯视首选** |
+| **Intel RealSense D435/D435i** | ~¥1500-2000 | 深度+RGB | ✅ 一等公民 | 仅传统抓取 demo 才需要 |
+| **Orbbec Gemini 2** | ~¥800-1200 | 深度+RGB，国产 | ✅ 一等公民 | 官方 YOLO 抓取 demo 用这个 |
+| **iPhone/iPad（DroidCam）** | 零成本 | 只 RGB | ⚠️ 需要 wrapper | 应急可用 |
+
+⚠️ **腕部和俯视别买同款型号**（USB 路径冲突会搞崩录制，详见 §3.9）。
+
+reBot Arm 主仓的**腕部相机支架** STEP 文件（`hardware/reBot_B601_DM/3D_Printed_Parts/`）：
+- `UVC32_mount.step` —— ⭐ 给 **32×32 UVC 小模组** 用（配主线腕部那个小模组，正合适）
+- `D435_Gemini2_Mount.step` / `D405_305_Mount.step` —— 给深度相机用（玩抓取 demo 时才用）
+
+都可 3D 打印挂在 wrist_roll 上。
 
 ---
 
