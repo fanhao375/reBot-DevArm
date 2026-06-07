@@ -108,6 +108,12 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Gradual Updates of the Latest Algorithms** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 | **Launch of a Series of Completely Free Courses** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 
+#### Contributions from Developers 
+| Supported Ecosystem | Authors | Description / Estimated Release Date | Related Documentation or Repository |
+| :--- | :---: | :--- | :--- | 
+| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Passive diagnostics monitor** (`rebotarm_monitor_ros2`): `/diagnostics` overlay for `rqt_robot_monitor`; serial/CAN-aware aggregator. | [rebotarm_monitor_ros2](https://github.com/danieldoradotalaveron-rb/rebotarm_monitor_ros2) |
+| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Safe park & shutdown**: capture rest pose on connect; slow return on shutdown or `/rebotarm/park` instead of dropping from q=0. | [reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
+| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Gravity compensation (smooth stop)**: MIT ramp-out when exiting gravity compensation; prevents audible clack and abrupt jerk/instability before pos_vel handoff. | [reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
 
 ### reBot Arm B601 RS
 
@@ -143,7 +149,9 @@ reBot-DevArm is designed for desktop Embodied AI applications, balancing payload
 ## Feedback from the community
 | <img src="/community/GEM-4.png" height="100"> | <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
 | --- | --- | --- | --- |  --- | 
-| [From GEM-4: Gemma Embodied 4 Physical Assistance](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1778618527713) | [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | [From Sameer Shah Teams](https://www.youtube.com/watch?v=fM01HolVl1U&t=15s) | 
+| [From GEM-4: Gemma Embodied 4 Physical Assistance](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1778618527713) | [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | From Sameer | 
+| <img src="/community/from_Binh_Pham.png" height="100"> | <img src="/community/from_fangtianchonghui.png" height="100">   |<img src="/community/from_xensedyl.png" height="100">  |<img src="/community/from_Henderson_2.png" height="100">  | |
+| [From Binh_Pham](https://x.com/pham_blnh/status/2061994096374505710) | [From FangTianChongHui](https://www.instagram.com/reel/DY7Ny8OPjVu/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==)| [Xense YaoLin Dong](https://x.com/dong1505lin)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | | 
 
 ## 🧹Optional Hardware
 ###  Wirst Camera Mount
