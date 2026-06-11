@@ -105,15 +105,14 @@ We are committed to continuously maintaining and adapting to mainstream robot de
 | **Isaac Sim Simulation** | 🚧 In Progress  | Import USD models and enable simulated teleoperation | [delay for add additional courses: 2026.06.20] |
 | **LeRobot Integration** | ✅ Completed  | Adaptation to the Hugging Face LeRobot training framework | [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
 | **Depth Camera Integration** | ✅ Completed  | Visual Grasping Demonstration Based on YOLO and Depth Camera | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
+| **reSpeaker Voice Integration** | ✅ Completed  | Add reSpeaker Flex 4-mic array to build a voice-driven intelligent robot arm control system with spatial awareness | [reBot Arm B601-DM Voice Control](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/) |
 | **Gradual Updates of the Latest Algorithms** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 | **Launch of a Series of Completely Free Courses** | ⏳ Planned | Mainstream algorithms will be updated progressively | Ongoing |
 
 #### Contributions from Developers 
 | Supported Ecosystem | Authors | Description / Estimated Release Date | Related Documentation or Repository |
-| :--- | :---: | :--- | :--- | 
-| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Passive diagnostics monitor** (`rebotarm_monitor_ros2`): `/diagnostics` overlay for `rqt_robot_monitor`; serial/CAN-aware aggregator. | [rebotarm_monitor_ros2](https://github.com/danieldoradotalaveron-rb/rebotarm_monitor_ros2) |
-| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Safe park & shutdown**: capture rest pose on connect; slow return on shutdown or `/rebotarm/park` instead of dropping from q=0. | [reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
-| **ROS2 (Humble)** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | **Gravity compensation (smooth stop)**: MIT ramp-out when exiting gravity compensation; prevents audible clack and abrupt jerk/instability before pos_vel handoff. | [reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
+| :--- | :---: | :--- | :--- |
+| **ROS2 (Humble), third_party integration, URDF / rebotarm_bringup** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | 1. **Passive diagnostics monitor** (`rebotarm_monitor_ros2`): `/diagnostics` overlay for `rqt_robot_monitor`, serial/CAN-aware aggregator;<br>2. **Safe park & shutdown**: Capture rest pose on connect, slow return on shutdown or `/rebotarm/park` to prevent sudden drop;<br>3. **Gravity compensation (smooth stop)**: MIT ramp-out when exiting gravity compensation to eliminate clack, jerk and instability during pos/vel handoff;<br>4. **Gamepad teleop with IK/FK and safety measures**: Gamepad control for end-effector via IK, live robot state visualization in RViz (simulation-only test);<br>5. **D405 eye-in-hand TF**: Xacro setup under `end_link` in `rebotarm_bringup` for RViz visualization & TF only (no driver/depth/intrinsics). Mount pose adjustable via launch file, bracket calibration not completed. Teleop FK/IK uses arm-only `fixend_core` URDF, full xacro for RSP/RViz. | [rebotarm_monitor_ros2](https://github.com/danieldoradotalaveron-rb/rebotarm_monitor_ros2)、[reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
 
 ### reBot Arm B601 RS
 
@@ -186,7 +185,7 @@ reBot-DevArm is not just a robotic arm, but a robotics learning community. We sh
 #### 📡 Sensors & Peripherals
 *   **🚗 Motors & Servos**: [Damiao / Gogo / Robstride / Mita / Feite / Fashion Star](https://wiki.seeedstudio.com/robotics_page/)
 *   **👁️ Visual Perception**: [Depth Cameras / LiDAR / Vision Algorithms](https://wiki.seeedstudio.com/robotics_page/)
-*   **👂 Auditory Interaction**: [ReSpeaker Mic Arrays / Speech Recognition](https://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/)
+*   **👂 Voice Interaction**: [reSpeaker Mic Arrays/Voice Control/Spatial Awareness(DoA)](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/)
 *   **🧭 Motion & Attitude**: [IMU (6-axis/9-axis) / Gyroscopes / Magnetometers](https://wiki.seeedstudio.com/Sensor/IMU/)
 *   **🤖 Comprehensive Kits**: [More Robotics Sensors & Driver Examples](https://wiki.seeedstudio.com/robotics_page/)
 
