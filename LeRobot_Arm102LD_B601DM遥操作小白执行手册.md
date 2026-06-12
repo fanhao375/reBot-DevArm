@@ -11,8 +11,10 @@
 1. 让 WSL 同时看到两个 USB 串口：leader 和 follower。
 2. 确认 LeRobot 环境能识别 B601 follower 和 Arm102 leader。
 3. 校准 Arm102 leader。
-4. 运行 `lerobot-teleoperate`，用 Arm102 LD 控制 B601-DM。
+4. 优先运行本仓 direct follow 脚本，用 Arm102 LD 控制 B601-DM。
 5. 成功后再考虑摄像头、数据采集和训练。
+
+注意：官方 `lerobot-teleoperate` 能连接，但本机 WSL 下会被每帧 B601 feedback 读取拖到约 2Hz，目前只作为对照，不作为首选入口。
 
 ---
 
@@ -753,6 +755,24 @@ cd ~/rebot_lerobot/lerobot
 python -m pip install -e . -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
+### 13.4.1 不要混装 LeRobot 0.5.x 和 Seeed 官方教程路线
+
+这次一开始走过 Hugging Face 主线 `lerobot 0.5.2`，后来切回 Seeed 官方教程路线。当前稳定环境是：
+
+```text
+~/rebot_lerobot
+lerobot 0.4.4
+lerobot_teleoperator_rebot_arm_102 1.0.0
+lerobot_robot_seeed_b601 1.0.0
+motorbridge 0.4.5
+```
+
+经验：
+
+- 不要在同一个 conda 环境里来回混装主线 0.5.x 和 Seeed 教程包。
+- 如果命令能找到但参数报 `DecodingError`，先检查 `python -m pip show lerobot lerobot-teleoperator-rebot-arm-102 lerobot-robot-seeed-b601 motorbridge`。
+- `lerobot-calibrate` / `lerobot-teleoperate` 必须来自 `/home/pc/miniforge3/envs/lerobot/bin/`，不是 `/home/pc/.local/bin/`。
+
 ### 13.5 B601 已经 attach，但 WSL 没有 `/dev/ttyACM0`
 
 这次 Windows 里看到：
@@ -835,6 +855,78 @@ imports ok
 rebot_arm_102_leader 存在
 seeed_b601_dm_follower 存在
 ```
+
+### 13.8 官方 `lerobot-teleoperate` 能连接，但不等于适合 WSL 实时遥操
+
+这次官方命令可以连上：
+
+```bash
+lerobot-teleoperate --robot.type=seeed_b601_dm_follower --robot.port=/dev/ttyACM0 --robot.id=follower1 --robot.can_adapter=damiao --teleop.type=rebot_arm_102_leader --teleop.port=/dev/ttyUSB0 --teleop.id=rebot_arm_102_leader
+```
+
+但实测会出现：
+
+```text
+Teleop loop time: 613.xxms (2 Hz)
+shoulder_pan request_feedback failed (1/3): request_feedback failed: dm-serial write failed: Operation timed out
+```
+
+原因不是命令写错，而是官方 `teleop_loop()` 每帧都会先 `robot.get_observation()`，也就是向 B601 逐个电机读 feedback。WSL USB/IP 下这个动作很容易拖慢整轮循环。
+
+当前策略：
+
+- 官方 `lerobot-teleoperate` 暂时只作为对照。
+- 真机 WSL 遥操优先用本仓 `arm102_to_b601_direct_follow.py`，跳过每帧 B601 feedback。
+
+### 13.9 `--send-joints` 只测试指定轴，不代表其他轴不行
+
+这次为了排查 2/3 轴，跑过：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints shoulder_lift,elbow_flex --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+这条命令只发送 `shoulder_lift` 和 `elbow_flex`，所以不能据此说“其他轴不行”。其他轴要用各自的 `--send-joints` 单独测。
+
+### 13.10 2/3 轴“不动”的真实原因：方向和限位裁剪
+
+一开始 2/3 轴看起来不跟，实际不是电机坏。日志里能看到：
+
+```text
+leader shoulder_lift = -1.00
+leader elbow_flex    =  1.00
+```
+
+B601 follower 的限位是：
+
+```text
+shoulder_lift [-170, 0]
+elbow_flex    [-200, 0]
+```
+
+如果 102 原始角度先被 leader 自己裁剪，再经过 follower 方向映射，很容易变成正数，最后被 B601 限位裁成 `0.00`。肉眼看就是“不动”。
+
+修复方式是在 102 原始角度裁剪前反向：
+
+```bash
+--invert-raw-joints shoulder_lift,elbow_flex
+```
+
+当前全轴 direct follow 推荐命令：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+### 13.11 `clear_error failed during disconnect` 多数是退出时串口超时
+
+按 `Ctrl+C` 停止时，偶尔会看到：
+
+```text
+motor clear_error failed during disconnect: clear_error failed: dm-serial write failed: Operation timed out
+```
+
+这通常发生在程序退出、尝试清错误/关闭电机时。只要机械臂已经停止、下一次上电/连接能正常，不要把它误判成“电机坏”。如果连续出现控制异常，再断电 5 秒、重新 attach USB、重新进入 WSL 环境。
 
 ---
 

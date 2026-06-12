@@ -26,30 +26,29 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 ---
 
-## 1. 当前状态（2026-06-01）
+## 1. 当前状态（2026-06-12）
 
 ### 1.1 已有硬件
 
 | 物品 | 状态 |
 |---|---|
 | reBot Arm B601-DM follower（达妙电机 6+1 DOF） | ✅ 装机、ID、零点、Web UI、重力补偿、LeRobot follower 校准都已通过 |
-| reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8/rx8-u50 舵机） | 🟢 **结构装配完成（2026-06-11）**，进入**舵机烧录阶段**（烧 ID 0-6 + 波特率 1M）→ 见 [`102主动臂烧录指南.md`](./102主动臂烧录指南.md)（⚠️ 官方装配/烧录教程未发布，本指南从代码逆推 + 实操填空，见 §3.7） |
+| reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8/rx8-u50 舵机） | ✅ 结构装配、串口接入、LeRobot leader 校准、角度读取均已通过；与 B601 做 direct follow 单轴验证已跑通（2/3 轴需 raw 反向） |
 | SO-ARM101 leader（Feetech 国产舵机替代方案） | ❌ 不做（已选 102） |
 
-> ⭐ **Leader 选型已落定（2026-06-01）：做 reBot Arm 102**。理由是要 7 DOF 完整匹配 + Seeed 配套设计（见 §2 决策矩阵"展示全部 7 关节 + 复杂任务"场景）。接受代价：~¥1k-2k + RA8 定制舵机的硬件 lock-in。当前在装配阶段。
+> ⭐ **Leader 选型已落定并进入真机联调（2026-06-12）：做 reBot Arm 102**。理由是 7 DOF 完整匹配 + Seeed 配套设计。当前结论：官方 `lerobot-teleoperate` 可连接但循环太慢；本仓 direct follow 脚本作为 WSL 临时遥操作入口更稳。
 
 ### 1.2 已有软件
 
 | 项目 | 当前版本 |
 |---|---|
-| 主仓源码基线 | `baseline-2026-05-28`，MotorBridge submodule 指向 v0.3.9 |
-| WSL 重力补偿环境 `motorbridge` Python 包 | 0.3.7（本次真机验证版本） |
-| LeRobot conda 环境 `motorbridge` Python 包 | 0.3.7（本次 follower 校准版本） |
-| `motorbridge-gateway` 命令行 | 0.3.7/0.3.9 需按实际终端环境确认 |
-| `reBotArm_control_py` | submodule `062bef9`（含 `RobotArm.fresh()`） |
-| LeRobot 主线 | clone 在 `_lerobot_experiment/lerobot/`，conda 环境已装，`lerobot 0.5.2` |
-| `lerobot-robot-seeed-b601`（follower 适配器） | 已装，`lerobot_robot_seeed_b601 0.1.2` |
-| `lerobot-teleoperator-rebot-arm-102`（leader 适配器） | clone 在探索区，未装 |
+| 主仓源码基线 | `baseline-2026-06-11`，主仓/子模块已同步到 2026-06-11 记录 |
+| WSL 重力补偿环境 `motorbridge` Python 包 | 0.4.5（已跟随 2026-06-07 升级） |
+| LeRobot conda 环境 `motorbridge` Python 包 | 0.4.5（Seeed 官方 LeRobot 路线） |
+| LeRobot 官方工作目录 | `~/rebot_lerobot` |
+| LeRobot 版本 | `lerobot 0.4.4`，editable 指向 `/home/pc/rebot_lerobot/lerobot` |
+| `lerobot-robot-seeed-b601`（follower 适配器） | `lerobot_robot_seeed_b601 1.0.0`，editable 指向 `/home/pc/rebot_lerobot/lerobot-robot-seeed-b601` |
+| `lerobot-teleoperator-rebot-arm-102`（leader 适配器） | `lerobot_teleoperator_rebot_arm_102 1.0.0`，editable 指向 `/home/pc/rebot_lerobot/lerobot-teleoperator-rebot-arm-102` |
 
 ### 1.3 已确认的事实
 
@@ -63,6 +62,10 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 - 🟢 本机已确认官方 LeRobot `--teleop.type=keyboard` 不适合直接做 B601 关节 jog；本仓新增 `tools/lerobot_b601_keyboard_jog.py`，默认每按一次动 1 度
 - 🟢 HuggingFace LeRobot 主线**官方支持 SO-100/SO-101 leader**（`src/lerobot/teleoperators/so_leader/`，一等公民）
 - 🟢 `lerobot-robot-seeed-b601` 代码里有**"6 DOF leader 兼容"处理**（`if 'wrist_yaw' not in goal_pos: goal_pos['wrist_yaw'] = 0.0`），说明 SO-101 leader 控 reBot Arm follower 这条路**作者已经设计支持**
+- 🟢 `rebot_arm_102_leader` + `seeed_b601_dm_follower` 的关节名能对上，102 主臂角度读取正常。
+- 🟢 官方 `lerobot-teleoperate` 能连接 102 和 B601，但每帧都会先 `robot.get_observation()` 读 B601 feedback，WSL 下实测约 `614ms / 2Hz` 并出现 `request_feedback timeout`，当前不作为首选遥操作入口。
+- 🟢 本仓 `tools/lerobot_debug/arm102_to_b601_direct_follow.py` 跳过每帧 B601 feedback，单轴验证 1/4/5/6/7 轴命令映射有效；2/3 轴需要 `--invert-raw-joints shoulder_lift,elbow_flex` 后有效。
+- ⚠️ 当前推荐全轴遥操作入口：`python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex`。
 
 ---
 
@@ -232,7 +235,7 @@ leader_control.stop_on_control_mode(0xff, 0x10, 0x00)
   - B 站 / Seeed wiki 视频（需另找）
 - 🟡 **待办**：定期看 `servodevelop/Star-Arm-102` 上游 `Hardware/assembly/` 有没有更新（这正是我们 fork 跟踪的仓）。
 
-### 3.8 跨系统遥操作：102 leader 控 B601-DM follower，用哪个适配器 ❓
+### 3.8 跨系统遥操作：102 leader 控 B601-DM follower 🟢 已实测（2026-06-12）
 
 ⚠️ **关键集成点**：`遥操作/StarArm_102/Lerobot/lerobot-teleoperator-stararm102/README.md` 自带的例子是 **102 leader → 102 follower**（整套 StarArm）：
 
@@ -243,21 +246,53 @@ lerobot-teleoperate \
     ...
 ```
 
-但我们要的是 **102 leader → reBot Arm B601-DM（达妙/CAN）follower**，正确组合应该是：
+但我们要的是 **102 leader → reBot Arm B601-DM（达妙/CAN）follower**。实测使用 Seeed 官方教程路线：
+
+```text
+leader:   rebot_arm_102_leader
+follower: seeed_b601_dm_follower
+102 port: /dev/ttyUSB0
+B601 port: /dev/ttyACM0
+```
+
+官方完整命令能连接，但当前不推荐作为 WSL 下的首选入口：
 
 ```bash
 lerobot-teleoperate \
-    --robot.type=seeed_b601_dm_follower \        # ← 我们已校准的达妙 follower
-    --robot.port=/dev/ttyACM0 --robot.can_adapter=damiao \
-    --teleop.type=<102 leader 适配器> \           # ← 待确认是哪个
-    --teleop.port=/dev/ttyUSB0 --teleop.id=...
+  --robot.type=seeed_b601_dm_follower \
+  --robot.port=/dev/ttyACM0 \
+  --robot.id=follower1 \
+  --robot.can_adapter=damiao \
+  --teleop.type=rebot_arm_102_leader \
+  --teleop.port=/dev/ttyUSB0 \
+  --teleop.id=rebot_arm_102_leader
 ```
 
-❓ **待确认**：102 leader 适配器到底用哪个 / 关节名能不能跟 `seeed_b601_dm_follower` 对上：
-- 候选 A：`遥操作/StarArm_102/Lerobot/lerobot-teleoperator-stararm102`（servodevelop/FashionStar 官方）
-- 候选 B：`_lerobot_experiment/lerobot-teleoperator-rebot-arm-102`（Seeed 写的，§1.2 提到的，专门给 reBot Arm 配的）
-- ⭐ 直觉：**候选 B（Seeed 的 rebot-arm-102）更可能跟 b601 follower 关节名对齐**，因为它是 Seeed 为 reBot 生态写的。装配完成后实测确认。
-- 关联已知风险见 §3.5（Seeed 适配器接口跟主线对齐度）。
+实测问题：
+
+- 官方 `teleop_loop()` 每帧都会先执行 `robot.get_observation()`，对 B601 逐电机 `request_feedback()`。
+- WSL USB/IP 下会把循环拖到约 `614ms / 2Hz`，并出现 `request_feedback failed: dm-serial write failed: Operation timed out`。
+- 所以“部分轴不跟”不能直接归因到电机坏，先看 `follower_target` 是否被限位裁剪。
+
+当前临时稳定入口是本仓 direct follow 脚本：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+单轴实测结论：
+
+```text
+1 shoulder_pan：有效，follower_target = -leader
+2 shoulder_lift：需要 --invert-raw-joints shoulder_lift
+3 elbow_flex：需要 --invert-raw-joints elbow_flex
+4 wrist_flex：有效，follower_target = leader
+5 wrist_yaw：有效，follower_target = leader
+6 wrist_roll：有效，follower_target = -leader
+7 gripper：有效，follower_target = -6 * leader，并裁剪到 [-270, 0]
+```
+
+详细小白流程和踩坑见 [`LeRobot_Arm102LD_B601DM遥操作小白执行手册.md`](./LeRobot_Arm102LD_B601DM遥操作小白执行手册.md)。
 
 ### 3.9 摄像头选型：主线用普通 RGB USB 即可，深度相机非必需 🟢 已查清（2026-06-01）
 
@@ -344,24 +379,35 @@ lerobot-teleoperate \
 - 已保存 follower 校准文件
 - 已新增本地键盘 jog 工具：`tools/lerobot_b601_keyboard_jog.py`
 - **验证目标已达成**：follower 适配器在我们这套硬件上能跑
-- **当前决策点**：要不要进入阶段 3，选 SO-101 还是 reBot 102 leader
+- **后续决策已完成**：阶段 3 选择 Arm102 leader，并已进入 102→B601 真机联调。
 
-#### 阶段 3：决策 Leader 选型 + 买 ✅ 已决策（2026-06-01）
+#### 阶段 3：Arm102 leader 接入 + 102→B601 遥操作联调 🟡 进行中（2026-06-12）
 
 **选择：做 reBot Arm 102 leader**（7 DOF 完整匹配 + Seeed 配套设计；接受 ~¥1k-2k + RA8 定制舵机锁定）。详见 §2 决策矩阵。
 
-进入装配阶段，子步骤：
+当前实操状态：
 
 | 子步骤 | 状态 |
 |---|---|
 | 买舵机（7×FashionStar RA8） | ✅ 到货（2026-06-01） |
 | 3D 打印结构件 | ✅ 完成（2026-06-01，自己打印） |
-| 机械装配 | 🟡 待做（⚠️ 官方装配教程未发布，见 §3.7） |
-| 舵机 ID 烧录（7 个，UART/RS485） | 🟡 待做（参考 `Python_SDK/` + FashionStar SDK） |
-| 接线 + USB→RS485 转换器 + 上电测试 | 🟡 待做 |
-| 单臂 Python SDK 跑通（`Python_SDK/stararm102_ro.py` 读各关节角度） | 🟡 待做 |
+| 机械装配 | ✅ 完成（官方装配教程仍未发布，见 §3.7） |
+| 舵机 ID 烧录（7 个，UART/RS485） | ✅ 已完成，LeRobot 能按 ID 0~6 读取 |
+| 接线 + USB→RS485 转换器 + 上电测试 | ✅ 已完成，WSL `/dev/ttyUSB0` |
+| 单臂 Python SDK 跑通（`read_raw_angles.py` 读各关节角度） | ✅ 已完成，角度会随主臂变化 |
+| 102 leader LeRobot 校准 | ✅ 校准文件已存在：`rebot_arm_102_leader.json` |
+| B601 follower LeRobot 校准 | ✅ 校准文件已存在：`seeed_b601_dm_follower/follower1.json` |
+| 官方 `lerobot-teleoperate` | ⚠️ 能连接但 WSL 下约 2Hz + feedback timeout，不作为当前入口 |
+| 本仓 direct follow 单轴验证 | ✅ 1~7 轴命令映射均有效，2/3 轴需 raw 反向 |
+| 本仓 direct follow 全轴小幅验证 | 🟡 下一步 |
 
-完成后进入跨系统遥操作集成（见 §3.8）。
+下一步：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+先小幅慢慢动，手放在 `Ctrl+C` 或电源旁边。完成后再考虑把 direct follow 逻辑整理成正式遥操作入口，或给官方 `lerobot-teleoperate` 增加“跳过每帧 follower observation”的补丁。
 
 #### 阶段 4：装摄像头 + LeRobot 视觉集成
 
@@ -505,12 +551,12 @@ reBot Arm 主仓的**腕部相机支架** STEP 文件（`hardware/reBot_B601_DM/
 
 | 优先级 | 问题 | 怎么验证 |
 |---|---|---|
-| ⭐ 高 | follower 适配器在我们硬件上能不能 calibrate 成功 | 阶段 2 实操 |
-| ⭐ 高 | **leader 选哪条线**（102 vs SO-101 vs 跳过物理 leader） | 阶段 3 决策点；触发条件是阶段 2 跑通 + 想做遥操作时 |
-| 中 | `motorbridge-smart-servo` 是不是 MotorBridge 的新模块 | grep MotorBridge 仓 + 看 PyPI |
-| 中 | LeRobot 主线 vs Seeed lerobot fork 落后 208 commit 是否影响 follower 适配器使用 | 阶段 2 装环境时遇到 import 报错就知道 |
-| 中 | 7 关节 joint_limits 默认值是否合理（特别 elbow_flex (-200, 1) 是不是写反了？） | 实操跟达妙说明书对照 |
-| 低 | SO-101 leader 控 reBot Arm 的操控手感 | 阶段 3 决策后买回来测 |
+| ⭐ 高 | direct follow 全轴小幅跟随手感是否可用 | 跑 §3.8 的全轴命令，小幅逐轴动作，确认无异常跳动 |
+| ⭐ 高 | 官方 `lerobot-teleoperate` 是否要本地补丁跳过每帧 follower observation | 若 direct follow 全轴可用，再决定是否 patch `lerobot_teleoperate.py` |
+| 中 | WSL USB/IP 长时间遥操作是否稳定 | direct follow 连续 5~10 分钟，观察是否继续 `dm-serial write failed` |
+| 中 | 102→B601 的方向/幅度是否还需要微调 | 看 `follower_target` 与实际动作手感，必要时调 `invert_raw_joints` / `joint_directions` / 夹爪比例 |
+| 中 | 是否把 Seeed 外置包本地补丁整理成 fork/submodule | direct follow 跑通后再决定，避免过早固化临时 hack |
+| 低 | SO-101 leader 控 reBot Arm 的操控手感 | 已不作为主线，仅保留备选 |
 
 ---
 
@@ -546,13 +592,14 @@ _lerobot_experiment/                              ← gitignored，本地评估�
 
 | 风险 | 影响 | 应对 |
 |---|---|---|
-| SO-101 leader 跟 B601-DM 几何不匹配，操控手感差 | 中 | 决策前必须实物买回来测；不能凭便宜直接买 |
+| SO-101 leader 跟 B601-DM 几何不匹配，操控手感差 | 低 | 已选 Arm102，SO-101 仅保留备选 |
 | **SO-101 leader 缺 wrist_yaw（6 关节 vs follower 7 关节）** | **中** | follower 代码有 fallback 锁 wrist_yaw=0°；基础任务影响小，复杂任务（斜插/装配/曲面）受限 |
 | **102 leader 没法做真重力补偿（RA8 是位置伺服不是力矩电机）** | **低** | 接受这是硬件本质限制；只能用 damping 模式（CODE 9）做阻尼近似；详见 §3.6 |
 | Seeed 的 leader/follower 适配器都是早期工程（9 commit / 8 commit、零 star、单作者） | 中 | 升级前先 fork pin 版本；定期看上游 commit |
-| Seeed lerobot fork 落后主线 208 commit | 低 | 不用 Seeed fork，直接用 huggingface 主线 |
+| 官方 `lerobot-teleoperate` 每帧读 B601 feedback，WSL 下掉到约 2Hz | 中 | 当前用 direct follow 绕开；若全轴可用，再考虑给官方循环加跳过 observation 的补丁 |
+| Seeed lerobot fork 与 HuggingFace 主线版本差异 | 中 | 当前按 Seeed 官方教程路线固定在 `lerobot 0.4.4`；不要混装 0.5.x 主线和 Seeed 外置包 |
 | motorbridge 是 wheel 手装、pyproject 没声明 | 中 | 复刻基线不可重现，需要写明确的安装步骤 |
-| reBot Arm 102 leader 跟 B601-DM 几何对齐**没看到明文确认**（只是合理推断） | 中 | 实操跑通后回头补这条事实 |
+| reBot Arm 102 leader 跟 B601-DM 几何对齐**没看到明文确认**（只是合理推断） | 中 | 单轴命令映射已验证；仍需全轴小幅动作确认实际手感 |
 | **RA8 舵机是定制款，没法用通用品替代** | **中** | 真正的硬件 lock-in；考虑 SO-101 这类标准品方案；详见 §2 决策矩阵 |
 
 ---
