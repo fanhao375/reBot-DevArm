@@ -76,7 +76,9 @@ Windows COM8 / 2e88:4603   -> WSL /dev/ttyACM0   -> B601-DM follower
 
 1. Arm102 和 B601 零位已经重新校准并对齐。
 2. B601 换 USB 口后，Windows COM8 原生读取稳定，WSL 慢速逐个读取稳定。
-3. 完整遥操作暂时不要继续，因为 B601 仍有部分电机红灯，对应状态码 `status=13`。
+3. B601 在 WSL + LeRobot 下可以单独执行动作，说明 follower 的 `send_action()`、电机 ID、模式和基础通信是通的。
+4. 官方 `lerobot-teleoperate` 能连接，但循环会反复读 B601 反馈，当前实测约 `614ms / 2Hz`，并出现 `request_feedback failed: dm-serial write failed: Operation timed out`。
+5. 所以现在不要把“2、3 电机不跟”直接判断成电机问题。更准确的判断是：官方 teleop 循环太慢/反馈读取超时，再叠加 102 主臂角度方向和 follower 限位裁剪，导致部分轴看起来不跟。
 
 ### 2026-06-12 晚间最新进度
 
@@ -96,6 +98,10 @@ B601 WSL 慢速逐个读取：3 轮 7 个电机都接近 -0.01°
 102 + B601 被动对比：所有 delta 约 -0.01°
 官方 follower 类 get_observation：3 轮 7 个电机都接近 -0.01°
 单次安全动作测试：leader 输出 0，follower 接收 0，反馈仍约 -0.01°
+B601 LeRobot 2 度动作测试：shoulder_pan 能动并能回零
+B601 LeRobot 循环动作测试：shoulder_pan 能按循环动作运动
+B601 LeRobot 2/3 轴动作测试：shoulder_lift 和 elbow_flex 都能单独运动
+官方 lerobot-teleoperate：能连接，但循环约 2Hz，并反复出现 shoulder_pan request_feedback timeout
 ```
 
 为了适配 WSL USB/IP，已经在本机 Seeed 外置包里做了本地补丁：
@@ -111,19 +117,14 @@ B601 WSL 慢速逐个读取：3 轮 7 个电机都接近 -0.01°
 - `send_pos_vel()` 后加短延时，降低 WSL 串口连续写压力。
 - `disconnect()` 对 `disable / clear_error / close` 超时做 warning，不让退出时崩掉。
 
-当前不要继续遥操作的原因：
+当前官方 `lerobot-teleoperate` 不稳定的关键日志：
 
 ```text
-shoulder_pan   status=13
-shoulder_lift  status=13
-wrist_roll     status=13
-gripper        status=13
-elbow_flex     status=1
-wrist_flex     status=1
-wrist_yaw      status=1
+Teleop loop time: 613.xxms (2 Hz)
+shoulder_pan request_feedback failed (1/3): request_feedback failed: dm-serial write failed: Operation timed out
 ```
 
-位置和扭矩都接近正常，但有部分电机红灯，且 status 会稳定显示 `13`。在确认 `status=13` 的含义、或确认红灯消失前，不要继续跑连续 `lerobot-teleoperate`。
+这个日志说明官方 teleop 每帧都被 B601 的反馈读取拖慢。B601 单独动作脚本已经证明电机能动，所以当前最值得测的是：跳过每帧 B601 反馈读取，只读 102 主臂动作，然后直接给 B601 发 `send_action()`。
 
 ---
 
@@ -1143,33 +1144,66 @@ lerobot-teleoperate \
 
 ## 17.5 当前下一步怎么继续
 
-当前不要直接从 `lerobot-teleoperate` 开始。下次继续时按这个顺序：
+当前不要再直接硬跑官方 `lerobot-teleoperate`。原因不是 2、3 电机坏，而是官方 teleop 循环每帧都会先读 B601 反馈，实测会卡到约 2Hz 并反复 `request_feedback timeout`。
+
+下次继续时按这个顺序：
 
 1. B601 断电 5 秒再上电，102 主臂也保持零位。
 2. 换口后先看 BUSID，B601 当前更可能是 `1-7 / COM8`，102 是 `1-6 / COM11`。
-3. 先不要 attach 到 WSL，用 Windows COM8 只读 10 轮状态，确认哪些电机还是 `status=13`。
-4. 如果红灯消失、所有电机 status 稳定，再 attach 到 WSL。
-5. WSL 里跑慢速只读：
+3. attach 到 WSL 后，进入环境：
 
 ```bash
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate lerobot
+cd ~/rebot_lerobot
+sudo modprobe ch341
+sudo modprobe cdc_acm
+sudo chmod 666 /dev/ttyUSB* /dev/ttyACM*
+ls -l /dev/ttyUSB* /dev/ttyACM*
+```
+
+4. 先读 102 主臂，确认主臂角度会跟着你手动转动变化：
+
+```bash
+python -u ./lerobot-teleoperator-rebot-arm-102/examples/read_raw_angles.py --port /dev/ttyUSB0
+```
+
+看到连续角度输出后按 `Ctrl+C` 停止。
+
+5. 跑 B601 慢速只读：
+
+```bash
 python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/b601_read_slow.py
 ```
 
-6. 跑被动对比：
+6. 跑被动对比，确认 102 映射目标和 B601 当前姿态没有差几十度：
 
 ```bash
 python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/b601_passive_compare.py
 ```
 
-7. 跑单次安全动作：
+7. 如果怀疑 2、3 电机不动，先跑 2、3 轴单独动作测试：
 
 ```bash
-python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/b601_single_action_test.py
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/b601_lerobot_joint23_test.py
 ```
 
-8. 三步都正常、红灯也没有，再考虑启动限幅遥操作：
+8. 如果要验证跟随，不要先用官方 `lerobot-teleoperate`，先跑 direct follow 对照脚本。这个脚本仍然使用 Seeed 官方 102 leader 类和 B601 follower 类，但控制循环里不每帧读 B601 反馈：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 8
+```
+
+运行时手放在 `Ctrl+C` 或电源旁边。看到异常运动就立刻停止。
+
+9. 如果 direct follow 能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
+
+- 继续用 direct follow 作为 WSL 临时遥操作入口。
+- 给官方 `lerobot-teleoperate` 增加一个“跳过每帧 follower observation”的本地补丁。
+
+10. 如果 direct follow 也不跟，再回到单关节动作和主臂读数，分别排查方向、限位和主臂输出角度。
+
+官方完整遥操作命令保留如下，但目前只作为对照，不作为首选：
 
 ```bash
 lerobot-teleoperate \
@@ -1177,13 +1211,12 @@ lerobot-teleoperate \
   --robot.port=/dev/ttyACM0 \
   --robot.id=follower1 \
   --robot.can_adapter=damiao \
-  --robot.max_relative_target=10 \
   --teleop.type=rebot_arm_102_leader \
   --teleop.port=/dev/ttyUSB0 \
   --teleop.id=rebot_arm_102_leader
 ```
 
-如果 B601 还有红灯或 `status=13` 没确认含义，不要继续遥操作。
+如果官方命令仍然显示 `Teleop loop time: 600ms` 左右，并反复 `request_feedback timeout`，不要继续纠结 2、3 轴，先回到 direct follow 或修改官方循环。
 
 ---
 
