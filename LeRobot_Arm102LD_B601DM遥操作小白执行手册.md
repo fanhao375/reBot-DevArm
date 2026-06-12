@@ -101,6 +101,8 @@ B601 WSL 慢速逐个读取：3 轮 7 个电机都接近 -0.01°
 B601 LeRobot 2 度动作测试：shoulder_pan 能动并能回零
 B601 LeRobot 循环动作测试：shoulder_pan 能按循环动作运动
 B601 LeRobot 2/3 轴动作测试：shoulder_lift 和 elbow_flex 都能单独运动
+direct follow 单轴测试：1/4/5/6/7 轴都有有效 follower_target
+direct follow 单轴测试：2/3 轴加 --invert-raw-joints shoulder_lift,elbow_flex 后可用
 官方 lerobot-teleoperate：能连接，但循环约 2Hz，并反复出现 shoulder_pan request_feedback timeout
 ```
 
@@ -1217,12 +1219,32 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 
 如果某个轴 `follower_target` 一直是 0 或方向反了，再给那个轴加 `--invert-raw-joints 轴名` 单独试一次。
 
-11. 如果 direct follow 全轴能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
+当前单轴测试结论：
+
+```text
+1 shoulder_pan：有效，follower_target = -leader
+2 shoulder_lift：需要 --invert-raw-joints shoulder_lift
+3 elbow_flex：需要 --invert-raw-joints elbow_flex
+4 wrist_flex：有效，follower_target = leader
+5 wrist_yaw：有效，follower_target = leader
+6 wrist_roll：有效，follower_target = -leader
+7 gripper：有效，follower_target = -6 * leader，并裁剪到 [-270, 0]
+```
+
+11. 单轴都确认后，跑全轴 direct follow。注意这条命令没有 `--send-joints`，会发送全部 7 个轴：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+先小幅慢慢动，不要一上来大幅摆动。看到异常运动就立刻 `Ctrl+C` 或断电。
+
+12. 如果 direct follow 全轴能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
 
 - 继续用 direct follow 作为 WSL 临时遥操作入口。
 - 给官方 `lerobot-teleoperate` 增加一个“跳过每帧 follower observation”的本地补丁。
 
-12. 如果 direct follow 也不跟，再回到单关节动作和主臂读数，分别排查方向、限位和主臂输出角度。
+13. 如果 direct follow 也不跟，再回到单关节动作和主臂读数，分别排查方向、限位和主臂输出角度。
 
 官方完整遥操作命令保留如下，但目前只作为对照，不作为首选：
 
