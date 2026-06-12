@@ -1196,12 +1196,33 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 
 运行时手放在 `Ctrl+C` 或电源旁边。看到异常运动就立刻停止。
 
-9. 如果 direct follow 能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
+9. 如果某个轴不跟，先不要说电机坏，先看 `follower_target`。如果 `leader` 在变，但 `follower_target` 总是 `0.00`，就是方向或限位裁剪问题。
+
+已经确认 2、3 轴需要在 102 原始角度裁剪前反向：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints shoulder_lift,elbow_flex --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+注意：`--send-joints` 是“只发送这些轴”。上面这条只测试 2、3 轴，不代表其他轴收到命令。
+
+10. 逐个确认其他轴时，用下面这种格式，一次只测一个轴：
+
+```bash
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints shoulder_pan
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints wrist_flex
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints wrist_yaw
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --send-joints wrist_roll
+```
+
+如果某个轴 `follower_target` 一直是 0 或方向反了，再给那个轴加 `--invert-raw-joints 轴名` 单独试一次。
+
+11. 如果 direct follow 全轴能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
 
 - 继续用 direct follow 作为 WSL 临时遥操作入口。
 - 给官方 `lerobot-teleoperate` 增加一个“跳过每帧 follower observation”的本地补丁。
 
-10. 如果 direct follow 也不跟，再回到单关节动作和主臂读数，分别排查方向、限位和主臂输出角度。
+12. 如果 direct follow 也不跟，再回到单关节动作和主臂读数，分别排查方向、限位和主臂输出角度。
 
 官方完整遥操作命令保留如下，但目前只作为对照，不作为首选：
 
