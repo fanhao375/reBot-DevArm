@@ -105,6 +105,8 @@ B601 LeRobot 循环动作测试：shoulder_pan 能按循环动作运动
 B601 LeRobot 2/3 轴动作测试：shoulder_lift 和 elbow_flex 都能单独运动
 direct follow 单轴测试：1/4/5/6/7 轴都有有效 follower_target
 direct follow 单轴测试：2/3 轴加 --invert-raw-joints shoulder_lift,elbow_flex 后可用
+direct follow 全轴测试：2026-06-13 重新上电后小幅遥操效果确认很好
+一键启动脚本：tools/lerobot_debug/start_direct_follow_wsl.ps1
 官方 lerobot-teleoperate：能连接，但循环约 2Hz，并反复出现 shoulder_pan request_feedback timeout
 ```
 
@@ -1323,13 +1325,30 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 7 gripper：有效，follower_target = -6 * leader，并裁剪到 [-270, 0]
 ```
 
-11. 单轴都确认后，跑全轴 direct follow。注意这条命令没有 `--send-joints`，会发送全部 7 个轴：
+11. 单轴都确认后，跑全轴 direct follow。注意这条命令没有 `--send-joints`，会发送全部 7 个轴。2026-06-13 重新上电后已确认这条全轴 direct follow 遥操效果很好：
 
 ```bash
 python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
 ```
 
 先小幅慢慢动，不要一上来大幅摆动。看到异常运动就立刻 `Ctrl+C` 或断电。
+
+Windows PowerShell 一键启动脚本：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\Robot\reBot-DevArm\tools\lerobot_debug\start_direct_follow_wsl.ps1
+```
+
+这个脚本会在 WSL 里自动执行：
+
+```bash
+source ~/miniforge3/etc/profile.d/conda.sh
+conda activate lerobot
+cd ~/rebot_lerobot
+python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```
+
+注意：一键脚本默认假设 USB 已经 attach 到 WSL，且 `/dev/ttyUSB0` / `/dev/ttyACM0` 已存在。如果重启后串口不存在，先按第 17 节重新 attach USB。
 
 12. 如果 direct follow 全轴能跟，说明问题基本就在官方 `lerobot-teleoperate` 的每帧 `robot.get_observation()`。这时再考虑两条路：
 

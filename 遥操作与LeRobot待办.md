@@ -26,7 +26,7 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 
 ---
 
-## 1. 当前状态（2026-06-12）
+## 1. 当前状态（2026-06-13）
 
 ### 1.1 已有硬件
 
@@ -36,7 +36,7 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 | reBot Arm 102 leader（Seeed 配套主臂，FashionStar RA8/rx8-u50 舵机） | ✅ 结构装配、串口接入、LeRobot leader 校准、角度读取均已通过；与 B601 做 direct follow 单轴验证已跑通（2/3 轴需 raw 反向） |
 | SO-ARM101 leader（Feetech 国产舵机替代方案） | ❌ 不做（已选 102） |
 
-> ⭐ **Leader 选型已落定并进入真机联调（2026-06-12）：做 reBot Arm 102**。理由是 7 DOF 完整匹配 + Seeed 配套设计。当前结论：官方 `lerobot-teleoperate` 可连接但循环太慢；本仓 direct follow 脚本作为 WSL 临时遥操作入口更稳。
+> ⭐ **Leader 选型已落定并完成基础遥操验证（2026-06-13）：做 reBot Arm 102**。理由是 7 DOF 完整匹配 + Seeed 配套设计。当前结论：官方 `lerobot-teleoperate` 可连接但循环太慢；本仓 direct follow 脚本已完成全轴小幅遥操验证，作为 WSL 当前推荐入口。
 
 ### 1.2 已有软件
 
@@ -65,7 +65,8 @@ reBot Arm B601-DM 整机装起来跑通电机控制只是**第一阶段**。**�
 - 🟢 `rebot_arm_102_leader` + `seeed_b601_dm_follower` 的关节名能对上，102 主臂角度读取正常。
 - 🟢 官方 `lerobot-teleoperate` 能连接 102 和 B601，但每帧都会先 `robot.get_observation()` 读 B601 feedback，WSL 下实测约 `614ms / 2Hz` 并出现 `request_feedback timeout`，当前不作为首选遥操作入口。
 - 🟢 本仓 `tools/lerobot_debug/arm102_to_b601_direct_follow.py` 跳过每帧 B601 feedback，单轴验证 1/4/5/6/7 轴命令映射有效；2/3 轴需要 `--invert-raw-joints shoulder_lift,elbow_flex` 后有效。
-- ⚠️ 当前推荐全轴遥操作入口：`python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex`。
+- 🟢 2026-06-13 重新上电后，全轴 direct follow 小幅遥操效果确认很好。
+- ⚠️ 当前推荐启动方式：Windows PowerShell 执行 `powershell -ExecutionPolicy Bypass -File D:\Robot\reBot-DevArm\tools\lerobot_debug\start_direct_follow_wsl.ps1`。
 
 ---
 
@@ -383,7 +384,7 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 - **验证目标已达成**：follower 适配器在我们这套硬件上能跑
 - **后续决策已完成**：阶段 3 选择 Arm102 leader，并已进入 102→B601 真机联调。
 
-#### 阶段 3：Arm102 leader 接入 + 102→B601 遥操作联调 🟡 进行中（2026-06-12）
+#### 阶段 3：Arm102 leader 接入 + 102→B601 遥操作联调 ✅ 基础跑通（2026-06-13）
 
 **选择：做 reBot Arm 102 leader**（7 DOF 完整匹配 + Seeed 配套设计；接受 ~¥1k-2k + RA8 定制舵机锁定）。详见 §2 决策矩阵。
 
@@ -401,15 +402,16 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 | B601 follower LeRobot 校准 | ✅ 校准文件已存在：`seeed_b601_dm_follower/follower1.json` |
 | 官方 `lerobot-teleoperate` | ⚠️ 能连接但 WSL 下约 2Hz + feedback timeout，不作为当前入口 |
 | 本仓 direct follow 单轴验证 | ✅ 1~7 轴命令映射均有效，2/3 轴需 raw 反向 |
-| 本仓 direct follow 全轴小幅验证 | 🟡 下一步 |
+| 本仓 direct follow 全轴小幅验证 | ✅ 2026-06-13 重新上电后确认效果很好 |
+| 一键启动脚本 | ✅ `tools/lerobot_debug/start_direct_follow_wsl.ps1` |
 
-下一步：
+当前推荐启动方式：
 
-```bash
-python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_follow.py --leader-port /dev/ttyUSB0 --follower-port /dev/ttyACM0 --fps 5 --invert-raw-joints shoulder_lift,elbow_flex
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\Robot\reBot-DevArm\tools\lerobot_debug\start_direct_follow_wsl.ps1
 ```
 
-先小幅慢慢动，手放在 `Ctrl+C` 或电源旁边。完成后再考虑把 direct follow 逻辑整理成正式遥操作入口，或给官方 `lerobot-teleoperate` 增加“跳过每帧 follower observation”的补丁。
+启动前仍要确认 USB 已 attach 到 WSL。后续再考虑把 direct follow 逻辑整理成正式遥操作入口，或给官方 `lerobot-teleoperate` 增加“跳过每帧 follower observation”的补丁。
 
 #### 阶段 4：装摄像头 + LeRobot 视觉集成
 
@@ -553,7 +555,6 @@ reBot Arm 主仓的**腕部相机支架** STEP 文件（`hardware/reBot_B601_DM/
 
 | 优先级 | 问题 | 怎么验证 |
 |---|---|---|
-| ⭐ 高 | direct follow 全轴小幅跟随手感是否可用 | 跑 §3.8 的全轴命令，小幅逐轴动作，确认无异常跳动 |
 | ⭐ 高 | 官方 `lerobot-teleoperate` 是否要本地补丁跳过每帧 follower observation | 若 direct follow 全轴可用，再决定是否 patch `lerobot_teleoperate.py` |
 | 中 | WSL USB/IP 长时间遥操作是否稳定 | direct follow 连续 5~10 分钟，观察是否继续 `dm-serial write failed` |
 | 中 | 102→B601 的方向/幅度是否还需要微调 | 看 `follower_target` 与实际动作手感，必要时调 `invert_raw_joints` / `joint_directions` / 夹爪比例 |
