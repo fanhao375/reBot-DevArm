@@ -25,8 +25,8 @@
 | 页面文件 | 在 **C:\pagefile.sys**（不在 D:） | 压 D: 不会被页面文件挡 ✅ |
 | D: 占用 | 仅 ~44G（其中 **WSL 占 40G**，上原生后可删回收） | 压 150G 绰绰有余 |
 | 内存 | 16 GB | swap 给 8~16G |
-| 快速启动 | **开着**（HiberbootEnabled=1） | ⚠️ 装前必关（见 §1.3 / 下方命令） |
-| BitLocker | 读不到（需管理员确认；组装台式机大概率没开） | 🟡 装前用管理员跑 `manage-bde -status C:` 确认 |
+| 快速启动 | ✅ **已关**（2026-06-18 reg HiberbootEnabled=0） | 完成 |
+| BitLocker | ✅ **没开**（2026-06-18 manage-bde：版本=无、完全解密、保护关闭） | 完成，盘可安全动 |
 
 **本机定制方案**：
 1. **空间从 D: 末尾压 150GB**（D: 是磁盘最后一个分区，压出来的未分配空间正好在盘尾，Ubuntu 安装器最好认）。C:(Windows) 完全不动。磁盘管理 → 右键 D: → 压缩卷 → 输 `153600`。
@@ -183,9 +183,10 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 | 优先级 | 事项 | 状态 |
 |---|---|---|
 | ⭐高 | 机型/启动键 | ✅ 已实测：Intel SKYBAY 主板，F10 启动菜单 / F2-Del 设置（见 ★ 节） |
-| ⭐高 | BitLocker 是否开 | 🟡 待管理员 `manage-bde -status C:` 确认（组装台式机大概率没开） |
-| ⭐高 | 关快速启动 | 🟡 待跑 ★ 节那条 reg 命令（当前 HiberbootEnabled=1 开着） |
+| ⭐高 | BitLocker 是否开 | ✅ 2026-06-18 确认没开（完全解密/保护关闭），盘可安全动 |
+| ⭐高 | 关快速启动 | ✅ 2026-06-18 已关（HiberbootEnabled=0） |
 | 中 | Ubuntu 分多大 | ✅ 定 150G，从 D: 末尾压（`153600`） |
+| 中 | 下载 ISO + Rufus + ≥8G U 盘 | ⬜ 待用户下载 |
 | 中 | 装完验证官方 teleoperate 不再卡 2Hz | ⬜ 装完做 |
 | 低 | 上原生后回收 WSL 占的 40G（D:\WSL） | ⬜ 稳定后清 |
 
