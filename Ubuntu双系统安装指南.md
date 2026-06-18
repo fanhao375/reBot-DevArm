@@ -185,7 +185,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 | ⭐高 | 机型/启动键 | ✅ 已实测：Intel SKYBAY 主板，F10 启动菜单 / F2-Del 设置（见 ★ 节） |
 | ⭐高 | BitLocker 是否开 | ✅ 2026-06-18 确认没开（完全解密/保护关闭），盘可安全动 |
 | ⭐高 | 关快速启动 | ✅ 2026-06-18 已关（HiberbootEnabled=0） |
-| 中 | Ubuntu 分多大 | ✅ 定 150G，从 D: 末尾压（`153600`） |
+| 中 | Ubuntu 分多大 + 压分区 | ✅ **已压**：D: 251.5→101.5G，盘尾 **150G 未分配**到位（2026-06-18，Resize-Partition） |
 | 中 | 下载 ISO + Rufus + ≥8G U 盘 | ⬜ 待用户下载 |
 | 中 | 装完验证官方 teleoperate 不再卡 2Hz | ⬜ 装完做 |
 | 低 | 上原生后回收 WSL 占的 40G（D:\WSL） | ⬜ 稳定后清 |
