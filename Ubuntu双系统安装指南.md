@@ -186,7 +186,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 | ⭐高 | BitLocker 是否开 | ✅ 2026-06-18 确认没开（完全解密/保护关闭），盘可安全动 |
 | ⭐高 | 关快速启动 | ✅ 2026-06-18 已关（HiberbootEnabled=0） |
 | 中 | Ubuntu 分多大 + 压分区 | ✅ **已压**：D: 251.5→101.5G，盘尾 **150G 未分配**到位（2026-06-18，Resize-Partition） |
-| 中 | 下载 ISO + Rufus + ≥8G U 盘 | ⬜ 待用户下载 |
+| 中 | 下载 ISO + Rufus + ≥8G U 盘 | ✅ ISO(desktop 4.4G) + Rufus 4.14 + X3CPRO 32G U 盘就位 |
+| 中 | Rufus 做启动盘 | ✅ 设好 GPT/UEFI(非CSM) 写盘（2026-06-18） |
+| ⭐高 | 重启 F10 进 U 盘 → 共存安装 | ⬜ 待做（安装类型屏拍照确认） |
 | 中 | 装完验证官方 teleoperate 不再卡 2Hz | ⬜ 装完做 |
 | 低 | 上原生后回收 WSL 占的 40G（D:\WSL） | ⬜ 稳定后清 |
 
