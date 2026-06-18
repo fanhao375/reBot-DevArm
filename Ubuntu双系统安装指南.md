@@ -192,7 +192,23 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 
 ---
 
-## 11. 参考链接
+## 11. 装完后异地远程访问（机器人机 ↔ 你的笔记本）
+
+> 想从外地 / 另一台笔记本远程操作这台 Ubuntu 机器人机。**异地（不在同一局域网）也能连**，方法见下。
+
+**⚠️ 先认清边界**：遥操作要用手摆主臂 Arm102（主从臂都插在这台机器上），**动臂必须人在现场**，远程替不了。异地远程能做的是：开关脚本、看运行画面/数据、采集后训练模型、调试、传文件——**不能异地手控机械臂动**。
+
+| 方案 | 干啥 | 说明 |
+|---|---|---|
+| 🥇 **Tailscale + SSH** | 命令行主力 | 两台都装 Tailscale 登同账号 → 各得虚拟 IP(`100.x`) → 异地变同局域网 → SSH 连虚拟 IP，跟在家一个 WiFi 下一样。免费、低延迟、不用动路由器 |
+| Tailscale + **NoMachine** | 图形桌面 | 要看 MeshCat 仿真 / 相机画面时，NoMachine 连那个虚拟 IP |
+| **向日葵 / RustDesk / TeamViewer** | 纯图形零配置 | Ubuntu+Windows 都有版本，装上登录输 ID+密码就连，最省心；国内向日葵最稳，开源选 RustDesk |
+
+**推荐组合**：跑训练 / 采数据 / 监控 / 传文件用 **Tailscale + SSH**；偶尔要图形界面再加 **NoMachine 或向日葵**。装完系统再配（Tailscale ~5 分钟搞定）。
+
+---
+
+## 12. 参考链接
 
 - [Ubuntu 22.04 LTS 下载（官方）](https://releases.ubuntu.com/22.04/) / [Ubuntu Desktop 下载页](https://ubuntu.com/download/desktop)
 - [Rufus（启动盘工具）](https://rufus.ie/)
