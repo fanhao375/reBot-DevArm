@@ -4,11 +4,43 @@
 > 建立时间：2026-06-13
 > 触发：WSL 走 usbipd-win 转 USB，**每帧逐电机读 feedback 的往返延迟太大**（实测官方 `lerobot-teleoperate` 在 WSL 下 ~614ms / 2Hz + 反复 timeout）。官方闭环遥操作 + Gemini2/YOLO 抓取 demo 都要**原生 Linux**。详见 [`遥操作与LeRobot待办.md`](./遥操作与LeRobot待办.md) §平行支线 + [`Gemini2视觉抓取上手指南.md`](./Gemini2视觉抓取上手指南.md)。
 >
-> 适用：**在另一台电脑上做**（一台 Windows、一块 SSD，压缩分区装双系统）。
+> 适用：**就在 D:\Robot 这台遥操作机上做**（组装台式机、单块 477G SATA SSD，从 D: 末尾压分区装双系统）。本机实测配置与定制方案见下方 ★ 节。
 
 **符号约定**：🟢 照做 / 🟡 看你机器 / ⚠️ 不做会出事 / ❓ 不确定
 
 > ⚠️ **先读一遍再动手**。动分区有风险，照 §1 把 3 个安全项做了再装。装完每次开机会跳菜单让你选 Ubuntu 还是 Windows，**Windows 不会丢**。
+
+---
+
+## ★ 本机配置 & 定制方案（D:\Robot 这台，2026-06-18 实测）
+
+> 目标改为**就在这台遥操作机上装双系统**（不是当初设想的另一台）。以下是直接读硬件得出的实情和定制方案。
+
+| 项 | 实测 | 结论 |
+|---|---|---|
+| 机型 | 组装台式机（SMBIOS 是 "Default string"），主板 **Intel SKYBAY**，BIOS 5.12 (2020) | 台式机，随时重试启动键无压力 |
+| 启动固件 | **UEFI** + 磁盘 **GPT** | Rufus 用 **GPT/UEFI**；Ubuntu 走 UEFI 安装 |
+| 硬盘 | 单块 **477GB SATA SSD**（SATA CVB-CD512） | 单盘双系统，符合本指南场景 |
+| 分区 | EFI 0.3G / MSR / **C: 225G(剩165G)** / **D: 251G(剩207G，末尾分区)** | ⭐ **从 D: 末尾压空间最干净** |
+| 页面文件 | 在 **C:\pagefile.sys**（不在 D:） | 压 D: 不会被页面文件挡 ✅ |
+| D: 占用 | 仅 ~44G（其中 **WSL 占 40G**，上原生后可删回收） | 压 150G 绰绰有余 |
+| 内存 | 16 GB | swap 给 8~16G |
+| 快速启动 | **开着**（HiberbootEnabled=1） | ⚠️ 装前必关（见 §1.3 / 下方命令） |
+| BitLocker | 读不到（需管理员确认；组装台式机大概率没开） | 🟡 装前用管理员跑 `manage-bde -status C:` 确认 |
+
+**本机定制方案**：
+1. **空间从 D: 末尾压 150GB**（D: 是磁盘最后一个分区，压出来的未分配空间正好在盘尾，Ubuntu 安装器最好认）。C:(Windows) 完全不动。磁盘管理 → 右键 D: → 压缩卷 → 输 `153600`。
+2. **启动键**：Intel 主板，开机狂按 **F10（启动菜单）**；进 BIOS 设置是 **F2 / Del**。认不到就看开机自检画面提示的键，或试 F12/F8/Esc（台式机随便重试）。
+3. **Rufus**：GPT / UEFI（默认即对）。
+4. **安装**：§6 选"与 Windows Boot Manager 共存"，自动用盘尾那 150G。swap 8~16G。
+5. 装完照 §8：原生设备直连，conda 装 `motorbridge==0.4.7`。
+
+**装前两件必做（需管理员 PowerShell）**：
+```powershell
+# 右键“以管理员身份运行” PowerShell
+manage-bde -status C:     # 看 BitLocker：Conversion Status 显示 "Fully Decrypted" = 没开，安全
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v HiberbootEnabled /t REG_DWORD /d 0 /f   # 关快速启动
+```
 
 ---
 
@@ -129,7 +161,7 @@
 1. **遥操作环境**（102 + B601 LeRobot）：照 [`LeRobot_Arm102LD_B601DM遥操作小白执行手册.md`](./LeRobot_Arm102LD_B601DM遥操作小白执行手册.md) 装 Seeed 路线（Miniforge + conda env `lerobot` + lerobot 0.4.4）。
    - 🟢 原生 Linux 下官方 `lerobot-teleoperate` 的每帧 feedback 应该不再卡 2Hz（这正是上原生的原因）。
 2. **Gemini2 + YOLO 抓取 demo**：照 [`Gemini2视觉抓取上手指南.md`](./Gemini2视觉抓取上手指南.md)（pyorbbecsdk + 手眼标定 + 抓取）。相机直连，不用再 usbipd 透传。
-3. **wheel**：这台新 Ubuntu 的 conda 环境记得 `pip install -U motorbridge==0.4.6`（跟主仓 baseline 对齐）。
+3. **wheel**：这台新 Ubuntu 的 conda 环境记得 `pip install -U motorbridge==0.4.7`（跟主仓 `baseline-2026-06-18` 对齐；v0.4.7 含 dm-serial 超时放宽 1ms→10ms + 达妙模式切换加固，正好对症之前 WSL 下的串口写超时）。
 
 ---
 
@@ -148,12 +180,14 @@
 
 ## 10. 待办 / 未知 🟡
 
-| 优先级 | 事项 |
-|---|---|
-| ⭐高 | 确认那台电脑品牌型号 → 对应启动菜单键 / BIOS 进法（告诉我型号我帮你查准） |
-| ⭐高 | 确认 C 盘有没有开 BitLocker（决定要不要先解密） |
-| 中 | 给 Ubuntu 分多大（只遥操作 100G / 要训练 150-200G） |
-| 中 | 装完按 §8 跑通遥操作环境，验证官方 teleoperate 不再卡 2Hz |
+| 优先级 | 事项 | 状态 |
+|---|---|---|
+| ⭐高 | 机型/启动键 | ✅ 已实测：Intel SKYBAY 主板，F10 启动菜单 / F2-Del 设置（见 ★ 节） |
+| ⭐高 | BitLocker 是否开 | 🟡 待管理员 `manage-bde -status C:` 确认（组装台式机大概率没开） |
+| ⭐高 | 关快速启动 | 🟡 待跑 ★ 节那条 reg 命令（当前 HiberbootEnabled=1 开着） |
+| 中 | Ubuntu 分多大 | ✅ 定 150G，从 D: 末尾压（`153600`） |
+| 中 | 装完验证官方 teleoperate 不再卡 2Hz | ⬜ 装完做 |
+| 低 | 上原生后回收 WSL 占的 40G（D:\WSL） | ⬜ 稳定后清 |
 
 ---
 
