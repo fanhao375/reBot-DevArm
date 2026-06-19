@@ -165,6 +165,44 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 
 ---
 
+## ★ 装完实战踩坑：联网代理 + Claude Code / git 上 Linux（2026-06-19 实录）
+
+> 🟢 **双系统装成功（2026-06-19）**：研华 **MIC-7700Q** 工业机，**从 BIOS「Boot」标签**把 U 盘（`UEFI: Lenovo UFD X3CPro`）设第一启动（不是 F10）→ 与 Windows Boot Manager 共存 → 安装器在盘尾 150G 新建**第 5 分区(ext4)** → 用户名 `pc` / 密码 `admin123`（用户名 `pc` 正好对上手册里 `/home/pc/...` 路径）。
+
+装完联网/装工具踩了一整天坑，**核心教训记下来**：
+
+### 1. ⚠️ Linux 上 GUI 和终端是两套独立的"走不走代理"机制
+- **浏览器**自动读"系统代理"设置 → 开了系统代理就能上外网。
+- **终端 curl/npm 不读系统代理** → 默认直连撞墙，报 `SSL routines::unexpected eof while reading`。
+- 要让终端走代理：① `export https_proxy=http://127.0.0.1:端口` ② 或开**透明代理/TUN**（网络层全接管，推荐）。
+
+### 2. ⚠️ Clash Verge 不稳，换 v2rayA 才搞定终端代理
+- Clash Verge 反复切「系统代理/TUN」会把核心状态搞坏（[已知 bug #2767/#6380](https://github.com/clash-verge-rev/clash-verge-rev/issues/2767)）；加上节点不稳 + OpenSSL 3.0 严格 → 间歇性 `unexpected eof`（[curl #5138](https://github.com/curl/curl/issues/5138) / [Xray #1485](https://github.com/XTLS/Xray-core/issues/1485)，浏览器自动重试所以没事、curl 不重试就报错）。
+- **✅ 解法：装 v2rayA**（`installer_debian_x64_*.deb`，apt 装）+ 用现成 v2ray-core（`/usr/local/bin/v2ray` + `/usr/local/share/v2ray/*.dat`）+ 导**「Trojan 通用订阅」**+ 关键设置：
+  - **透明代理/系统代理 = 启用: 不进行分流**（全走代理，不让流量漏直连被掐）
+  - **防止DNS污染 = 转发DNS请求**
+  - → 终端代理通：`curl -I https://api.anthropic.com` 出 **`HTTP/2 403`**（403=摸到 Anthropic 了，对的）。
+- ⚠️ **节点选低延迟美/日**（英国 IEPL 761ms 太慢、丢包抽风）；curl 加 **`--retry 5 --retry-all-errors`** 自动重试穿过抽风。
+
+### 3. 🟢 Claude Code 上 Linux：走 npm 绕开被地区拦的 claude.ai
+- `claude.ai/install.sh` 被**地区拦**（返回 `App unavailable in region` 网页），但 `api.anthropic.com` 通（Claude Code 运行时用的是它）。
+- **✅ 解法：npm 装，不碰 claude.ai**：
+  ```bash
+  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -   # 装 Node 20（NodeSource）
+  sudo apt install -y nodejs
+  sudo npm config set registry https://registry.npmmirror.com        # npm 换国内镜像
+  sudo npm install -g @anthropic-ai/claude-code
+  claude --version                                                    # 验证
+  ```
+- 🟡 **待办：`claude` 首次登录**——claude.ai 被地区拦，OAuth 登录可能要换节点 / 或用 API key（下次处理）。
+
+### 4. 🟢 git 等常用工具：apt 直接装（已是清华镜像）
+```bash
+sudo apt install -y git    # apt 走 mirrors.tuna.tsinghua.edu.cn，快、不用代理
+```
+
+---
+
 ## 9. ⚠️ 避雷速查
 
 | 现象 | 解法 |
@@ -188,7 +226,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v Hiberbo
 | 中 | Ubuntu 分多大 + 压分区 | ✅ **已压**：D: 251.5→101.5G，盘尾 **150G 未分配**到位（2026-06-18，Resize-Partition） |
 | 中 | 下载 ISO + Rufus + ≥8G U 盘 | ✅ ISO(desktop 4.4G) + Rufus 4.14 + X3CPRO 32G U 盘就位 |
 | 中 | Rufus 做启动盘 | ✅ 设好 GPT/UEFI(非CSM) 写盘（2026-06-18） |
-| ⭐高 | 重启 F10 进 U 盘 → 共存安装 | ⬜ 待做（安装类型屏拍照确认） |
+| ⭐高 | 进 U 盘 → 共存安装 | ✅ **完成（2026-06-19）**：BIOS Boot 标签设 U 盘启动 → 共存 → 盘尾第5分区 ext4 → 用户 `pc`/`admin123`（见 ★ 节） |
+| ⭐高 | 联网代理（终端能走代理） | ✅ **完成**：Clash 不稳 → 换 **v2rayA**（透明代理"不进行分流"+防DNS污染），`curl api.anthropic.com` 出 403（见 ★ 节） |
+| ⭐高 | Claude Code 上 Linux | ✅ **装上**（npm 绕开被地区拦的 claude.ai）；🟡 `claude` 登录待处理 |
+| 中 | git | ✅ `sudo apt install -y git`（清华镜像） |
+| ⭐高 | 遥操作环境（Miniforge+conda lerobot+motorbridge 0.4.7）| ⬜ 待装（照执行手册）|
 | 中 | 装完验证官方 teleoperate 不再卡 2Hz | ⬜ 装完做 |
 | 低 | 上原生后回收 WSL 占的 40G（D:\WSL） | ⬜ 稳定后清 |
 
