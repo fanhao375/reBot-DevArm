@@ -18,6 +18,14 @@
 
 ---
 
+> ## 🟢 2026-06-20 更新：已迁到原生 Ubuntu（强烈推荐）
+> 本手册正文是 **WSL** 路线。**现在主力环境已是原生 Ubuntu**（研华 MIC-7700Q），串口直连免 usbipd——
+> **WSL 下官方 `lerobot-teleoperate` 卡 2Hz / 反复 `request_feedback timeout` 的病根（usbipd 转发）已消失，原生 Linux 实测稳定 60Hz、全 7 轴跟手。**
+> - 原生 Linux 专属说明、补丁、启动脚本见 **[`tools/lerobot_native_linux/README.md`](./tools/lerobot_native_linux/README.md)**
+> - 串口：插上即 `/dev/ttyUSB0`(102) + `/dev/ttyACM0`(B601)，无需 usbipd attach；`ttyUSB0` 不出现先 `sudo apt remove -y brltty` 重插
+> - 2/3 轴（shoulder_lift/elbow_flex）三处修复（取反 / 量程对称防过90翻转 / 限速）已固化，重装后 `python tools/lerobot_native_linux/apply_patches.py` 恢复
+> - 下面 WSL 正文仅作历史参考与排错对照保留。
+
 ## 0. 先看结论
 
 你之前已经完成：

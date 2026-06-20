@@ -1,0 +1,15 @@
+--- seeed_b601_follower.py.bak	2026-06-19 23:14:30.761885281 +0800
++++ seeed_b601_follower.py	2026-06-20 00:06:10.694509627 +0800
+@@ -35,7 +35,11 @@
+     disable_torque_on_disconnect: bool = True
+ 
+     # Max relative target for joint movements, in degrees
+-    max_relative_target: float | dict[str, float] | None = None
++    # Local patch: cap per-frame target change to swallow single-frame leader
++    # read/unwrap glitches (target briefly jumps e.g. -78deg -> 0deg) that made
++    # the 2/3 joints lurch violently. 12 deg/frame @60Hz = 720 deg/s, well above
++    # normal hand teleop speed so it only clips glitches.
++    max_relative_target: float | dict[str, float] | None = 12.0
+ 
+     cameras: dict[str, CameraConfig] = field(default_factory=dict)
+     

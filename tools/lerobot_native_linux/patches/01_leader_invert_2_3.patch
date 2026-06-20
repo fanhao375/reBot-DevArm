@@ -1,0 +1,16 @@
+--- rebot_arm_102_leader.py.bak	2026-06-19 23:02:28.561768035 +0800
++++ rebot_arm_102_leader.py	2026-06-20 00:05:54.955443409 +0800
+@@ -197,6 +197,13 @@
+             range_min, range_max = self.config.joint_ranges[motor_name]
+             unwrapped, k = self._round_to_valid_range(raw_positions[motor_name],float(range_min),float(range_max))
+             position = unwrapped
++            # Local patch: Arm102 joints 2/3 are physically mounted opposite-sign
++            # vs the Seeed default joint_ranges, so the official mapping clips them
++            # to ~0 and the B601 follower never moves them. Negate after unwrap,
++            # before clamp -- mirrors the proven direct_follow --invert-raw-joints
++            # shoulder_lift,elbow_flex path so official 60Hz teleop tracks all axes.
++            if motor_name in {"shoulder_lift", "elbow_flex"}:
++                position = -position
+             if k > 0:
+                 logger.debug(
+                     f"Servo {motor_name} (id={self.config.joint_ids[motor_name]}) has wrapped {k} * 360°. "

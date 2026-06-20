@@ -1,0 +1,18 @@
+--- config_rebot_arm_102_leader.py.bak	2026-06-19 23:57:23.021902358 +0800
++++ config_rebot_arm_102_leader.py	2026-06-19 23:57:43.870653254 +0800
+@@ -25,8 +25,13 @@
+     joint_ranges: dict[str, list[int]] = field(
+         default_factory=lambda: {
+             "shoulder_pan":  (-150.0, 150.0),
+-            "shoulder_lift": (-1.0, 170.0),
+-            "elbow_flex":    (-200.0, 1.0),
++            # Local patch: widened symmetric so the leader angle-unwrap window
++            # (= center +/-180) is centered on 0 and covers the full range of
++            # motion. Seeed defaults (-1,170)/(-200,1) put the unwrap boundary at
++            # ~80deg, so past ~90deg the angle wrapped +/-360 and the follower
++            # snapped to 0. Symmetric ranges push the wrap out to +/-180.
++            "shoulder_lift": (-170.0, 170.0),
++            "elbow_flex":    (-200.0, 200.0),
+             "wrist_flex":    (-80.0, 90.0),
+             "wrist_yaw":     (-90.0, 90.0),
+             "wrist_roll":    (-90.0, 90.0),
