@@ -23,7 +23,11 @@
 </p>
 
 <p align="center">
-  <strong>100 % entièrement open source · IA incarnée · Intégration matériel-logiciel · Gratuit pour un usage personnel/éducatif · L’utilisation commerciale nécessite une autorisation</strong>
+  <strong>🚀 100 % open source · IA incarnée · Stack complet matériel + logiciel</strong>
+</p>
+
+<p align="center">
+  <strong>📦 Construisez votre propre bras robotique · 🧠 Apprenez la robotique · 🏭 Déployez des applications réelles</strong>
 </p>
 
 <table align="center">
@@ -66,18 +70,27 @@
 - 🔩 **Liste BOM** : détails complets jusqu’aux spécifications et aux liens d’achat de chaque vis.
 - 💻 **Logiciels & algorithmes** : SDK Python, ROS1/2, Isaac Sim, LeRobot, etc.
 
-# Obtenez votre propre bras robotique reBot Arm
+## Obtenez votre propre bras robotique reBot Arm
 
 - Nous proposons cinq options de kits sur [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) :
-  - **Kit Corps du Bras + Moteurs** : Comprend uniquement les moteurs et les faisceaux de câblage du bras robotique.
-  - **Kit Structure du Corps du Bras** : Comprend uniquement les composants structurels mécaniques.
-  - **Kit Complet de Préhenseur** : Comprend les moteurs, les faisceaux de câblage et les composants structurels du préhenseur.
-  - **Kit Complet** : Comprend l'ensemble complet du corps du bras robotique et du préhenseur.
-  - **Bras Robotique Pré-assemblé** : Bras robotique fini entièrement assemblé.
+  - **Kit moteurs du corps du bras** : comprend uniquement les moteurs et les faisceaux de câblage du bras robotique.
+  - **Kit structure du corps du bras** : comprend uniquement les composants structurels mécaniques.
+  - **Kit complet de préhenseur** : comprend les moteurs, les faisceaux de câblage et les composants structurels du préhenseur.
+  - **Kit complet** : comprend l'ensemble complet du corps du bras robotique et du préhenseur.
+  - **Bras robotique préassemblé** : bras robotique fini et entièrement assemblé.
 
-- - Le kit Seeedstudio ne comprend pas d'adaptateur d'alimentation ni de serre-joints en C dans ses accessoires standard. Ce choix tient compte du fait que les utilisateurs peuvent alimenter l'appareil avec une batterie ou le fixer sur une base personnalisée DIY. Vous pouvez acheter séparément une [alimentation](https://www.seeedstudio.com/AC-DC-Power-Adapter-IEC-60320-C14-XT30-Female-24V-4-5A-1200mm-L190-W92-5-H36mm-p-6764.html) et un [câble d'alimentation](https://www.seeedstudio.com/reServer-AC-US-p-5052.html), ou vous référer à la solution d'alimentation Mean Well indiquée en bas de notre [nomenclature (BOM)](./hardware/reBot_B601_DM/readme_fr.md/#about-power-supply).
+- Le kit Seeedstudio ne comprend pas d'adaptateur d'alimentation ni de serre-joints en C comme accessoires standard. Cette configuration tient compte du fait que les utilisateurs peuvent alimenter l'unité avec des batteries ou la monter sur une base DIY personnalisée. Vous pouvez acheter séparément une [alimentation](https://www.seeedstudio.com/AC-DC-Power-Adapter-IEC-60320-C14-XT30-Female-24V-4-5A-1200mm-L190-W92-5-H36mm-p-6764.html) et un [cordon d'alimentation](https://www.seeedstudio.com/reServer-AC-US-p-5052.html), ou consulter la solution d'alimentation Mean Well indiquée en bas de notre [BOM](./hardware/reBot_B601_DM/readme.md/#about-power-supply).
 
-- Vous pouvez également acheter le [bras Leader](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315) et [l’alimentation 12V 10A](https://www.seeedstudio.com/FY1209900-12V-10A-Power-Adapter-12V-10A-p-6496.html). Vous pouvez aussi utiliser l’adaptateur d’alimentation 12 V CC du SO‑ARM101 pour alimenter le Leader.
+- Vous pouvez également acheter le [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315) et l'[alimentation 12V 10A](https://www.seeedstudio.com/FY1209900-12V-10A-Power-Adapter-12V-10A-p-6496.html). Vous pouvez aussi utiliser l'adaptateur d'alimentation 12 V CC du SO-ARM101 pour alimenter le Leader.
+
+-------------------
+- Pour la version reBot Arm RS, nous proposons deux options de kits sur [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-RS-Assembled-Kit-with-Gripper-p-6865.html) :
+  - **Kit complet** : comprend l'ensemble complet non assemblé du corps du bras robotique et du préhenseur.
+  - **Bras robotique préassemblé** : bras robotique fini et entièrement assemblé.
+
+- Nous recommandons fortement d'utiliser l'alimentation [Meanwell 48V 12.5A](https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo0NzgzODk2NzUxNTQ0NzEyOjE3ODE2MTA2NTU6c3BfYXRmOjIwMDExNjA5NjQwMTc5ODo6MDo6&url=%2FLRS-350-48-Price-Switching-Supply-MeanWell%2Fdp%2FB0BP6S5DYR%2Fref%3Dsr_1_1_sspa%3Fcrid%3D27VPQOWNPN9UG%26dib%3DeyJ2IjoiMSJ9.qK84sGJa4-74kbCEX11MOFBju8sSQUdFsbHw6PNvmaEHnhzjX2T7dyhRNJY01mXxpWk8lccGOwnezxmqLKUjqglX_FI26mrxlvZf0KNiLdJ8QnhKsber4KDoyyLHNxWGV451uHCzZbCDXxM0iYXVnubuVourRaRURlyMorRavuLd2a32kABx-BKqyF5Dfr7dV453ecE6QULFqG-UVLBaBRijbxQGTJ2YiNyXAqn3bkM.Bt5mAPOJNAWGnXCC2mwvjdDdccZd1_0-WRXZpP4mR4M%26dib_tag%3Dse%26keywords%3DLRS-350-48%26qid%3D1781610655%26sprefix%3Dlrs-350-%252Caps%252C331%26sr%3D8-1-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1) pour le modèle RS. Si vous avez besoin de plus de puissance pour libérer toutes ses performances, vous pouvez opter pour un adaptateur d'alimentation 48V 25A.
+------------------
+
 
 ## 🗺️ Feuille de route & état
 
@@ -86,20 +99,24 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 ### reBot Arm B601 DM
 | Écosystème pris en charge | État | Description / date de publication estimée | Documentation associée |
 | :--- | :---: | :--- | :--- |
-| **Utilisation de base des moteurs** | ✅ Terminé | Contrôle de mouvement de base et encapsulation d’API | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
-| **Open source des nouvelles pièces structurelles STEP 3D et de la BOM** | ✅ Terminé | Fichiers STEP de toutes les pièces de la nouvelle version, BOM des pièces et prix de référence de toutes les pièces usinées | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_fr.md) |
-| **Référence pour les tests de performance sur machine réelle** | ✅ Terminé  | Référence de performance du bras robotisé en fonctionnement normal et extrême |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_Fr.md) |
-| **Vidéo d’assemblage** | ✅ Terminé | Étapes d’assemblage ultra détaillées et vidéo | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
-| **ROS2 (Humble)** | 🚧 En cours  | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d’optimisation | [Prévu : 2026.04.20] |
-| **SDK Python** | ✅ Optimisation continue, PR bienvenues | Intégration tout-en-un de la lecture, de l’écriture et du contrôle des moteurs Robstride, Damiao, Mota, Gaoqing, Hexfellow et autres moteurs. | [Tutoriel pour prendre en main MotorBridge](https://motorbridge.seeedstudio.com) et [Interface Web](https://rebot-devarm.w0x7ce.eu/) |
-| **Intégration Pinocchio** | ✅ Terminé   | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique |[Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) ainsi que [Github code de contrôle](https://github.com/vectorBH6/reBotArm_control_py) |
-| **Simulation Isaac Sim** | 🚧 En cours  | Importation de modèles USD et activation de la téléopération simulée | [Prévu : 2026.04.20] |
-| **Intégration LeRobot** | ✅ Terminé  | Adaptation au framework d’entraînement Hugging Face LeRobot |  [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
-| **Intégration caméra de profondeur** | ✅ Terminé | Démonstration de préhension visuelle basée sur YOLO et une caméra de profondeur | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
-| **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
-| **Lancement d’une série de cours entièrement gratuits** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
+| **Utilisation de base des moteurs** | ✅ Terminé | Contrôle de mouvement de base et encapsulation d'API | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
+| **Open source des nouvelles pièces structurelles STEP 3D et de la BOM** | ✅ Terminé | Fichiers STEP de toutes les pièces de la nouvelle version, BOM des pièces et prix de référence de toutes les pièces usinées | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme.md) |
+| **Référence pour les tests de performance sur machine réelle** | ✅ Terminé | Référence de performance du bras robotique dans des conditions de fonctionnement normales et extrêmes | [Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing.md) |
+| **Vidéo d'assemblage** | ✅ Terminé | Étapes d'assemblage ultra détaillées et vidéo | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
+| **SDK Python** | ✅ Optimisation continue, PR bienvenues | Intégration tout-en-un de la lecture, de l'écriture et du contrôle des moteurs Robstride, Damiao, Mota, Gaoqing, Hexfellow et autres. | [Getting Started with Motorbridge](https://motorbridge.seeedstudio.com) and [Web UI](https://rebot-devarm.w0x7ce.eu/) |
+| **Intégration ROS2** | ✅ Terminé | Contrôleur reBot Arm intégré à ROS2 avec prise en charge de la cinématique, de la planification de trajectoire et de la compensation gravitationnelle | [reBot Arm B601-DM ROS2 Integration Guide](https://wiki.seeedstudio.com/rebot_arm_b601_dm_ros2_integration/) |
+| **Intégration Pinocchio** | ✅ Terminé | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle du bras robotique | [Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) and [Github repo](https://github.com/vectorBH6/reBotArm_control_py) |
+| **Simulation Isaac Sim** | 🚧 En cours | Importation de modèles USD et activation de la téléopération simulée | [delay for add additional courses: 2026.06.20] |
+| **Intégration LeRobot** | ✅ Terminé | Adaptation au framework d'entraînement Hugging Face LeRobot | [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
+| **Intégration caméra de profondeur** | ✅ Terminé | Démonstration de préhension visuelle basée sur YOLO et caméra de profondeur | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
+| **Intégration vocale reSpeaker** | ✅ Terminé | Ajout du réseau reSpeaker Flex à 4 micros pour construire un système de contrôle intelligent du bras robotique piloté par la voix avec conscience spatiale | [reBot Arm B601-DM Voice Control](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/) |
+| **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | Ongoing |
+| **Lancement d'une série de cours entièrement gratuits** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | Ongoing |
 
-
+#### Contributions des développeurs
+| Écosystème pris en charge | Auteurs | Description / date de publication estimée | Documentation ou dépôt associé |
+| :--- | :---: | :--- | :--- |
+| **ROS2 (Humble), intégration third_party, URDF / rebotarm_bringup** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | 1. **Moniteur de diagnostics passif** (`rebotarm_monitor_ros2`) : superposition `/diagnostics` pour `rqt_robot_monitor`, agrégateur compatible serial/CAN ;<br>2. **Stationnement et arrêt sûrs** : capture de la pose de repos à la connexion, retour lent à l'arrêt ou via `/rebotarm/park` pour éviter une chute soudaine ;<br>3. **Compensation de gravité (arrêt doux)** : sortie progressive MIT lors de la sortie de compensation de gravité pour éliminer les claquements, secousses et instabilités pendant le passage pos/vel ;<br>4. **Téléopération gamepad avec IK/FK et mesures de sécurité** : contrôle de l'effecteur via IK, visualisation en direct de l'état du robot dans RViz (test simulation uniquement) ;<br>5. **TF D405 eye-in-hand** : configuration Xacro sous `end_link` dans `rebotarm_bringup` pour visualisation RViz et TF uniquement (sans driver/profondeur/intrinsèques). Pose de montage ajustable via le fichier launch, calibration du support non terminée. Teleop FK/IK utilise l'URDF `fixend_core` bras seul, xacro complet pour RSP/RViz. | [rebotarm_monitor_ros2](https://github.com/danieldoradotalaveron-rb/rebotarm_monitor_ros2)、[reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
 
 ### reBot Arm B601 RS
 
@@ -110,7 +127,7 @@ Nous nous engageons à maintenir et à adapter en continu les principaux écosys
 | **Vidéo d’assemblage** | 🚧 En cours | Étapes d’assemblage ultra détaillées et vidéo | [Prévu 2026.05] |
 | **ROS2 (Humble)** | ⏳ Planifié | Les pilotes principaux sont terminés, et MoveIt2 est actuellement en cours d’optimisation | [Prévu 2026.05] |
 | **Intégration LeRobot** | ⏳ Planifié | Adaptation au framework d’entraînement Hugging Face LeRobot | [Prévu 2026.05] |
-| **Intégration Pinocchio** | ⏳ Planifié | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique | [Prévu 2026.05] |
+| **Intégration Pinocchio** | ✅ Terminé | Adaptation au framework Pinocchio, permettant la cinématique directe/inverse et la compensation gravitationnelle pour le bras robotique | [Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_rs_pinocchio_meshcat/) ainsi que [Github code de contrôle](https://github.com/vectorBH6/reBotArm_control_py) |
 | **Simulation Isaac Sim** | ⏳ Planifié | Importation de modèles USD et activation de la téléopération simulée | [Prévu 2026.05] |
 | **Mises à jour progressives des derniers algorithmes** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
 | **Lancement d’une série de cours entièrement gratuits** | ⏳ Planifié | Les algorithmes grand public seront mis à jour progressivement | En continu |
@@ -126,7 +143,7 @@ reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en é
 | :--- | :--- | :--- |
 | **Charge utile (Payload)** | 1,5 kg | **2,5 kg** |
 | **Espace de travail recommandé** | 70 % de l’espace de travail de portée du bras | 70 % de l’espace de travail de portée du bras |
-| **Portée maximale (Reach)** | 650 mm | **754 mm** |
+| **Portée maximale (Reach)** | 767 mm | **754 mm** |
 | **Poids (Weight)** | **Env. 4,5 kg** | Env. 6,7 kg |
 | **Répétabilité** | < 0,2 mm | < 0,2 mm |
 | **Degrés de liberté (DOF)** | 6 DOF + 1 pince | 6 DOF + 1 pince |
@@ -136,16 +153,18 @@ reBot-DevArm est conçu pour des applications d’IA incarnée sur bureau, en é
 ----
 
 ## Retours de la communauté
-| <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
-| --- | --- | --- | --- | 
-| [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | [From Sameer Shah Teams](https://www.youtube.com/watch?v=fM01HolVl1U&t=15s) | 
+| <img src="/community/GEM-4.png" height="100"> | <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
+| --- | --- | --- | --- |  --- |
+| [From GEM-4: Gemma Embodied 4 Physical Assistance](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1778618527713) | [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | From Sameer |
+| <img src="/community/from_Binh_Pham.png" height="100"> | <img src="/community/from_fangtianchonghui.png" height="100">   |<img src="/community/from_xensedyl.png" height="100">  |<img src="/community/from_Henderson_2.png" height="100">  | |
+| [From Binh_Pham](https://x.com/pham_blnh/status/2061994096374505710) | [From FangTianChongHui](https://www.instagram.com/reel/DY7Ny8OPjVu/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==)| [Xense YaoLin Dong](https://x.com/dong1505lin)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | |
 
 ## 🧹 Accessoires optionnels
 ### Support de caméra au poignet
 | UVC 32×32 | Intel D435i | Intel D405 et Gemini 305 | Gemini 2 |
 | --- | --- | --- | --- |
-| Bientôt disponible | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
-| Bientôt disponible | [Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[Fichier STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+| <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/UVC_camera_mount.png" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
+| [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/UVC32_mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
 
 ### Compatible avec le bras Leader
 | Star Arm 102-LD | Ouvert à l'intégration et la compatibilité |
@@ -173,7 +192,7 @@ reBot-DevArm n’est pas seulement un bras robotique, mais une communauté d’a
 #### 📡 Capteurs & périphériques
 *   **🚗 Moteurs & servomoteurs** : [Damiao / Gogo / Robstride / Mita / Feite / Fashion Star](https://wiki.seeedstudio.com/robotics_page/)
 *   **👁️ Perception visuelle** : [Caméras de profondeur / LiDAR / algorithmes de vision](https://wiki.seeedstudio.com/robotics_page/)
-*   **👂 Interaction auditive** : [Réseaux de micros ReSpeaker / reconnaissance vocale](https://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/)
+*   **👂 Interaction auditive** : [reSpeaker Mic Arrays/Voice Control/Spatial Awareness(DoA)](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/)
 *   **🧭 Mouvement & attitude** : [IMU (6 axes/9 axes) / gyroscopes / magnétomètres](https://wiki.seeedstudio.com/Sensor/IMU/)
 *   **🤖 Kits complets** : [Plus de capteurs robotiques & d’exemples de pilotes](https://wiki.seeedstudio.com/robotics_page/)
 

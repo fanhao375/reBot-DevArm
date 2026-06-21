@@ -23,7 +23,11 @@
 </p>
 
 <p align="center">
-  <strong>100% 完全オープンソース · Embodied AI · ハードウェア・ソフトウェア統合 · 個人利用/教育利用は無料 · 商用利用には認可が必要</strong>
+  <strong>🚀 100% オープンソース · Embodied AI · ハードウェア + ソフトウェアのフルスタック</strong>
+</p>
+
+<p align="center">
+  <strong>📦 自分だけのロボットアームを構築 · 🧠 ロボティクスを学ぶ · 🏭 実アプリケーションへ展開</strong>
 </p>
 
 <table align="center">
@@ -69,17 +73,24 @@
 
 ## ご自身のreBot Armを入手するには
 
-- 5種類のキットをご用意しています [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html)
-  - **アーム本体モーターキット**：モーターとワイヤーハーネスのみを含むキット
-  - **アーム本体構造部品キット**：構造部品のみを含むキット
-  - **アームグリッパーフルキット**：グリッパー用モーター、配線、構造部品を含むキット
-  - **フルキット**：アーム本体とグリッパーをセットにしたフルセット
-  - **組立済みアーム**：完成品として組み立てられたロボットアーム
+- [Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html) で5種類のキットをご用意しています：
+  - **アーム本体モーターキット**：ロボットアーム用のモーターとワイヤーハーネスのみを含みます。
+  - **アーム本体構造キット**：機械構造部品のみを含みます。
+  - **グリッパー完全キット**：グリッパー用のモーター、ワイヤーハーネス、構造部品を含みます。
+  - **フルキット**：ロボットアーム本体とグリッパーの完全なセットを含みます。
+  - **組立済みロボットアーム**：完全に組み立てられた完成品のロボットアームです。
 
-- Seeedstudioキットには標準付属品として電源アダプターおよびC型クランプは含まれておりません。これは、ユーザーがバッテリーで給電したり、自作の土台に取り付けたりするケースを考慮した仕様となっております。別途[電源装置](https://www.seeedstudio.com/AC-DC-Power-Adapter-IEC-60320-C14-XT30-Female-24V-4-5A-1200mm-L190-W92-5-H36mm-p-6764.html)と[電源ケーブル](https://www.seeedstudio.com/reServer-AC-US-p-5052.html)を購入するか、部品表（BOM）の最下部に記載された明緯（Mean Well）製電源ソリューションをご参照ください。参照先：[BOM](./hardware/reBot_B601_DM/readme_jp.md/#about-power-supply)
+- Seeedstudioキットには、標準付属品として電源アダプターおよびC型クランプは含まれていません。これは、ユーザーがバッテリーで給電したり、カスタムDIYベースに取り付けたりする可能性を考慮したものです。別途 [電源](https://www.seeedstudio.com/AC-DC-Power-Adapter-IEC-60320-C14-XT30-Female-24V-4-5A-1200mm-L190-W92-5-H36mm-p-6764.html) と [電源コード](https://www.seeedstudio.com/reServer-AC-US-p-5052.html) を購入するか、[BOM](./hardware/reBot_B601_DM/readme.md/#about-power-supply) の末尾に記載されている Mean Well 電源ソリューションを参照してください。
 
+- [Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315) と [12V 10A 電源](https://www.seeedstudio.com/FY1209900-12V-10A-Power-Adapter-12V-10A-p-6496.html) も購入できます。SO-ARM101 の12VDC電源アダプターを使用して Leader に給電することもできます。
 
-- [リーダーアーム](https://www.seeedstudio.com/Star-Arm-102-p-6765.html?qid=P2U7IG_yskyak5m_1776415593315)と[12V 10A 電源アダプター](https://www.seeedstudio.com/FY1209900-12V-10A-Power-Adapter-12V-10A-p-6496.html)を購入することもできます。また、SO‑ARM101の12V直流電源アダプターを使用してリーダーに給電することも可能です。
+-------------------
+- reBot Arm RS バージョンについては、[Seeedstudio.com](https://www.seeedstudio.com/reBot-Arm-B601-RS-Assembled-Kit-with-Gripper-p-6865.html) で2種類のキットをご用意しています：
+  - **フルキット**：ロボットアーム本体とグリッパーの未組立完全セットを含みます。
+  - **組立済みロボットアーム**：完全に組み立てられた完成品のロボットアームです。
+
+- RSモデルには [Meanwell 48V 12.5A](https://www.amazon.com/sspa/click?ie=UTF8&spc=MTo0NzgzODk2NzUxNTQ0NzEyOjE3ODE2MTA2NTU6c3BfYXRmOjIwMDExNjA5NjQwMTc5ODo6MDo6&url=%2FLRS-350-48-Price-Switching-Supply-MeanWell%2Fdp%2FB0BP6S5DYR%2Fref%3Dsr_1_1_sspa%3Fcrid%3D27VPQOWNPN9UG%26dib%3DeyJ2IjoiMSJ9.qK84sGJa4-74kbCEX11MOFBju8sSQUdFsbHw6PNvmaEHnhzjX2T7dyhRNJY01mXxpWk8lccGOwnezxmqLKUjqglX_FI26mrxlvZf0KNiLdJ8QnhKsber4KDoyyLHNxWGV451uHCzZbCDXxM0iYXVnubuVourRaRURlyMorRavuLd2a32kABx-BKqyF5Dfr7dV453ecE6QULFqG-UVLBaBRijbxQGTJ2YiNyXAqn3bkM.Bt5mAPOJNAWGnXCC2mwvjdDdccZd1_0-WRXZpP4mR4M%26dib_tag%3Dse%26keywords%3DLRS-350-48%26qid%3D1781610655%26sprefix%3Dlrs-350-%252Caps%252C331%26sr%3D8-1-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1) 電源の使用を強く推奨します。より強力な出力で性能を最大限に引き出したい場合は、48V 25A 電源アダプターを選択できます。
+------------------
 
 
 ## 🗺️ ロードマップ & ステータス
@@ -90,19 +101,23 @@
 | 対応エコシステム | 状態 | 説明 / 予定公開日 | 関連ドキュメント |
 | :--- | :---: | :--- | :--- |
 | **モーター基本使用** | ✅ 完了 | 基本的なモーション制御と API ラッパー化 | [Damiao Technology](https://wiki.seeedstudio.com/cn/damiao_series/) |
-| **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | ✅ 完了 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme_jp.md) |
-| **実機性能テスト参考** | ✅ 完了  | 通常動作および限界動作におけるロボットアームの性能参考 |[Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing_JP.md) |
-| **組み立て動画** | ✅ 完了 | 超詳細な組み立て手順と動画 | [reBot Arm B601-DM の使い始め](https://wiki.seeedstudio.com/ja/rebot_b601_dm_getting_started/) |
-| **ROS2 (Humble)** | 🚧 進行中  | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定：2026.04.20] |
-| **Python SDK** | ✅継続的な最適化、PR歓迎 | Robstride、Damiao、脉塔（モータ）、高擎（ゴーチン）、Hexfellow など各種モーターの読み書きと制御をワンストップで統合しています。 |[MotorBridgeの使い方入門チュートリアル](https://motorbridge.seeedstudio.com) および [Web UI](https://rebot-devarm.w0x7ce.eu/) |
-| **Pinocchio 対応** | ✅ 完了   | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 |[reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_pinocchio_meshcat/) および [Github 制御コード](https://github.com/vectorBH6/reBotArm_control_py) |
-| **Isaac Sim シミュレーション** | 🚧 進行中  | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定：2026.04.20] |
-| **LeRobot 対応** | ✅ 完了  | Hugging Face LeRobot 学習フレームワークへの対応 | [LeRobot ベースの reBot Arm B601-DM と reBot 102 Leader 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_dm_lerobot/) |
+| **新バージョン STEP 3D 構造部品および BOM のオープンソース化** | ✅ 完了 | 新バージョンの全パーツの STEP ファイル、部品 BOM、およびすべての加工部品の参考価格 | [reBot Arm B601-DM BOM](./hardware/reBot_B601_DM/readme.md) |
+| **実機性能テスト参考** | ✅ 完了 | 通常動作および限界動作におけるロボットアームの性能参考 | [Performance Testing](./hardware/reBot_B601_DM/performance_testing/Performance_Testing.md) |
+| **組み立て動画** | ✅ 完了 | 超詳細な組み立て手順と動画 | [Getting Started with reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/) |
+| **Python SDK** | ✅ 継続的に最適化中、PR歓迎 | Robstride、Damiao、Mota、Gaoqing、Hexfellow など各種モーターの読み書きと制御をワンストップで統合します。 | [Getting Started with Motorbridge](https://motorbridge.seeedstudio.com) and [Web UI](https://rebot-devarm.w0x7ce.eu/) |
+| **ROS2 統合** | ✅ 完了 | 運動学、軌道計画、重力補償に対応した ROS2 統合 reBot Arm コントローラー | [reBot Arm B601-DM ROS2 Integration Guide](https://wiki.seeedstudio.com/rebot_arm_b601_dm_ros2_integration/) |
+| **Pinocchio 統合** | ✅ 完了 | Pinocchio フレームワークへの対応により、ロボットアームの順運動学/逆運動学および重力補償を実現 | [Getting Started with Pinocchio for reBot Arm B601-DM](https://wiki.seeedstudio.com/rebot_arm_b601_dm_pinocchio_meshcat/) and [Github repo](https://github.com/vectorBH6/reBotArm_control_py) |
+| **Isaac Sim シミュレーション** | 🚧 進行中 | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [delay for add additional courses: 2026.06.20] |
+| **LeRobot 統合** | ✅ 完了 | Hugging Face LeRobot トレーニングフレームワークへの対応 | [Getting Started with LeRobot-based reBot Arm](https://wiki.seeedstudio.com/rebot_arm_b601_dm_lerobot/) |
 | **深度カメラ統合** | ✅ 完了 | YOLO と深度カメラに基づくビジュアル把持デモ | [Getting Started with Visual Grasping Demo](https://wiki.seeedstudio.com/rebot_arm_b601_dm_grasping_demo/) |
-| **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
-| **完全無料コースシリーズの提供** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
+| **reSpeaker 音声統合** | ✅ 完了 | reSpeaker Flex 4マイクアレイを追加し、空間認識を備えた音声駆動のインテリジェントロボットアーム制御システムを構築 | [reBot Arm B601-DM Voice Control](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/) |
+| **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | Ongoing |
+| **完全無料コースシリーズの提供** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | Ongoing |
 
-
+#### 開発者からの貢献
+| 対応エコシステム | 作者 | 説明 / 予定公開日 | 関連ドキュメントまたはリポジトリ |
+| :--- | :---: | :--- | :--- |
+| **ROS2 (Humble), third_party 統合, URDF / rebotarm_bringup** | [@danieldoradotalaveron-rb](https://github.com/danieldoradotalaveron-rb) | 1. **パッシブ診断モニター** (`rebotarm_monitor_ros2`): `rqt_robot_monitor` 向け `/diagnostics` オーバーレイ、serial/CAN 対応アグリゲーター;<br>2. **安全な退避とシャットダウン**: 接続時に休止姿勢を取得し、シャットダウンまたは `/rebotarm/park` 時にゆっくり戻して急落を防止;<br>3. **重力補償 (スムーズ停止)**: 重力補償終了時に MIT ランプアウトを行い、pos/vel 引き継ぎ時の衝撃、急動作、不安定性を低減;<br>4. **IK/FK と安全対策を備えたゲームパッドテレオペ**: IK によるエンドエフェクタ制御、RViz でのロボット状態のライブ可視化 (シミュレーションのみでテスト);<br>5. **D405 eye-in-hand TF**: `rebotarm_bringup` の `end_link` 下に Xacro 設定を追加し、RViz 可視化と TF のみに使用 (driver/depth/intrinsics なし)。取付姿勢は launch ファイルで調整可能、ブラケットキャリブレーションは未完了。Teleop FK/IK はアームのみの `fixend_core` URDF を使用し、RSP/RViz には完全な xacro を使用。 | [rebotarm_monitor_ros2](https://github.com/danieldoradotalaveron-rb/rebotarm_monitor_ros2)、[reBotArmController_ROS2](https://github.com/danieldoradotalaveron-rb/reBotArmController_ROS2) |
 
 ### reBot Arm B601 RS
 
@@ -113,7 +128,7 @@
 | **組み立て動画** | 🚧 進行中 | 超詳細な組み立て手順と動画 | [予定 2026.05] |
 | **ROS2 (Humble)** | ⏳ 計画中 | コアドライバはすでに完成しており、現在 MoveIt2 を最適化中です | [予定 2026.05] |
 | **LeRobot 対応** | ⏳ 計画中 | Hugging Face LeRobot 学習フレームワークへの対応 | [予定 2026.05] |
-| **Pinocchio 対応** | ⏳ 計画中 | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 | [予定 2026.05] |
+| **Pinocchio 対応** | ✅ 完了 | Pinocchio フレームワークへの対応を行い、ロボットアームの順運動学/逆運動学および重力補償機能を実現 | [reBot Arm B601-DM 向け Pinocchio と MeshCat 入門](https://wiki.seeedstudio.com/ja/rebot_arm_b601_rs_pinocchio_meshcat/) および [Github 制御コード](https://github.com/vectorBH6/reBotArm_control_py) |
 | **Isaac Sim シミュレーション** | ⏳ 計画中 | USD モデルをインポートし、シミュレーションによる遠隔操作を実現 | [予定 2026.05] |
 | **最新アルゴリズムの段階的更新** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
 | **完全無料コースシリーズの提供** | ⏳ 計画中 | 主流アルゴリズムを段階的に更新予定 | 継続中 |
@@ -129,7 +144,7 @@ reBot-DevArm は、デスクトップ向け Embodied AI アプリケーション
 | :--- | :--- | :--- |
 | **作業負荷 (Payload)** | 1.5 kg | **2.5 kg** |
 | **推奨作業空間** | アーム到達範囲ワークスペースの 70% | アーム到達範囲ワークスペースの 70% |
-| **最大リーチ (Reach)** | 650 mm | **754 mm** |
+| **最大リーチ (Reach)** | 767 mm | **754 mm** |
 | **自重 (Weight)** | **約 4.5 kg** | 約 6.7 kg |
 | **繰り返し精度** | < 0.2 mm | < 0.2 mm |
 | **自由度 (DOF)** | 6 DOF + 1 グリッパー | 6 DOF + 1 グリッパー |
@@ -137,17 +152,18 @@ reBot-DevArm は、デスクトップ向け Embodied AI アプリケーション
 | **供給電圧** | DC 24V | DC 48V |
 
 ## コミュニティからのフィードバック
-| <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
-| --- | --- | --- | --- | 
-| [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | [From Sameer Shah Teams](https://www.youtube.com/watch?v=fM01HolVl1U&t=15s) | 
-
+| <img src="/community/GEM-4.png" height="100"> | <img src="/community/from_Linyan.png" height="100">   |<img src="/community/from_Diddi.png" height="100">  |<img src="/community/from_Henderson.jpg" height="100">  | <img src="/community/from_Sameer.png" height="100">|
+| --- | --- | --- | --- |  --- |
+| [From GEM-4: Gemma Embodied 4 Physical Assistance](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups/new-writeup-1778618527713) | [From Linyan Fu](https://x.com/Linyan_Fu/status/2056383947341525180)  and [Apheth D Almeida](https://x.com/Apheth_DAlmeida/status/2053503164507476096)| [From Dhruv Diddi](https://x.com/DhruvDiddi/status/2046605015008383284)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | From Sameer |
+| <img src="/community/from_Binh_Pham.png" height="100"> | <img src="/community/from_fangtianchonghui.png" height="100">   |<img src="/community/from_xensedyl.png" height="100">  |<img src="/community/from_Henderson_2.png" height="100">  | |
+| [From Binh_Pham](https://x.com/pham_blnh/status/2061994096374505710) | [From FangTianChongHui](https://www.instagram.com/reel/DY7Ny8OPjVu/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==)| [Xense YaoLin Dong](https://x.com/dong1505lin)  | [From Ed Henderson](https://x.com/ed0henderson/status/2055076839002095743)  | |
 
 ## 🧹オプションパーツ
 ### 手首カメラマウント
 | 32×32 UVCカメラ | Intel D435i | Intel D405 & Gemini 305 | Gemini 2 |
 | --- | --- | --- | --- |
-| 近日公開 | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
-| 近日公開 | [STEPファイル](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [STEPファイル](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[STEPファイル](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
+| <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/UVC_camera_mount.png" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D435i.jpg" height="100"> |  <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/D405.jpg" height="100"> | <img src="/hardware/reBot_B601_DM/3D_Printed_Parts/images/Gemini2.jpg" height="100"> |
+| [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/UVC32_mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) | [STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D405_305_Mount.step) |[STEP](/hardware/reBot_B601_DM/3D_Printed_Parts/D435_Gemini2_Mount.step) |
 
 ### マスターアーム（Leader Arm）対応
 | Star Arm 102-LD | 各種アームの接続・互換に対応予定 |
@@ -176,7 +192,7 @@ reBot-DevArm は単なるロボットアームではなく、ロボティクス�
 #### 📡 センサー & 周辺機器
 *   **🚗 モーター & サーボ**: [Damiao / Gogo / Robstride / Mita / Feite / Fashion Star](https://wiki.seeedstudio.com/robotics_page/)
 *   **👁️ ビジュアル知覚**: [深度カメラ / LiDAR / ビジョンアルゴリズム](https://wiki.seeedstudio.com/robotics_page/)
-*   **👂 音声インタラクション**: [ReSpeaker マイクアレイ / 音声認識](https://wiki.seeedstudio.com/ReSpeaker_Mic_Array_v2.0/)
+*   **👂 音声インタラクション**: [reSpeaker Mic Arrays/Voice Control/Spatial Awareness(DoA)](https://wiki.seeedstudio.com/control_rebot_arm_using_voice_with_respeaker_flex/)
 *   **🧭 動作 & 姿勢**: [IMU（6軸/9軸） / ジャイロスコープ / 磁力計](https://wiki.seeedstudio.com/Sensor/IMU/)
 *   **🤖 総合キット**: [その他のロボティクスセンサー & ドライバ例](https://wiki.seeedstudio.com/robotics_page/)
 
