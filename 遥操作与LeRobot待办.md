@@ -306,6 +306,11 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 > - 下面的"原理论证"作为选型依据保留。
 >
 > 🟢 **进展（2026-06-11）：Gemini 2 已到货（未上电）。用户定调"两条都跑、深度相机先弄"——先做官方 YOLO 抓取 demo。** 已建 [`Gemini2视觉抓取上手指南.md`](./Gemini2视觉抓取上手指南.md)（点亮→装环境→手眼标定→抓取全流程 + 本机 WSL 适配）。⚠️ 关键未决：跑 WSL2（usbipd 透传相机+CAN 两设备，USB3.0 带宽存疑）还是原生 Ubuntu；需打印 10cm ArUco + 腕部支架。普通 USB 俯视相机排在深度之后。
+>
+> 🟢 **进展（2026-06-22）：Gemini 2 在 Windows 用 Orbbec Viewer 点亮验证通过**——彩色/深度/红外/IMU 四路全正常，相机硬件 OK。⚠️ 当时插的是 **USB 2.0 口**，日志一堆 `fps too low`（depth 仅 2fps、color 22fps），**实际采数据必须插 USB 3.0**（蓝口）才够带宽。
+> - **方向调整**：原生遥操作 60Hz 已跑通 → 用户定**主线先走（装摄像头采数据训 AI），YOLO 深度抓取 demo 后置**（推翻 06-11 的"深度先弄"）。
+> - **相机方案确认**：Gemini 2 装腕部、**用它的 RGB 流当 LeRobot 腕部相机** + 再买 **1 个普通 USB 摄像头当俯视**（深度先放着）。⭐ 腕部(Gemini2)与俯视(普通USB)天然不同型号 → 自动避开"两个同型号 USB 路径冲突搞崩录制"的坑。
+> - **下一步**：① 买普通 USB 俯视摄像头（UVC 免驱 1080p）② 回 Linux 机器人机：打印 `D435_Gemini2_Mount.step` 装腕部 + 装 pyorbbecsdk/相机插件 + 再点亮验证 ③ `lerobot-record` 边遥操作边录数据。
 
 #### 结论先行
 
