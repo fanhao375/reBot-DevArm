@@ -409,6 +409,7 @@ python -u /mnt/d/Robot/reBot-DevArm/tools/lerobot_debug/arm102_to_b601_direct_fo
 | 本仓 direct follow 单轴验证 | ✅ 1~7 轴命令映射均有效，2/3 轴需 raw 反向 |
 | 本仓 direct follow 全轴小幅验证 | ✅ 2026-06-13 重新上电后确认效果很好 |
 | 一键启动脚本 | ✅ `tools/lerobot_debug/start_direct_follow_wsl.ps1` |
+| ⭐ **原生 Ubuntu 官方 `lerobot-teleoperate`** | ✅ **2026-06-20 跑通 60Hz 全 7 轴**！WSL 那个 2Hz/timeout 病根=usbipd，原生串口直连后消失。2/3 轴三连修（取反+量程对称+`max_relative_target=12`）固化在 `tools/lerobot_native_linux/`（含 `apply_patches.py` 幂等恢复 + `start_teleop.sh`）|
 
 当前推荐启动方式：
 
@@ -428,17 +429,26 @@ LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么�
 
 > 没有摄像头：**只能采集关节空间数据**，能训练简单的"关节序列重现"模型，但学不出对环境的反应。
 
-#### 阶段 5：数据采集
+#### 阶段 5：数据采集（在 Linux 机器人机）
 
 - `lerobot-record --robot.type=seeed_b601_dm_follower --teleop.type=so101_leader --dataset.num_episodes=N`
 - 你手动遥操作 N 个 episode（每个 episode 完成一次任务）
 - 每个 episode 录：摄像头视频 + 7 关节角度时序
+- 📌 **官方建议（2026-06-22 查证 [LeRobot 文档](https://huggingface.co/docs/lerobot/il_robots)）**：**至少 50 个 episode，每个位置 10 个**；入门任务推荐"**在不同位置抓物体放进盒子**"。⭐ **每遍要变化**（物体位置/角度变），AI 才学得会泛化。遥操作自己要稳、动作干净。
+- 📌 **数据没想象中大**：录的是 h264 压缩视频（不是原始帧）。一个 episode ~几 MB~一二十 MB，**50 个约几百 MB~1-2 GB**。建议 640×480 / 30fps / 2 相机即可，别上 4K。
 
-#### 阶段 6：模型训练
+#### 阶段 6：模型训练（⭐ 可跨机：在更强的 GPU 机上训）
 
-- `lerobot-train --policy.type=act --steps=300000`（ACT 是 SOTA 入门模型）
-- 也可以试 SmolVLA / Pi0 / GR00T（不同复杂度）
-- 训练需要 GPU（本机或租云）
+- `lerobot-train --policy.type=act --steps=300000`（ACT 是入门首选；官方说默认超参对多数任务就行，单 GPU 训 10 万 step 几小时）
+- 也可以用 **SmolVLA / Pi0 / GR00T 预训练基础模型微调**（少量自己的数据就能学会，泛化更强）
+- ⭐ **GPU 分工（2026-06-22 决策）**：训练只是"算数"、不碰机器人，**哪台 GPU 强用哪台**：
+  | 步骤 | 在哪台 | 说明 |
+  |---|---|---|
+  | 采集（阶段5） | **Linux 机器人机** | 连机械臂+相机，遥操作录 |
+  | 训练（阶段6） | **5060 Ti 16G 这台**(WSL2) | 数据集拷过去/push HF Hub；16G 显存能上 VLA |
+  | 部署（阶段7） | **Linux 机器人机** | 模型拷回去跑 |
+  - ⚠️ 5060 Ti 是 Blackwell 新卡，需 **CUDA 12.8+/PyTorch 2.7+**；WSL2 跑训练即可（不碰 USB 不用 usbipd）。
+  - 数据传输：`--dataset.push_to_hub` 推 HuggingFace 再 pull，或直接拷 `~/.cache/huggingface/lerobot/` 数据文件夹（几百 MB~2GB，U 盘/局域网都行）。
 
 #### 阶段 7：部署
 
