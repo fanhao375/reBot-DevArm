@@ -15,8 +15,12 @@ Background / why each patch exists:
      elbow_flex, so past ~90deg the angle wrapped +/-360 and the follower
      snapped to 0 ("过90跳回0", violent jump). Symmetric ranges -> window +/-180,
      no wrap inside the real range of motion.
-  3. Cap per-frame target change (max_relative_target=12 deg/frame @60Hz) as a
-     safety net against any residual single-frame leader read glitch.
+  (Note: max_relative_target is intentionally left at the upstream default None.
+   An earlier local patch capped it at 12 deg/frame as a glitch net, but that
+   code path reads all 7 motor states every frame AND clamps the goal to
+   present±cap, which made the follower visibly LAG behind the leader. The
+   violent-jump root cause is already fixed at source by patch 2 (symmetric
+   leader ranges), so the cap is unnecessary — removing it cut the latency.)
 See ../../LeRobot_Arm102LD_B601DM遥操作小白执行手册.md (native-Linux section).
 """
 import os
@@ -49,14 +53,6 @@ PATCHES = [
         '            "shoulder_lift": (-170.0, 170.0),\n'
         '            "elbow_flex":    (-200.0, 200.0),',
         "2. leader symmetric joint_ranges",
-    ),
-    (
-        f"{ROBOT}/seeed_b601_follower.py",
-        "max_relative_target: float | dict[str, float] | None = 12.0",
-        "max_relative_target: float | dict[str, float] | None = None",
-        "# Local patch: cap per-frame target change to swallow leader glitches.\n"
-        "    max_relative_target: float | dict[str, float] | None = 12.0",
-        "3. follower max_relative_target=12",
     ),
 ]
 
