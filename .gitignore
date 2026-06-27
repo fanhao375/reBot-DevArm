@@ -51,3 +51,8 @@ desktop.ini
 *.tmp
 *.log
 *.bak
+
+# LeRobot 数据集压缩包（数据集存 ~/.cache/huggingface/lerobot/，不入仓）
+*.7z
+*.tar.gz
+block_in_box*
