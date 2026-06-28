@@ -431,6 +431,8 @@ LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么�
 
 #### 阶段 5：数据采集（在 Linux 机器人机）
 
+> ✅ **2026-06-27 跑通**：`fanhao375/block_in_box`「积木入盒」录 28 条→删 5 空条→**23 条干净**（10125 帧 30fps，俯视+腕部双路 h264）。23 条偏少（官方建议 ≥50），效果不足再续录。详见 [`操作日志.md`](./操作日志.md) 2026-06-27 + [`tools/lerobot_native_linux/采数据_lerobot_record.md`](./tools/lerobot_native_linux/采数据_lerobot_record.md)。
+
 - `lerobot-record --robot.type=seeed_b601_dm_follower --teleop.type=so101_leader --dataset.num_episodes=N`
 - 你手动遥操作 N 个 episode（每个 episode 完成一次任务）
 - 每个 episode 录：摄像头视频 + 7 关节角度时序
@@ -438,6 +440,8 @@ LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么�
 - 📌 **数据没想象中大**：录的是 h264 压缩视频（不是原始帧）。一个 episode ~几 MB~一二十 MB，**50 个约几百 MB~1-2 GB**。建议 640×480 / 30fps / 2 相机即可，别上 4K。
 
 #### 阶段 6：模型训练（⭐ 可跨机：在更强的 GPU 机上训）
+
+> ✅ **2026-06-28 首个 ACT 训练跑通**（5060 Ti WSL2）：**50000 步、batch 8、loss 6.8→0.063** 平滑收敛，~2.4 step/s（300000 是官方上限示意，23 条小数据 5 万步已充分收敛）。中途电脑睡眠中断→`--resume=true` 无损续训接回（⚠️训练期 Windows「睡眠」设「从不」）。环境=venv Py3.10 + torch2.10+cu128 + lerobot0.4.4 + **pyav 后端**；版本对齐三角+镜像坑详见 [`操作日志.md`](./操作日志.md) 2026-06-27/28 训练端条。
 
 - `lerobot-train --policy.type=act --steps=300000`（ACT 是入门首选；官方说默认超参对多数任务就行，单 GPU 训 10 万 step 几小时）
 - 也可以用 **SmolVLA / Pi0 / GR00T 预训练基础模型微调**（少量自己的数据就能学会，泛化更强）
@@ -450,7 +454,10 @@ LeRobot **数据采集需要摄像头**——AI 学的是"看到啥 → 怎么�
   - ⚠️ 5060 Ti 是 Blackwell 新卡，需 **CUDA 12.8+/PyTorch 2.7+**；WSL2 跑训练即可（不碰 USB 不用 usbipd）。
   - 数据传输：`--dataset.push_to_hub` 推 HuggingFace 再 pull，或直接拷 `~/.cache/huggingface/lerobot/` 数据文件夹（几百 MB~2GB，U 盘/局域网都行）。
 
-#### 阶段 7：部署
+#### 阶段 7：部署 👉 **当前在这**
+
+> 模型已训好待部署：部署包 `F:\chengshenzhilu\Robot\reBot-DevArm\block_in_box_act_50k.tar.gz`(183M，解包得 `pretrained_model/`)。⭐ 部署只需 `checkpoints/0XXXXX/pretrained_model/` 子目录(~200M=权重+config+归一化处理器)，591M 整目录的 `training_state/` 优化器仅续训用、部署不带。
+> ⏳ **下一步**：拷回 Linux 机器人机解包 → 在原阶段 5 的 `lerobot-record` 配置上加 `--policy.path=<解包路径>/pretrained_model` → 机械臂从遥操作转为**自主积木入盒抓取**。相机/机器人配置须与训练一致（top 俯视+wrist 腕部双目、7 维 action/state）。先空盒试几次看成功率；不理想可换 30K/40K checkpoint 或补采数据重训。
 
 - 训练好的模型加载 → 替代 leader 自主执行
 - `lerobot-eval` 评估准确率
