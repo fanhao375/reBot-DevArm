@@ -13,3 +13,7 @@
 	path = software/reBotArmController_ROS2
 	url = https://github.com/fanhao375/reBotArmController_ROS2.git
 	branch = main
+[submodule "web_arm_ui"]
+	path = web_arm_ui
+	url = https://github.com/fanhao375/Rebot-Arm.git
+	branch = main

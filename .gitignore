@@ -56,3 +56,6 @@ desktop.ini
 *.7z
 *.tar.gz
 block_in_box*
+
+# 退役的自研极简版（仅本地参考，不入仓）
+web_arm_ui_diy_ref/
