@@ -19,7 +19,8 @@ EFFORT = {'joint1': 27, 'joint2': 27, 'joint3': 27, 'joint4': 7, 'joint5': 7, 'j
 KP = {'joint1': 2200, 'joint2': 2600, 'joint3': 1600, 'joint4': 500, 'joint5': 400, 'joint6': 300}
 KV = {'joint1': 80, 'joint2': 90, 'joint3': 60, 'joint4': 20, 'joint5': 16, 'joint6': 12}
 DAMP = {'joint1': 4, 'joint2': 6, 'joint3': 4, 'joint4': 1.2, 'joint5': 1.0, 'joint6': 0.8}
-ARMATURE = {'joint1': 0.12, 'joint2': 0.18, 'joint3': 0.10, 'joint4': 0.04, 'joint5': 0.03, 'joint6': 0.02}
+# armature(转子等效惯量)：先验值。原来 0.1+ 太大(臂显得沉/迟钝，比连杆自身惯量大一两个量级)，下调。viewer 里再调。
+ARMATURE = {'joint1': 0.03, 'joint2': 0.04, 'joint3': 0.025, 'joint4': 0.012, 'joint5': 0.01, 'joint6': 0.008}
 
 
 def main():
@@ -34,14 +35,15 @@ def main():
     except Exception as e:
         sys.exit('需要 mujoco：pip install mujoco  （错误：%s）' % e)
 
-    meshes_abs = os.path.abspath(args.meshes)
+    meshes_abs = os.path.abspath(args.meshes).replace('\\', '/')  # 正斜杠：跨平台 + 避免 re/属性里反斜杠转义
     urdf_text = open(args.urdf, 'r', encoding='utf-8').read()
     # MuJoCo 的 URDF 加载器不认 package://，去掉前缀只留文件名（配合 compiler meshdir）。
     urdf_text = re.sub(r'package://[^"]*?/meshes/', '', urdf_text)
     # 注入 <mujoco> 编译块：meshdir 指网格目录；balanceinertia 修 SolidWorks 惯量校验；autolimits 用 URDF 限位。
     mj_block = ('<mujoco><compiler meshdir="%s" balanceinertia="true" '
                 'discardvisual="false" autolimits="true"/></mujoco>' % meshes_abs)
-    urdf_text = re.sub(r'(<robot\b[^>]*>)', r'\1\n  ' + mj_block, urdf_text, count=1)
+    # 用函数替换，别用模板字符串——meshdir 路径里的反斜杠会被 re 当转义(\c 之类)炸掉。
+    urdf_text = re.sub(r'(<robot\b[^>]*>)', lambda m: m.group(1) + '\n  ' + mj_block, urdf_text, count=1)
 
     tmp = tempfile.NamedTemporaryFile('w', suffix='.urdf', delete=False, encoding='utf-8')
     tmp.write(urdf_text); tmp.close()
@@ -65,6 +67,24 @@ def main():
     tree = ET.parse(robot_xml)
     root = tree.getroot()
 
+    # [S1 修复] 强制 compiler autolimits=true：执行器只写了 ctrlrange/forcerange 没写 *limited，
+    # autolimits=false 时 MuJoCo 会编译报错。不赌 mj_saveLastXML 有没有保留我们注入的设置，这里直接坐实。
+    comp = root.find('compiler')
+    if comp is None:
+        comp = ET.SubElement(root, 'compiler')
+    comp.set('autolimits', 'true')
+
+    # [M1 修复] 关闭接触：URDF 的相邻连杆全分辨率碰撞网格凸包化后在关节处互相穿透 → 自碰约束力把臂"焊死"
+    # (实测 qfrc_actuator 27 被 qfrc_constraint -27 抵消，关节不动)。MVP 是固定底座、无物体、不抓取，不需要接触；
+    # 以后做抓取再开接触并加相邻连杆 <contact><exclude> 过滤。
+    opt = root.find('option')
+    if opt is None:
+        opt = ET.SubElement(root, 'option')
+    flag = opt.find('flag')
+    if flag is None:
+        flag = ET.SubElement(opt, 'flag')
+    flag.set('contact', 'disable')
+
     for jel in root.iter('joint'):
         nm = jel.get('name')
         if nm in DAMP:
@@ -82,7 +102,9 @@ def main():
             'ctrlrange': '%.4f %.4f' % (lo, hi), 'forcerange': '-%d %d' % (f, f),
         })
 
-    vis = ET.SubElement(root, 'visual')
+    vis = root.find('visual')                 # [M2 修复] 先 find 再建，和 asset/worldbody 一致，避免重复段
+    if vis is None:
+        vis = ET.SubElement(root, 'visual')
     ET.SubElement(vis, 'headlight', {'diffuse': '0.6 0.6 0.6', 'ambient': '0.3 0.3 0.3', 'specular': '0 0 0'})
     ET.SubElement(vis, 'global', {'azimuth': '160', 'elevation': '-20'})
 

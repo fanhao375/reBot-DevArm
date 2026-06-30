@@ -17,6 +17,7 @@
 ## 一次性准备
 ```bash
 pip install mujoco                              # 物理引擎(python)
+sudo apt install ros-$ROS_DISTRO-rosbridge-suite   # 网页靠 rosbridge 连进来（如没装）
 # 确保 rebotarm_msgs 已编：在你的 ROS2 工作区 colcon build 后 source install/setup.bash
 ```
 
@@ -29,12 +30,14 @@ pip install mujoco                              # 物理引擎(python)
      --meshes ../../software/reBotArmController_ROS2/src/rebotarm_bringup/description/meshes \
      --out reBot_scene.xml
    ```
-2. **先桌面验证再上 ROS**（最值的一步：惯量/mesh/限位/执行器问题在这全暴露）：
+2. **先自检/桌面验证再上 ROS**（最值的一步：模型/物理/控制问题在这全暴露，已在开发机 Windows 上跑通）：
    ```bash
-   python -m mujoco.viewer reBot_scene.xml
+   python selfcheck.py reBot_scene.xml      # 一键自检(不需 ROS)：加载/关节解析/物理不发散/执行器能驱动关节 → 全 PASS 才往下
+   python -m mujoco.viewer reBot_scene.xml   # 有桌面的话再肉眼看一眼(可选)
    ```
-   - 看臂能不能**站住**（执行器托得住自重、不软趴不抖）。软趴=调大 `urdf_to_mjcf.py` 顶部的 `KP`；抖=调大 `KV`/`DAMP`；炸=惯量问题（脚本已开 balanceinertia，仍不行就看哪个 link）。
-   - 拖动一个执行器滑块看关节动对不对、限位对不对。
+   - selfcheck 全 PASS = 模型+物理+控制逻辑没问题。有 [FAIL] 把那行贴出来。
+   - viewer 里：臂应**站住**（执行器托得住自重、不软趴不抖）。软趴=调大 `urdf_to_mjcf.py` 顶部 `KP`；抖/迟钝=调 `KV`/`DAMP`/`ARMATURE`。
+   - **注意**：MVP 已**关闭接触**（`<flag contact="disable">`），因为 URDF 全分辨率碰撞网格相邻连杆会自碰把臂"焊死"。所以现在臂**穿过自己/地面不挡**是正常的；以后做抓取再开接触 + 加相邻连杆 `<contact><exclude>`。
 3. **起 rosbridge**（另一个终端，网页靠它连进来）：
    ```bash
    ros2 launch rosbridge_server rosbridge_websocket_launch.xml
@@ -54,6 +57,8 @@ pip install mujoco                              # 物理引擎(python)
 - ❌ 夹爪（reBot URDF 里没有夹爪关节，物理模型暂无；网页夹爪按钮对仿真无效）。
 - ❌ enable/disable / 重力补偿 / IK / move_to_pose 等**服务**——那些是真控制器的，仿真没起这些 service，
   网页点了会报「服务不存在」，**属正常**（仿真只实现 joint_states + pos_vel 这条最小链路）。
+- ⚠️ 网页诊断面板里 **「臂状态」「夹爪」两格会一直红/等待**——仿真不发 `arm_status` / `gripper/state` 话题，**正常**，不影响跟随/控制。
+- ⚠️ **`vlim`(限速)被忽略**：仿真里关节速度由 kp/kv/forcerange 决定，网页的 vlim 滑块对仿真无效（真机才用它限速）。
 
 ## 注意
 - **别同时**把真机和这个仿真都连到同一个 `rebotarm` namespace（话题会打架）。要么连真机、要么连仿真。
