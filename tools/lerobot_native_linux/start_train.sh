@@ -12,7 +12,9 @@ DATASET_REPO_ID="${DATASET_REPO_ID:-fanhao375/block_in_box}"
 POLICY_TYPE="${POLICY_TYPE:-act}"
 STEPS="${STEPS:-80000}"
 BATCH="${BATCH:-8}"
-OUTPUT_DIR="${OUTPUT_DIR:-outputs/train/web_run}"
+# [M2 修复] 输出目录默认带时间戳：lerobot-train 对已存在且非空的 --output_dir 会拒跑（除非 --resume）。
+# 不带时间戳的话第二次起训必挂。要续训就显式传 OUTPUT_DIR=旧目录 + RESUME=1。
+OUTPUT_DIR="${OUTPUT_DIR:-outputs/train/web_run_$(date +%Y%m%d_%H%M%S)}"
 
 # ---- 演示/联调模式：发假 loss，不动 GPU ----
 if [ "${TRAIN_MOCK:-0}" = "1" ]; then
@@ -38,6 +40,13 @@ elif [ -n "${TRAIN_CONDA_ENV:-}" ]; then
   conda activate "$TRAIN_CONDA_ENV"
 fi
 
+# 续训：RESUME=1 时从 $OUTPUT_DIR 现有 checkpoint 接着跑（要配合显式 OUTPUT_DIR=旧目录）。
+RESUME_ARGS=()
+if [ "${RESUME:-0}" = "1" ] || [ "${RESUME:-}" = "true" ]; then
+  RESUME_ARGS=(--config_path="$OUTPUT_DIR/checkpoints/last/pretrained_model/train_config.json" --resume=true)
+  echo ">>> 续训模式：从 $OUTPUT_DIR 现有 checkpoint 接着跑到 $STEPS 步"
+fi
+
 echo ">>> 启动 lerobot-train：数据集=$DATASET_REPO_ID 策略=$POLICY_TYPE 步数=$STEPS batch=$BATCH 输出=$OUTPUT_DIR"
 echo ">>> 看 loss 一路下掉、出现 'End of training' 即完成；checkpoint 落在 $OUTPUT_DIR/checkpoints/"
 exec env HF_HUB_OFFLINE=1 lerobot-train \
@@ -48,4 +57,5 @@ exec env HF_HUB_OFFLINE=1 lerobot-train \
   --steps="$STEPS" \
   --policy.device=cuda \
   --dataset.video_backend=pyav \
-  --wandb.enable=false
+  --wandb.enable=false \
+  "${RESUME_ARGS[@]}"
